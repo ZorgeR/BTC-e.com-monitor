@@ -70,4 +70,8 @@
 
     <string name="only_kitkat">Required Android 4.4 for Full Screen</string>
 
+    <string name="last">Last:</string>
+    <string name="low">Low:</string>
+    <string name="high">High:</string>
+
 </resources>

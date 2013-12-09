@@ -70,4 +70,8 @@
 
     <string name="only_kitkat">Требуется Android 4.4 для полноэкранного режима</string>
 
+    <string name="last">Last:</string>
+    <string name="low">Low:</string>
+    <string name="high">High:</string>
+
 </resources>

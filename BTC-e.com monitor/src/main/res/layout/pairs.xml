@@ -6,7 +6,9 @@
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/chartsLayout" android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content" android:id="@+id/chartsLayout"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
             >
         <!--<WebView
                 android:layout_width="wrap_content"
@@ -17,6 +19,29 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/imgCharts" android:src="@drawable/charts_loading"
                 />
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp" android:paddingTop="2dp" android:paddingRight="5dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/last"
+                    android:id="@+id/textLast" android:textStyle="bold" android:layout_weight="1"
+                    android:singleLine="true"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/low"
+                    android:id="@+id/textLow" android:textStyle="bold" android:layout_weight="1"
+                    android:singleLine="true" android:gravity="center"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/high"
+                    android:id="@+id/textHigh" android:textStyle="bold" android:layout_weight="1"
+                    android:singleLine="true" android:gravity="right"/>
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"

@@ -15,8 +15,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+import com.google.gson.JsonObject;
 import com.zlab.btcmonitor.UI.navDrawer;
 import com.zlab.btcmonitor._API.VARs;
+import com.zlab.btcmonitor._API.btce_getTicker;
 import com.zlab.btcmonitor.adaptors.*;
 import com.zlab.btcmonitor.elements.bm_ListElementCharts;
 import com.zlab.btcmonitor.elements.bm_ListElementOrder;
@@ -96,6 +98,11 @@ public class bm_Main extends Activity
     public static ImageView imgCharts;
     public static Bitmap[] imgChartsBitmap;
     public static boolean imgRefreshIsBlocked;
+    public static TextView textLast,textLow,textHigh;
+    public static String[] txtLast = new String[VARs.pairs_CODE.length];
+    public static String[] txtLow = new String[VARs.pairs_CODE.length];
+    public static String[] txtHigh = new String[VARs.pairs_CODE.length];
+
     //public static WebView webCharts;
     /** Ордеры **/
     public static ListView orderList;
@@ -489,9 +496,9 @@ public class bm_Main extends Activity
         chartsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                navDrawer.selectItem(position+2);
+                navDrawer.selectItem(position + 2);
                 //bm_MainState.onNavigationDrawerItemSelected(position+2);
-                mTitle=VARs.pairs_UI[position];
+                mTitle = VARs.pairs_UI[position];
                 bm_MainState.invalidateOptionsMenu();
             }
         });
@@ -526,7 +533,25 @@ public class bm_Main extends Activity
         btn_Orders = (Button) rootView.findViewById(R.id.btnOrders);
         btn_History = (Button) rootView.findViewById(R.id.btnHistory);
         imgCharts = (ImageView) rootView.findViewById(R.id.imgCharts);
+        textLast = (TextView) rootView.findViewById(R.id.textLast);
+        textLow = (TextView) rootView.findViewById(R.id.textLow);
+        textHigh = (TextView) rootView.findViewById(R.id.textHigh);
         //webCharts = (WebView) rootView.findViewById(R.id.webCharts);
+        TextView textOrdersLeft = (TextView) rootView.findViewById(R.id.textOrdersLeft);
+        TextView textOrdersRight = (TextView) rootView.findViewById(R.id.textOrdersRight);
+
+
+        if(bm_Main.currentApiVersion >= Build.VERSION_CODES.JELLY_BEAN){
+            textLast.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            textLow.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            textHigh.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            textOrdersLeft.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            textOrdersRight.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            btn_Buy.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            btn_Sell.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            btn_Orders.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            btn_History.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+        }
 
         //int pair_code=-1;
         int pair_code=0; /** Fix crash on back button and resume **/
@@ -806,6 +831,12 @@ public class bm_Main extends Activity
                     bm_ActiveOrders.getActiveOrders(PAIR_ID);
                     bm_PairHistory.getHistory(PAIR_ID);
 
+                JsonObject Ticker = btce_getTicker.getTickerObj(PAIR_ID);
+                if(Ticker!=null){
+                bm_Main.txtLast[PAIR_CODE] = btce_getTicker.get_last(Ticker);
+                bm_Main.txtLow[PAIR_CODE] = btce_getTicker.get_low(Ticker);
+                bm_Main.txtHigh[PAIR_CODE] = btce_getTicker.get_high(Ticker);}
+
                 if(!imgRefreshIsBlocked/* && (DIAGRAM_LAST_REFRESH - (System.currentTimeMillis()/1000))>DIAGRAM_COOLDOWN*/){
                     imgRefreshIsBlocked=true;
                 try {
@@ -829,9 +860,13 @@ public class bm_Main extends Activity
                 }
                     imgRefreshIsBlocked=false;
                 }
+
                 bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if(txtLast[PAIR_CODE]!=null){textLast.setText(bm_MainState.getString(R.string.last)+" "+txtLast[PAIR_CODE]);}
+                        if(txtLow[PAIR_CODE]!=null){textLow.setText(bm_MainState.getString(R.string.low)+" "+txtLow[PAIR_CODE]);}
+                        if(txtHigh[PAIR_CODE]!=null){textHigh.setText(bm_MainState.getString(R.string.high)+" "+txtHigh[PAIR_CODE]);}
                         bm_MainState.setProgressBarIndeterminateVisibility(false);
                     }
                 });
@@ -887,6 +922,12 @@ public class bm_Main extends Activity
                         bm_ActiveOrders.getActiveOrders(VARs.pairs_CODE[i]);
                         bm_PairHistory.getHistory(VARs.pairs_CODE[i]);
 
+                        JsonObject Ticker = btce_getTicker.getTickerObj(VARs.pairs_CODE[i]);
+                        if(Ticker!=null){
+                        bm_Main.txtLast[i] = btce_getTicker.get_last(Ticker);
+                        bm_Main.txtLow[i] = btce_getTicker.get_low(Ticker);
+                        bm_Main.txtHigh[i] = btce_getTicker.get_high(Ticker);}
+
                         if(!imgRefreshIsBlocked/* && (DIAGRAM_LAST_REFRESH - (System.currentTimeMillis()/1000))>DIAGRAM_COOLDOWN*/){
 
                                 imgRefreshIsBlocked=true;
@@ -910,9 +951,13 @@ public class bm_Main extends Activity
                             }
                                 imgRefreshIsBlocked=false;
                         }
+                        final int pos=i;
                         bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                if(txtLast[pos]!=null){textLast.setText(bm_MainState.getString(R.string.last)+" "+txtLast[pos]);}
+                                if(txtLow[pos]!=null){textLow.setText(bm_MainState.getString(R.string.low)+" "+txtLow[pos]);}
+                                if(txtHigh[pos]!=null){textHigh.setText(bm_MainState.getString(R.string.high)+" "+txtHigh[pos]);}
                                 bm_MainState.setProgressBarIndeterminateVisibility(false);
                             }
                         });

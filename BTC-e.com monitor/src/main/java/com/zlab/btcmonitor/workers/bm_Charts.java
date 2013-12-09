@@ -85,6 +85,10 @@ public class bm_Charts {
                 bm_Main.chartsListElements.remove(i);
                 bm_Main.chartsListElements.add(i,el);
 
+                    bm_Main.txtLast[i] = btce_getTicker.get_last(Ticker);
+                    bm_Main.txtLow[i] = btce_getTicker.get_low(Ticker);
+                    bm_Main.txtHigh[i] = btce_getTicker.get_high(Ticker);
+
                     if(!bm_Main.chartsListElementsOld.get(i).getLast().equals("0.00")){
                         bm_Main.chartsListDiff.remove(i);
                         bm_Main.chartsListDiff.add(i,String.valueOf(
