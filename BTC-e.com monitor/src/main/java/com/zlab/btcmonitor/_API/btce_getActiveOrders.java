@@ -23,7 +23,7 @@ import java.util.Map;
 public class btce_getActiveOrders {
 
     public static JsonObject getActiveOrdersObj(String pair) {
-        long nonce_param = System.currentTimeMillis() / 1000L;
+        long nonce_param = System.currentTimeMillis() / 1000;
         String method = "ActiveOrders";
 
         Mac mac;

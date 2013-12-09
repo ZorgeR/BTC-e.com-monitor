@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class btce_getInfo {
     public static JsonObject getInfoObj() {
-        long nonce_param = System.currentTimeMillis() / 1000L;
+        long nonce_param = System.currentTimeMillis() / 1000;
         String method = "getInfo";
 
         Mac mac;

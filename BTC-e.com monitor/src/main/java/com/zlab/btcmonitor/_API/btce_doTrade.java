@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class btce_doTrade {
     public static JsonObject doTrade(String pair, String type, String rate, String amount) {
-        long nonce_param = System.currentTimeMillis() / 1000L;
+        long nonce_param = System.currentTimeMillis() / 1000;
         String method = "Trade";
 
         Mac mac;

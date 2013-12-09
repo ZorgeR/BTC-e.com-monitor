@@ -23,7 +23,7 @@ import java.util.Map;
 public class btce_cancelOrder {
 
     public static JsonObject doCancelOrder(String order_id) {
-        long nonce_param = System.currentTimeMillis() / 1000L;
+        long nonce_param = System.currentTimeMillis() / 1000;
         String method = "CancelOrder";
 
         Mac mac;
