@@ -270,6 +270,18 @@ public class bm_Main extends Activity
     }
 
     @Override
+    public void onBackPressed(){
+        if(mTitle!=getString(R.string.title_charts)){
+            navDrawer.selectItem(0);
+            //bm_MainState.onNavigationDrawerItemSelected(position+2);
+            mTitle=getString(R.string.title_charts);
+            bm_MainState.invalidateOptionsMenu();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mBmNavDrawer.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.bmon_main, menu);
