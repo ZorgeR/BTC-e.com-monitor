@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BTC-e.com Trader Client</string>
+    <string name="title_office">Личный кабинет</string>
+    <string name="title_charts">Курсы</string>
+    <string name="title_fullscreen">Полный экран</string>
+    <string name="action_view">Внешний вид</string>
+    <string name="action_about">О программе</string>
+    <string name="action_detailed">Детальный список</string>
+    <string name="action_classic">Классические пары</string>
+    <string name="action_vector">Направление курса</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_refresh">Обновить</string>
+    <string name="action_fullscreen">Полный экран</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_exit">Выход</string>
+    <string name="stat">Статистика:</string>
+    <string name="theme_black">Темное оформление</string>
+    <string name="black_diagram">Темная диаграмма</string>
+    <string name="need_restart">Требуется перезапуск</string>
+    <string name="bottom_panel">Кнопки снизу</string>
+    <string name="api_settings">Настройки API</string>
+    <string name="finance">Финансы:</string>
+
+    <string name="buy">Купить</string>
+    <string name="sell">Продать</string>
+    <string name="history">История</string>
+    <string name="buy_orders">Ордера на покупку:</string>
+    <string name="sell_orders">Ордера на продажу:</string>
+    <string name="your_orders">Ваши ордера</string>
+    <string name="orders">Ордеры</string>
+    <string name="close">Закрыть</string>
+    <string name="cancel">Отмена</string>
+    <string name="order_cancelation">Отмена ордера</string>
+    <string name="order_cancelation_string">Вы уверены что хотите закрыть ордер: ID</string>
+    <string name="yes">Да!</string>
+    <string name="no">Нет</string>
+    <string name="coast">*</string>
+
+    <string name="order_error">Ошибка! Ордер</string>
+    <string name="order_not_closed">НЕ закрыт.</string>
+    <string name="order">Ордер</string>
+    <string name="closed">закрыт.</string>
+
+    <string name="tax">Комиссия</string>
+    <string name="total">Всего</string>
+    <string name="price_for">Цена за</string>
+    <string name="amount_of">Количество</string>
+
+    <string name="low_balance_nopermission">Результат: недостаточно средств или нет прав на трейдинг.</string>
+    <string name="result_success">Результат: Успешно</string>
+    <string name="you_sell">Вы продавали</string>
+    <string name="you_buy">Вы покупали</string>
+    <string name="receive">Получено</string>
+    <string name="new_order">Создан ордер.</string>
+    <string name="still">Осталось</string>
+    <string name="transaction_id">ID транзакции</string>
+
+    <string name="last_query">Последний запрос</string>
+    <string name="success">успех</string>
+    <string name="trade_permission">Право на трейдинг</string>
+    <string name="present">присутвует</string>
+    <string name="no_present">отсутствует</string>
+    <string name="all_transaction">Всего транзакций</string>
+    <string name="open_orders">Ордеров открыто</string>
+
+    <string name="cant_retrieve">Не удалось получить данные по</string>
+
+    <string name="only_kitkat">Требуется Android 4.4 для полноэкранного режима</string>
+
+</resources>

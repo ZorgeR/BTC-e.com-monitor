@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="45dp" android:minHeight="45dp">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LTC / USD"
+            android:id="@+id/textPairLeft" android:layout_alignParentLeft="true" android:layout_centerVertical="true"
+            android:paddingLeft="15dp" android:textStyle="bold" android:textSize="20sp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8.52"
+            android:id="@+id/textLast"
+            android:paddingRight="5dp"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/imgVector" android:textStyle="bold"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8.64"
+            android:id="@+id/textBuy"
+            android:textSize="12sp"
+            android:textColor="#FF888888"
+            android:layout_toRightOf="@+id/imgBuy" android:paddingTop="4dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8.35"
+            android:id="@+id/textSell"
+            android:textSize="12sp"
+            android:textColor="#FF888888"
+            android:layout_alignParentBottom="true" android:layout_alignLeft="@+id/textBuy"
+            android:paddingBottom="5dp"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBuy"
+            android:src="@drawable/bank_plus"
+            android:layout_marginLeft="115dp"
+            android:layout_alignParentTop="true" android:paddingTop="8dp"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgSell"
+            android:src="@drawable/bank_minus"
+            android:layout_alignParentBottom="true" android:layout_alignLeft="@+id/imgBuy" android:paddingBottom="8dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="USD"
+            android:id="@+id/textPairRight"
+            android:textSize="20sp" android:layout_centerVertical="true"
+            android:layout_alignParentRight="true" android:paddingRight="15dp" android:textStyle="bold"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgVector"
+            android:src="@drawable/up_arrow"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/textPairRight"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textBuyDiff"
+            android:textSize="12sp"
+            android:text="0.0" android:layout_toRightOf="@+id/textBuy" android:paddingLeft="5dp"
+            android:paddingTop="4dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textSellDiff"
+            android:textSize="12sp"
+            android:text="0.0" android:layout_alignParentBottom="true" android:layout_toRightOf="@+id/textSell"
+            android:paddingLeft="5dp" android:paddingBottom="5dp"/>
+</RelativeLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="CUR_LIST">
+        <item>BTC / USD</item>
+        <item>BTC / RUR</item>
+        <item>BTC / EUR</item>
+        <item>LTC / BTC</item>
+        <item>LTC / USD</item>
+        <item>LTC / RUR</item>
+        <item>LTC / EUR</item>
+        <item>NMC / BTC</item>
+        <item>NMC / USD</item>
+        <item>NVC / BTC</item>
+        <item>NVC / USD</item>
+        <item>USD / RUR</item>
+        <item>EUR / USD</item>
+        <item>TRC / BTC</item>
+        <item>PPC / BTC</item>
+        <item>PPC / USD</item>
+        <item>FTC / BTC</item>
+        <item>XPM / BTC</item>
+    </array>
+</resources>

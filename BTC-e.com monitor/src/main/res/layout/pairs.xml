@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/chartsLayout" android:layout_centerHorizontal="true"
+            >
+        <!--<WebView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/webCharts"/>-->
+        <com.zlab.btcmonitor.UI.resizebleImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgCharts" android:src="@drawable/charts_loading"
+                />
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/chartsLayout" android:id="@+id/linearLayout">
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/buy"
+                android:id="@+id/btnBuy" android:layout_alignLeft="@+id/imgCharts" android:layout_below="@+id/imgCharts"
+                android:layout_weight="1" android:singleLine="true" android:enabled="false"/>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sell"
+                android:id="@+id/btnSell" android:layout_alignRight="@+id/imgCharts" android:layout_below="@+id/imgCharts"
+                android:layout_weight="1" android:singleLine="true" android:enabled="false"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="2px" android:background="@android:color/darker_gray"
+            android:layout_alignLeft="@+id/chartsLayout" android:layout_below="@+id/linearLayout1"
+            android:id="@+id/linearLayout2">
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:layout_alignParentLeft="true"
+            android:layout_below="@+id/linearLayout" android:id="@+id/linearLayout1">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sell_orders"
+                android:id="@+id/textOrdersLeft" android:layout_weight="1" android:paddingLeft="5dp"
+                android:textStyle="bold" android:singleLine="true"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/buy_orders"
+                android:id="@+id/textOrdersRight" android:layout_weight="1" android:textStyle="bold"
+                android:singleLine="true"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout2" android:id="@+id/linearLayout3"
+            android:layout_above="@+id/linearLayout5">
+        <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/listAsk" android:layout_gravity="left|center_vertical" android:layout_weight="1"/>
+        <LinearLayout
+                android:layout_width="2px"
+                android:layout_height="match_parent" android:background="@android:color/darker_gray">
+        </LinearLayout>
+        <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/listBids" android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="2px" android:layout_alignParentLeft="true"
+            android:layout_above="@+id/linearLayout4" android:background="@android:color/darker_gray"
+            android:id="@+id/linearLayout5">
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" android:id="@+id/linearLayout4">
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/your_orders"
+                android:id="@+id/btnOrders" android:layout_weight="1" android:singleLine="true" android:enabled="false"/>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/history"
+                android:id="@+id/btnHistory" android:layout_weight="1" android:singleLine="true"
+                android:enabled="false"/>
+    </LinearLayout>
+
+</RelativeLayout>

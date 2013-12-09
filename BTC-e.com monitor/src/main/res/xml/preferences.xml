@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/action_view">
+        <CheckBoxPreference android:key="prefs_charts_classic" android:title="@string/action_classic" android:defaultValue="true"></CheckBoxPreference>
+        <CheckBoxPreference android:key="prefs_charts_detailed" android:title="@string/action_detailed" android:defaultValue="true"></CheckBoxPreference>
+        <CheckBoxPreference android:key="prefs_show_vector" android:title="@string/action_vector" android:defaultValue="true"></CheckBoxPreference>
+        <CheckBoxPreference android:key="prefs_fullscreen" android:title="@string/title_fullscreen" android:defaultValue="false"></CheckBoxPreference>
+        <CheckBoxPreference android:key="prefs_bottom_actionbar" android:title="@string/bottom_panel" android:summary="@string/need_restart" android:defaultValue="false"></CheckBoxPreference>
+        <CheckBoxPreference android:key="prefs_black_theme" android:title="@string/theme_black" android:summary="@string/need_restart" android:defaultValue="false"></CheckBoxPreference>
+        <CheckBoxPreference android:key="prefs_black_charts" android:title="@string/black_diagram" android:defaultValue="false"></CheckBoxPreference>
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/api_settings">
+        <EditTextPreference android:key="prefs_API_KEY" android:title="API Key" android:defaultValue="UTGST9S5-KJU056A3-OLRLAPNL-DWQCIC05-UJT5UASQ"></EditTextPreference>
+        <EditTextPreference android:key="prefs_API_SECRET" android:title="API Secret" android:defaultValue="93356012c426dfa50528757c0ffc9707db13477c81b34f332e9350a2f81adc1c"></EditTextPreference>
+        <EditTextPreference android:key="prefs_API_URL_PRIVATE" android:title="API URL - PRIVATE" android:defaultValue="https://btc-e.com/tapi"></EditTextPreference>
+        <EditTextPreference android:key="prefs_API_URL_PUBLIC" android:title="API URL - PUBLIC" android:defaultValue="https://btc-e.com/api/2/"></EditTextPreference>
+    </PreferenceCategory>
+</PreferenceScreen>

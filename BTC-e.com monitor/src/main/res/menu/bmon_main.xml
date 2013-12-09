@@ -1,0 +1,43 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".bmon_Main" >
+    <item android:id="@+id/action_view"
+          android:title="@string/action_view"
+          android:icon="@android:drawable/ic_menu_view"
+          android:showAsAction="always" >
+        <menu>
+            <item android:id="@+id/action_fullscreen"
+                  android:title="@string/action_fullscreen"
+                  android:showAsAction="always"
+                  android:checkable="true"/>
+            <item android:id="@+id/action_detailed"
+                  android:title="@string/action_detailed"
+                  android:showAsAction="always"
+                  android:checkable="true"/>
+            <item android:id="@+id/action_classic"
+                  android:title="@string/action_classic"
+                  android:showAsAction="always"
+                  android:checkable="true"/>
+            <item android:id="@+id/action_vector"
+                  android:title="@string/action_vector"
+                  android:showAsAction="always"
+                  android:checkable="true"/>
+        </menu>
+    </item>
+    <item android:id="@+id/action_refresh"
+        android:title="@string/action_refresh"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_menu_refresh" />
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item android:id="@+id/action_about"
+          android:title="@string/action_about"
+          android:orderInCategory="101"
+          android:showAsAction="never" />
+    <item android:id="@+id/action_exit"
+        android:title="@string/action_exit"
+        android:orderInCategory="102"
+        android:showAsAction="never" />
+</menu>

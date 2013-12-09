@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:gravity="center_vertical">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:layout_toLeftOf="@+id/btnCancelOrder"
+                    android:layout_centerVertical="true">
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BTC / USD "
+            android:id="@+id/textOrdersPair"
+            android:textSize="12sp" android:textStyle="bold"
+            android:visibility="gone" android:layout_centerVertical="true"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" продажа "
+            android:id="@+id/textOrdersAction"
+            android:textSize="14sp"
+            android:layout_centerVertical="true" android:paddingRight="5dp" android:textStyle="bold"
+            android:paddingLeft="5dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10.324"
+            android:id="@+id/textOrdersAmount"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/textOrdersAction"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/coast"
+            android:id="@+id/textView2"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/textOrdersAmount" android:layout_centerVertical="true"
+            android:paddingLeft="2dp" android:paddingRight="2dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.98"
+            android:id="@+id/textOrdersPrice"
+            android:textSize="14sp" android:textStyle="bold"
+            android:layout_toRightOf="@+id/textView2" android:layout_centerVertical="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" = "
+            android:id="@+id/textView4"
+            android:textSize="12sp"
+            android:layout_centerVertical="true" android:layout_toRightOf="@+id/textOrdersPrice"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="154.34"
+            android:id="@+id/textOrdersResult"
+            android:textSize="14sp" android:textStyle="bold"
+            android:layout_toRightOf="@+id/textView4" android:layout_centerVertical="true"/>
+        </RelativeLayout>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="❌"
+            android:id="@+id/btnCancelOrder"
+            android:layout_alignParentRight="true" android:layout_centerVertical="true"/>
+</RelativeLayout>
