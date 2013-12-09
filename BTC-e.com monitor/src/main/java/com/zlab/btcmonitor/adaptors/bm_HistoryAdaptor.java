@@ -85,16 +85,36 @@ public class bm_HistoryAdaptor extends ArrayAdapter<bm_ListElementsHistory> {
 
         if (o != null) {
 
-            NumberFormat formatter = new DecimalFormat("#0.00");
+            NumberFormat formatter = new DecimalFormat("#0.00000");
+            NumberFormat formatter2 = new DecimalFormat("#0.00");
+
+            Double result=Double.parseDouble(o.getAmount()) * Double.parseDouble(o.getPrice());
+            String result_str=result.toString();
+
+
+            if(result_str.indexOf(".")!=-1 && result_str.length()>6){
+                if(result_str.substring(result_str.indexOf(".")).length()>3){
+                    if(result<1){
+                        result_str=formatter.format(result);
+                    } else {
+                        result_str=formatter2.format(result);
+                    }
+                } else {
+                    //result_str=result_str;
+                    //result_str=formatter2.format(result);
+                }
+            } else {
+                //result_str=result_str;
+            }
 
             if(o.getType().toString().contains("s")){
                 text_type.setText("↗");
                 text_type.setTextColor(0xffb40e0e);
-                text_result.setText(String.valueOf(formatter.format(Double.parseDouble(o.getAmount()) * Double.parseDouble(o.getPrice())))+" "+o.getPriceCur());
+                text_result.setText(result_str/*String.valueOf(formatter.format(Double.parseDouble(o.getAmount()) * Double.parseDouble(o.getPrice())))*/+" "+o.getPriceCur());
             } else {
                 text_type.setText("↙");
                 text_type.setTextColor(0xff16ab04);
-                text_result.setText(String.valueOf(formatter.format(Double.parseDouble(o.getAmount()) * Double.parseDouble(o.getPrice())))+" "+o.getPriceCur());
+                text_result.setText(result_str/*String.valueOf(formatter.format(Double.parseDouble(o.getAmount()) * Double.parseDouble(o.getPrice())))*/+" "+o.getPriceCur());
             }
 
             text_price.setText(o.getPrice()+" "+o.getPriceCur());

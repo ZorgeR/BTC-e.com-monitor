@@ -90,17 +90,25 @@ public class bm_OrdersAdaptor extends ArrayAdapter<bm_ListElementOrder> {
                 }
             }
 
-            NumberFormat formatter = new DecimalFormat("#0.00");
-            //NumberFormat formatter2 = new DecimalFormat("#0.00");
+            NumberFormat formatter = new DecimalFormat("#0.00000");
+            NumberFormat formatter2 = new DecimalFormat("#0.00");
 
             String print_price="";
             String print_amount="";
             String print_result="";
 
+            Double amount = Double.parseDouble(o.getAmount());
+            print_amount = amount.toString();
+
 
             if(o.getAmount().indexOf(".")!=-1 && o.getAmount().length()>6){
                 if(o.getAmount().substring(o.getAmount().indexOf(".")).length()>3){
-                    print_amount=formatter.format(Double.parseDouble(o.getAmount()));
+                    if(amount<1){
+                        print_amount=formatter.format(amount);
+                    } else {
+                        print_amount=formatter2.format(amount);
+                    }
+                    //print_amount=formatter.format(Double.parseDouble(o.getAmount()));
                 } else {
                     print_amount=o.getAmount();
                 }
@@ -108,9 +116,15 @@ public class bm_OrdersAdaptor extends ArrayAdapter<bm_ListElementOrder> {
                 print_amount=o.getAmount();
             }
 
+            Double rate = Double.parseDouble(o.getRate());
+
             if(o.getRate().indexOf(".")!=-1 && o.getRate().length()>6){
                     if(o.getRate().substring(o.getRate().indexOf(".")).length()>3){
-                        print_price=formatter.format(Double.parseDouble(o.getRate()));
+                        if(rate<1){
+                            print_price=formatter.format(rate);
+                        } else {
+                            print_price=formatter2.format(rate);
+                        }
                     } else {
                         print_price=o.getRate();
                     }
@@ -123,7 +137,11 @@ public class bm_OrdersAdaptor extends ArrayAdapter<bm_ListElementOrder> {
 
             if(result_str.indexOf(".")!=-1 && result_str.length()>6){
                     if(result_str.substring(result_str.indexOf(".")).length()>3){
-                        print_result=formatter.format(result);
+                        if(result<1){
+                            print_result=formatter.format(result);
+                        } else {
+                            print_result=formatter2.format(result);
+                        }
                     } else {
                         print_result=result_str;
                     }
