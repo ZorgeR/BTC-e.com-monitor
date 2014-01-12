@@ -67,6 +67,22 @@ public class bm_Charts {
                     bm_Main.chartsListDiffBuy.add("0.00");
                 }
             }
+               /*
+            if(bm_Main.chartsListElements.size()!=pairs_code.length){
+                // Падение
+                //Если меньше, добавить строки
+                //Если больше, убрать
+
+            }   */
+
+            while(bm_Main.chartsListElements.size()>pairs_code.length){
+                bm_Main.chartsListElements.remove(bm_Main.chartsListElements.size()-1);
+                bm_Main.chartsListElementsOld.remove(bm_Main.chartsListElementsOld.size()-1);
+            }
+            while(bm_Main.chartsListElements.size()<pairs_code.length){
+                bm_Main.chartsListElements.add(new bm_ListElementCharts("TPD / TPD","1.00","1.00","1.00","","",""));
+                bm_Main.chartsListElementsOld.add(new bm_ListElementCharts("TPD / TPD","1.00","1.00","1.00","","",""));
+            }
 
             for(int i=0;i<pairs_code.length;i++){
                 Ticker = btce_getTicker.getTickerObj(pairs_code[i]);
