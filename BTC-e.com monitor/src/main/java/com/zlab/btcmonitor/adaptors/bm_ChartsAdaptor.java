@@ -114,7 +114,23 @@ public class bm_ChartsAdaptor extends ArrayAdapter<bm_ListElementCharts> {
                 text_Last.setTextColor(0xFF0E0D0B);
             }
 
-            text_Last.setText(o.getLast());
+
+            NumberFormat formatter2 = new DecimalFormat("#0.00");
+            Double last = Double.parseDouble(o.getLast());
+
+            if(o.getLast().indexOf(".")!=-1 && o.getLast().length()>6){
+                if(o.getLast().substring(0,o.getLast().indexOf(".")).length()>3){
+                    text_Last.setText(formatter2.format(last).replace(",","."));
+                } else {
+                    text_Last.setText(o.getLast());
+                }
+            } else {
+                text_Last.setText(o.getLast());
+            }
+
+            //text_Last.setText(o.getLast());
+
+
             text_Buy.setText(o.getBuy());
             text_Sell.setText(o.getSell());
             //text_Updated.setText(o.getUpdated());

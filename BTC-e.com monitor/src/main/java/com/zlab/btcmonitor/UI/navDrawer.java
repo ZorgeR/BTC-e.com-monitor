@@ -100,6 +100,8 @@ public class navDrawer extends Fragment {
         NAV_DRAWER.add(1, getString(R.string.title_office));
         //NAV_DRAWER.add(getString(R.string.title_fullscreen));
         //NAV_DRAWER.add(getString(R.string.title_about));
+        /** CHAT **/
+        NAV_DRAWER.add(2, getString(R.string.chat));
 
         navDrawerCustomView my_adapter = new navDrawerCustomView(getActionBar().getThemedContext(),NAV_DRAWER.toArray(new String[NAV_DRAWER.size()]));
 

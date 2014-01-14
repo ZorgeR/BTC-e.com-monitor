@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.*;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -14,6 +15,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.*;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.*;
 import com.google.gson.JsonObject;
 import com.zlab.btcmonitor.UI.navDrawer;
@@ -54,6 +57,9 @@ public class bm_Main extends Activity
     private static boolean DIAGRAM_IS_BLACK;
     private static long DIAGRAM_LAST_REFRESH=0;
     private static final long DIAGRAM_COOLDOWN=5;
+    static String PIN;
+    private static String PINCheck="";
+    private static boolean PIN_SHOW;
 
     /** API **/
     public static String API_URL_PRIVATE;
@@ -141,7 +147,136 @@ public class bm_Main extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         this.invalidateOptionsMenu();
+
+        // PIN CHECK
+        PIN = prefs.getString("PIN","");
+        if(!PIN.equals("")){checkPIN();}
     }
+
+    public static void checkPIN(){
+            //Toast.makeText(bm_MainContext,"TRIAL",Toast.LENGTH_LONG).show();
+
+            AlertDialog.Builder action_dialog = new AlertDialog.Builder(bm_MainContext);
+            action_dialog.setTitle("PIN-CODE");
+            LayoutInflater inflater = bm_MainState.getLayoutInflater();
+            View layer = inflater.inflate(R.layout.pin,null);
+
+            Button btn_PINOK = (Button) layer.findViewById(R.id.btnPINOK);
+            Button btn_PINCancel = (Button) layer.findViewById(R.id.btnPINCancel);
+            Button btn_PINUndo = (Button) layer.findViewById(R.id.btnPINUndo);
+            final ImageButton btn_PIN = (ImageButton) layer.findViewById(R.id.imgBtnPIN);
+            Button btn_PIN0 = (Button) layer.findViewById(R.id.btnPIN0);
+            Button btn_PIN1 = (Button) layer.findViewById(R.id.btnPIN1);
+            Button btn_PIN2 = (Button) layer.findViewById(R.id.btnPIN2);
+            Button btn_PIN3 = (Button) layer.findViewById(R.id.btnPIN3);
+            Button btn_PIN4 = (Button) layer.findViewById(R.id.btnPIN4);
+            Button btn_PIN5 = (Button) layer.findViewById(R.id.btnPIN5);
+            Button btn_PIN6 = (Button) layer.findViewById(R.id.btnPIN6);
+            Button btn_PIN7 = (Button) layer.findViewById(R.id.btnPIN7);
+            Button btn_PIN8 = (Button) layer.findViewById(R.id.btnPIN8);
+            Button btn_PIN9 = (Button) layer.findViewById(R.id.btnPIN9);
+            final EditText text_PIN = (EditText) layer.findViewById(R.id.textPIN);
+
+            action_dialog.setCancelable(false);
+            action_dialog.setView(layer);
+            /*
+            action_dialog.setNegativeButton(bm_Main.bm_MainState.getResources().getString(R.string.close),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });       */
+
+            final AlertDialog AboutDialog = action_dialog.create();
+            btn_PINOK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(PIN.equals(PINCheck)){
+                        AboutDialog.dismiss();
+                        PINCheck="";text_PIN.setText("");
+                    } else {
+                        Toast.makeText(bm_MainContext,bm_Main.bm_MainState.getResources().getString(R.string.pin_fail),Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+            btn_PINCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    bm_MainState.finish();
+                }
+            });
+            btn_PINUndo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {PINCheck="";text_PIN.setText("");}
+            });
+
+            btn_PIN0.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {PINCheck = PINCheck+"0"; if(PIN_SHOW){text_PIN.setText(text_PIN.getText()+"0");}else{text_PIN.setText(text_PIN.getText()+"*");}}
+            });
+            btn_PIN1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {PINCheck = PINCheck+"1"; if(PIN_SHOW){text_PIN.setText(text_PIN.getText()+"1");}else{text_PIN.setText(text_PIN.getText()+"*");}}
+            });
+            btn_PIN2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {PINCheck = PINCheck+"2"; if(PIN_SHOW){text_PIN.setText(text_PIN.getText()+"2");}else{text_PIN.setText(text_PIN.getText()+"*");}}
+            });
+            btn_PIN3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {PINCheck = PINCheck+"3"; if(PIN_SHOW){text_PIN.setText(text_PIN.getText()+"3");}else{text_PIN.setText(text_PIN.getText()+"*");}}
+            });
+            btn_PIN4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {PINCheck = PINCheck+"4"; if(PIN_SHOW){text_PIN.setText(text_PIN.getText()+"4");}else{text_PIN.setText(text_PIN.getText()+"*");}}
+            });
+            btn_PIN5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {PINCheck = PINCheck+"5"; if(PIN_SHOW){text_PIN.setText(text_PIN.getText()+"5");}else{text_PIN.setText(text_PIN.getText()+"*");}}
+            });
+            btn_PIN6.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {PINCheck = PINCheck+"6"; if(PIN_SHOW){text_PIN.setText(text_PIN.getText()+"6");}else{text_PIN.setText(text_PIN.getText()+"*");}}
+            });
+            btn_PIN7.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {PINCheck = PINCheck+"7"; if(PIN_SHOW){text_PIN.setText(text_PIN.getText()+"7");}else{text_PIN.setText(text_PIN.getText()+"*");}}
+            });
+            btn_PIN8.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {PINCheck = PINCheck+"8"; if(PIN_SHOW){text_PIN.setText(text_PIN.getText()+"8");}else{text_PIN.setText(text_PIN.getText()+"*");}}
+            });
+            btn_PIN9.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {PINCheck = PINCheck+"9"; if(PIN_SHOW){text_PIN.setText(text_PIN.getText()+"9");}else{text_PIN.setText(text_PIN.getText()+"*");}}
+            });
+
+            btn_PIN.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    // show interest in events resulting from ACTION_DOWN
+                    if(event.getAction()==MotionEvent.ACTION_DOWN) return true;
+                    // don't handle event unless its ACTION_UP so "doSomething()" only runs once.
+                    if(event.getAction()!=MotionEvent.ACTION_UP) return false;
+                    if(PIN_SHOW){
+                        PIN_SHOW=false;
+                        btn_PIN.setPressed(false);
+                        String sec="";
+                        for(int i=0;i<PINCheck.length();i++){
+                            sec=sec+"*";
+                        }
+                        text_PIN.setText(sec);
+                    } else {
+                        PIN_SHOW=true;
+                        btn_PIN.setPressed(true);
+                        text_PIN.setText(PINCheck);
+                    }
+                    return true;
+                }
+            });
+
+            AboutDialog.show();
+    }
+
 
     @Override
     protected void onResume() {
@@ -208,57 +343,60 @@ public class bm_Main extends Activity
                 mTitle = getString(R.string.title_office);
                 break;
             case 3:
-                mTitle = VARs.pairs_UI[0];
+                mTitle = getString(R.string.chat);
                 break;
             case 4:
-                mTitle = VARs.pairs_UI[1];
+                mTitle = VARs.pairs_UI[0];
                 break;
             case 5:
-                mTitle = VARs.pairs_UI[2];
+                mTitle = VARs.pairs_UI[1];
                 break;
             case 6:
-                mTitle = VARs.pairs_UI[3];
+                mTitle = VARs.pairs_UI[2];
                 break;
             case 7:
-                mTitle = VARs.pairs_UI[4];
+                mTitle = VARs.pairs_UI[3];
                 break;
             case 8:
-                mTitle = VARs.pairs_UI[5];
+                mTitle = VARs.pairs_UI[4];
                 break;
             case 9:
-                mTitle = VARs.pairs_UI[6];
+                mTitle = VARs.pairs_UI[5];
                 break;
             case 10:
-                mTitle = VARs.pairs_UI[7];
+                mTitle = VARs.pairs_UI[6];
                 break;
             case 11:
-                mTitle = VARs.pairs_UI[8];
+                mTitle = VARs.pairs_UI[7];
                 break;
             case 12:
-                mTitle = VARs.pairs_UI[9];
+                mTitle = VARs.pairs_UI[8];
                 break;
             case 13:
-                mTitle = VARs.pairs_UI[10];
+                mTitle = VARs.pairs_UI[9];
                 break;
             case 14:
-                mTitle = VARs.pairs_UI[11];
+                mTitle = VARs.pairs_UI[10];
                 break;
             case 15:
-                mTitle = VARs.pairs_UI[12];
+                mTitle = VARs.pairs_UI[11];
                 break;
             case 16:
-                mTitle = VARs.pairs_UI[13];
+                mTitle = VARs.pairs_UI[12];
                 break;
             case 17:
-                mTitle = VARs.pairs_UI[14];
+                mTitle = VARs.pairs_UI[13];
                 break;
             case 18:
-                mTitle = VARs.pairs_UI[15];
+                mTitle = VARs.pairs_UI[14];
                 break;
             case 19:
-                mTitle = VARs.pairs_UI[16];
+                mTitle = VARs.pairs_UI[15];
                 break;
             case 20:
+                mTitle = VARs.pairs_UI[16];
+                break;
+            case 21:
                 mTitle = VARs.pairs_UI[17];
                 break;
         }
@@ -434,6 +572,8 @@ public class bm_Main extends Activity
                 rootView=pageOffice(container,inflater);
             } else if(mTitle.equals(getString(R.string.title_charts))){
                 rootView=pageCharts(container,inflater);
+            } else if(mTitle.equals(getString(R.string.chat))){
+                rootView=pageChat(container, inflater);
             } else {
                 rootView=pagePairs(container,inflater);
             }
@@ -448,6 +588,50 @@ public class bm_Main extends Activity
         }
     }
 
+    public static View pageChat(ViewGroup container, LayoutInflater inflater){
+        View rootView = inflater.inflate(R.layout.chat, container, false);
+        final WebView webView = (WebView) rootView.findViewById(R.id.webChat);
+
+        webView.getSettings().setJavaScriptEnabled(true);
+        /*
+        webView.setWebViewClient(new WebViewClient() {
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                Toast.makeText(bm_MainContext, description, Toast.LENGTH_SHORT).show();
+            }
+        });*/
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url)
+            {
+                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[0].style.display='none'; " + "})()");
+                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[1].style.display='none'; " + "})()");
+
+                //webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[3].style.display='none'; " + "})()");
+
+                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[4].style.display='none'; " + "})()");
+                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[5].style.display='none'; " + "})()");
+                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[6].style.display='none'; " + "})()");
+
+                webView.loadUrl("javascript:(function() { " + "document.getElementById('header-ticker').style.display='none'; " + "})()");
+
+
+                //webView.loadUrl("javascript:(function() { " + "document.getElementById('nav-container').style.display='none'; " + "})()");
+                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('menu')[0].style.display='none'; " + "})()");
+
+
+                webView.loadUrl("javascript:(function() { " + "document.getElementById('footer').style.display='none'; " + "})()");
+
+                webView.loadUrl("javascript:(function() { " + "document.getElementById('header-logo').style.display='none'; " + "})()");
+
+
+                //webView.loadUrl("javascript:(function() { " + "document.getElementsById('body')[0].style.color = 'red'; " + "})()");
+
+            }
+        });
+        webView.loadUrl("https://btc-e.com/");
+
+        return rootView;
+    }
     public static View pageOffice(ViewGroup container, LayoutInflater inflater){
         View rootView = inflater.inflate(R.layout.office, container, false);
         if(fundsListElements!=null){
@@ -496,7 +680,7 @@ public class bm_Main extends Activity
         chartsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                navDrawer.selectItem(position + 2);
+                navDrawer.selectItem(position + 3);
                 //bm_MainState.onNavigationDrawerItemSelected(position+2);
                 mTitle = VARs.pairs_UI[position];
                 bm_MainState.invalidateOptionsMenu();

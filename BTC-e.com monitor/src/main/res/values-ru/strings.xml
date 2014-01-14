@@ -22,7 +22,17 @@
     <string name="need_restart">Требуется перезапуск</string>
     <string name="bottom_panel">Кнопки снизу</string>
     <string name="api_settings">Настройки API</string>
+    <string name="sec_settings">Безопасность</string>
     <string name="finance">Финансы:</string>
+    <string name="chat">Чат</string>
+
+    <string name="pin_new">Введите новый PIN</string>
+    <string name="pin_new_repeat">Повторите новый PIN</string>
+    <string name="pin_new_off">PIN отключен</string>
+    <string name="pin_new_set">PIN установлен</string>
+    <string name="pin_new_notset">PIN не установлен</string>
+    <string name="pin_new_nottrue">PIN не совпадает!</string>
+    <string name="pin_fail">Неверный PIN!</string>
 
     <string name="buy">Купить</string>
     <string name="sell">Продать</string>

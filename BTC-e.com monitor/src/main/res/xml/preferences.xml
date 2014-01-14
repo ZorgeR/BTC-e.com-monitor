@@ -17,4 +17,7 @@
         <EditTextPreference android:key="prefs_API_URL_PRIVATE" android:title="API URL - PRIVATE" android:defaultValue="https://btc-e.com/tapi"></EditTextPreference>
         <EditTextPreference android:key="prefs_API_URL_PUBLIC" android:title="API URL - PUBLIC" android:defaultValue="https://btc-e.com/api/2/"></EditTextPreference>
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/sec_settings">
+        <CheckBoxPreference android:key="prefs_SEC_PIN" android:title="PIN" android:defaultValue="false"></CheckBoxPreference>
+    </PreferenceCategory>
 </PreferenceScreen>

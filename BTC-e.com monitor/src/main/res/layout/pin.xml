@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:padding="10dp" android:gravity="center_vertical|center_horizontal">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content">
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textPIN" android:layout_gravity="center" android:hint="PIN" android:gravity="center"
+                android:layout_weight="1" android:focusableInTouchMode="false" android:focusable="false"/>
+    </LinearLayout>
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/btnPIN1" android:layout_alignParentLeft="true" android:layout_alignParentTop="true"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:id="@+id/btnPIN2" android:layout_toRightOf="@+id/btnPIN1" android:layout_alignTop="@+id/btnPIN1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:id="@+id/btnPIN3" android:layout_toRightOf="@+id/btnPIN2"
+                android:layout_alignTop="@+id/btnPIN1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:id="@+id/btnPIN4" android:layout_alignLeft="@+id/btnPIN1" android:layout_below="@+id/btnPIN1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:id="@+id/btnPIN5" android:layout_toRightOf="@+id/btnPIN1" android:layout_below="@+id/btnPIN1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6"
+                android:id="@+id/btnPIN6" android:layout_toRightOf="@+id/btnPIN2" android:layout_below="@+id/btnPIN1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7"
+                android:id="@+id/btnPIN7" android:layout_alignLeft="@+id/btnPIN1" android:layout_below="@+id/btnPIN4"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:id="@+id/btnPIN8" android:layout_toRightOf="@+id/btnPIN1" android:layout_below="@+id/btnPIN4"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9"
+                android:id="@+id/btnPIN9" android:layout_toRightOf="@+id/btnPIN2" android:layout_below="@+id/btnPIN4"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/btnPIN0" android:layout_centerHorizontal="true" android:layout_below="@+id/btnPIN7"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&lt;-"
+                android:id="@+id/btnPINUndo" android:layout_toRightOf="@+id/btnPIN2" android:layout_below="@+id/btnPIN7"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgBtnPIN" android:src="@android:drawable/ic_menu_view"
+                android:layout_alignLeft="@+id/btnPIN1" android:layout_below="@+id/btnPIN7"
+                android:layout_alignRight="@+id/btnPIN1"/>
+    </RelativeLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <Button
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:id="@+id/btnPINCancel"/>
+        <Button
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:text="OK"
+                android:id="@+id/btnPINOK" android:layout_gravity="center"/>
+    </LinearLayout>
+</LinearLayout>

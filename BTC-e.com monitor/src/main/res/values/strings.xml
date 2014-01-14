@@ -22,7 +22,17 @@
     <string name="need_restart">Apply after restart</string>
     <string name="bottom_panel">Buttons on bottom panel</string>
     <string name="api_settings">API settings</string>
+    <string name="sec_settings">Security settings</string>
     <string name="finance">Finance:</string>
+    <string name="chat">Chat</string>
+
+    <string name="pin_new">Enter new PIN</string>
+    <string name="pin_new_repeat">Repeat new PIN</string>
+    <string name="pin_new_off">PIN off</string>
+    <string name="pin_new_set">PIN on</string>
+    <string name="pin_new_notset">PIN not set!</string>
+    <string name="pin_new_nottrue">PIN not equal!</string>
+    <string name="pin_fail">Invalid PIN!</string>
 
     <string name="buy">Buy</string>
     <string name="sell">Sell</string>
