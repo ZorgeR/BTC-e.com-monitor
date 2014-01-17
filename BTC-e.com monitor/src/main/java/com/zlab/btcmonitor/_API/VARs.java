@@ -5,7 +5,7 @@ public class VARs {
     public static String RIGHTS_INFO="info";
     public static String RIGHTS_TRADE="trade";
 
-    public static String[] pairs_UI = {
+    public static String[] pairs_UIz = {
             "BTC / USD",
             "BTC / RUR",
             "BTC / EUR",
@@ -26,7 +26,7 @@ public class VARs {
             "XPM / BTC"
     };
 
-    public static String[] pairs_CODE = {
+    public static String[] pairs_CODEz = {
             "btc_usd",
             "btc_rur",
             "btc_eur",
@@ -50,14 +50,14 @@ public class VARs {
             "USD",
             "BTC",
             "LTC",
+            "EUR",
             "RUR",
             "NMC",
             "TRC",
             "PPC",
             "FTC",
             "XPM",
-            "NVC",
-            "EUR"};
+            "NVC"};
 
     /*
     public static String[] pairs_code = {

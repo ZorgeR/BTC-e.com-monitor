@@ -46,9 +46,9 @@ public class bm_Trade {
                 TextView textTradeResultOrderID = (TextView) layer.findViewById(R.id.textTradeResultOrderID);
 
                 String cur ="";
-                for(int i=0;i< VARs.pairs_UI.length;i++)
-                {if(VARs.pairs_CODE[i].equals(pair)){
-                    cur=VARs.pairs_UI[i].split(" / ")[0];
+                for(int i=0;i< bm_Main.pairs_UI.length;i++)
+                {if(bm_Main.pairs_CODE[i].equals(pair)){
+                    cur=bm_Main.pairs_UI[i].split(" / ")[0];
                 }}
 
                 textTradeResultSuccess.setText(bm_Main.bm_MainState.getResources().getString(R.string.result_success));

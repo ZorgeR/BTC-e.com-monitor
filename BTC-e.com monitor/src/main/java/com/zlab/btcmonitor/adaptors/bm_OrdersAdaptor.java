@@ -83,10 +83,10 @@ public class bm_OrdersAdaptor extends ArrayAdapter<bm_ListElementOrder> {
         if (o != null) {
 
             String pair_ui="";
-            for(int i=0;i < VARs.pairs_CODE.length;i++){
-                if(o.getPair().equals("\""+VARs.pairs_CODE[i]+"\"")){
-                    text_pair.setText(VARs.pairs_UI[i]);
-                    pair_ui=VARs.pairs_UI[i];
+            for(int i=0;i < bm_Main.pairs_CODE.length;i++){
+                if(o.getPair().equals("\""+bm_Main.pairs_CODE[i]+"\"")){
+                    text_pair.setText(bm_Main.pairs_UI[i]);
+                    pair_ui=bm_Main.pairs_UI[i];
                 }
             }
 

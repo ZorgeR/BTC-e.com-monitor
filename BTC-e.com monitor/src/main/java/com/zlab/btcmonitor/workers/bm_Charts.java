@@ -10,9 +10,11 @@ import com.zlab.btcmonitor._API.btce_getTicker;
 import com.zlab.btcmonitor.elements.bm_ListElementCharts;
 import com.zlab.btcmonitor.bm_Main;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class bm_Charts {
@@ -47,8 +49,8 @@ public class bm_Charts {
             });    */
             bm_Main.chartsBlocked=true;
 
-            String[] pairs_code = VARs.pairs_CODE;
-            String[] pairs_UI = VARs.pairs_UI;
+            String[] pairs_code = bm_Main.pairs_CODE;
+            String[] pairs_UI = bm_Main.pairs_UI;
 
             JsonObject Ticker;
 
@@ -67,33 +69,101 @@ public class bm_Charts {
                     bm_Main.chartsListDiffBuy.add("0.00");
                 }
             }
-               /*
+
+            /*
             if(bm_Main.chartsListElements.size()!=pairs_code.length){
                 // Падение
                 //Если меньше, добавить строки
                 //Если больше, убрать
-
             }   */
 
             while(bm_Main.chartsListElements.size()>pairs_code.length){
                 bm_Main.chartsListElements.remove(bm_Main.chartsListElements.size()-1);
                 bm_Main.chartsListElementsOld.remove(bm_Main.chartsListElementsOld.size()-1);
             }
+
+
             while(bm_Main.chartsListElements.size()<pairs_code.length){
-                bm_Main.chartsListElements.add(new bm_ListElementCharts("TPD / TPD","1.00","1.00","1.00","","",""));
-                bm_Main.chartsListElementsOld.add(new bm_ListElementCharts("TPD / TPD","1.00","1.00","1.00","","",""));
+                FileInputStream fis = null;
+                int i=bm_Main.chartsListElements.size();
+
+                try {
+                    fis = bm_Main.bm_MainState.openFileInput("charts_"+bm_Main.pairs_CODE[i]+".json");
+
+                    StringBuffer fileContent = new StringBuffer("");
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = fis.read(buffer)) != -1) {
+                        fileContent.append(new String(buffer));
+                    }
+                    String[] chartsElementsArray=fileContent.toString().split("&");
+
+                    bm_Main.chartsListElements.add(i,new bm_ListElementCharts(
+                            chartsElementsArray[0],
+                            chartsElementsArray[1],
+                            chartsElementsArray[2],
+                            chartsElementsArray[3],
+                            chartsElementsArray[4],
+                            chartsElementsArray[5],
+                            chartsElementsArray[6],
+                            chartsElementsArray[7]));
+                } catch (Exception e) {
+                //Log.e("ERR", "MSG");
+                    bm_Main.chartsListElements.add(new bm_ListElementCharts(bm_Main.pairs_UI[i],bm_Main.pairs_CODE[i],"0.00","0.00","0.00","","",""));
+                    bm_Main.chartsListElementsOld.add(new bm_ListElementCharts(bm_Main.pairs_UI[i],bm_Main.pairs_CODE[i],"0.00","0.00","0.00","","",""));
+                }
             }
 
-            String fail_list="";
+            bm_Main.bm_MainState.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    bm_Main.chartsAdaptor.notifyDataSetInvalidated();
+                }});
 
-            for(int i=0;i<pairs_code.length;i++){
+            String fail_list="";
+                               /*
+            List<bm_ListElementCharts> newChartsList = new ArrayList<bm_ListElementCharts>();
+
+            for(int j=0;j<bm_Main.chartsListElements.size();j++){
+                if(bm_Main.prefs_enabled_charts.contains(bm_Main.chartsListElements.get(j).getPair())){
+                    newChartsList.add(bm_Main.chartsListElements.get(j));
+                }
+            }
+
+            bm_Main.chartsListElements=newChartsList;
+            bm_Main.bm_MainState.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    bm_Main.chartsAdaptor.setItems(bm_Main.chartsListElements);
+                    bm_Main.chartsAdaptor.notifyDataSetChanged();}});  */
+                            /*
+            for(int i=0;i<pairs_UI.length;i++){
+                if(!bm_Main.prefs_enabled_charts.contains(pairs_UI[i])){
+                    //if(bm_Main.chartsListElements.size()>1){
+                    for(int j=0;j<bm_Main.chartsListElements.size();j++){
+                        if(bm_Main.chartsListElements.get(j).getPair().equals(pairs_UI[i])){
+                        bm_Main.chartsListElements.remove(j);}
+                    }
+                    //}
+                }
+            }
+                    */
+
+
+            for(int i=0;i<bm_Main.pairs_CODE.length;i++){
+                                /*
                 Ticker = btce_getTicker.getTickerObj(pairs_code[i]);
                 final String pair = pairs_UI[i];
+                                  */
+
+                Ticker = btce_getTicker.getTickerObj(bm_Main.pairs_CODE[i]);
+                final String pair = bm_Main.pairs_UI[i];
+
                 //Log.e("JSON: >>> ", Ticker.toString());
                 //String pair, String last, String buy, String sell, String updated, String high, String low
 
                 if(Ticker!=null){
-                bm_ListElementCharts el = new bm_ListElementCharts(pairs_UI[i],
+                bm_ListElementCharts el = new bm_ListElementCharts(bm_Main.pairs_UI[i],bm_Main.pairs_CODE[i],
                         btce_getTicker.get_last(Ticker),
                         btce_getTicker.get_buy(Ticker),
                         btce_getTicker.get_sell(Ticker),
@@ -108,24 +178,37 @@ public class bm_Charts {
                     bm_Main.txtLow[i] = btce_getTicker.get_low(Ticker);
                     bm_Main.txtHigh[i] = btce_getTicker.get_high(Ticker);
 
+                    try{
                     if(!bm_Main.chartsListElementsOld.get(i).getLast().equals("0.00")){
-                        bm_Main.chartsListDiff.remove(i);
+                            bm_Main.chartsListDiff.remove(i);
+
+
                         bm_Main.chartsListDiff.add(i,String.valueOf(
                                 Double.parseDouble(bm_Main.chartsListElements.get(i).getLast())
                                         -
                                         Double.parseDouble(bm_Main.chartsListElementsOld.get(i).getLast())));
 
-                        bm_Main.chartsListDiffSell.remove(i);
+                        try{
+                            bm_Main.chartsListDiffSell.remove(i);
+                        } catch (IndexOutOfBoundsException e){
+                        }
+
                         bm_Main.chartsListDiffSell.add(i,String.valueOf(
                                 Double.parseDouble(bm_Main.chartsListElements.get(i).getSell())
                                         -
                                         Double.parseDouble(bm_Main.chartsListElementsOld.get(i).getSell())));
 
-                        bm_Main.chartsListDiffBuy.remove(i);
+                        try{
+                            bm_Main.chartsListDiffBuy.remove(i);
+                        } catch (IndexOutOfBoundsException e){
+                        }
+
                         bm_Main.chartsListDiffBuy.add(i,String.valueOf(
                                 Double.parseDouble(bm_Main.chartsListElements.get(i).getBuy())
                                         -
                                         Double.parseDouble(bm_Main.chartsListElementsOld.get(i).getBuy())));
+                    }
+                    } catch (IndexOutOfBoundsException e){
                     }
                     //Log.e("chartsListElements." + i, bm_Main.chartsListElements.get(i).getLast());
                     //Log.e("chartsListElementsOld."+i,bm_Main.chartsListElementsOld.get(i).getLast());

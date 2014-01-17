@@ -11,14 +11,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.zlab.btcmonitor.bm_Main;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class navDrawerCustomView extends ArrayAdapter<String> {
     private final Context context;
-    private final String[] values;
+    private List<String> values;
+    //private List<String> items = new ArrayList<String>(Arrays.asList(values_old));
 
-    public navDrawerCustomView(Context context, String[] values) {
+    public navDrawerCustomView(Context context, List<String> values) {
         super(context, android.R.layout.simple_list_item_activated_1, values);
         this.context = context;
         this.values = values;
+        //this.items = new ArrayList<String>(Arrays.asList(values_old));
+    }
+
+    public void updateNavDrawer(List<String> newvalues){
+        values = newvalues;
+        //items = new ArrayList<String>(Arrays.asList(values_old));
     }
 
     @Override
@@ -31,7 +42,8 @@ public class navDrawerCustomView extends ArrayAdapter<String> {
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
 
         // Customization to your textView here
-        textView.setText(values[position]);
+        if(position<values.size()){
+            textView.setText(values.get(position));}
         if(bm_Main.currentApiVersion >= Build.VERSION_CODES.JELLY_BEAN){
             textView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
         }

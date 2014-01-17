@@ -32,11 +32,52 @@ import com.zlab.btcmonitor.workers.*;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class bm_Main extends Activity
         implements navDrawer.NavigationDrawerCallbacks {
+
+    /** **/
+    public static String[] pairs_UI = {
+            "BTC / USD",
+            "BTC / RUR",
+            "BTC / EUR",
+            "LTC / BTC",
+            "LTC / USD",
+            "LTC / RUR",
+            "LTC / EUR",
+            "NMC / BTC",
+            "NMC / USD",
+            "NVC / BTC",
+            "NVC / USD",
+            "USD / RUR",
+            "EUR / USD",
+            "TRC / BTC",
+            "PPC / BTC",
+            "PPC / USD",
+            "FTC / BTC",
+            "XPM / BTC"
+    };
+
+    public static String[] pairs_CODE = {
+            "btc_usd",
+            "btc_rur",
+            "btc_eur",
+            "ltc_btc",
+            "ltc_usd",
+            "ltc_rur",
+            "ltc_eur",
+            "nmc_btc",
+            "nmc_usd",
+            "nvc_btc",
+            "nvc_usd",
+            "usd_rur",
+            "eur_usd",
+            "trc_btc",
+            "ppc_btc",
+            "ppc_usd",
+            "ftc_btc",
+            "xpm_btc"};
 
     public static navDrawer mBmNavDrawer;
     public static bm_Main bm_MainState;
@@ -79,6 +120,7 @@ public class bm_Main extends Activity
     public static boolean prefs_bottom_actionbar = false; /** Кнопки снизу**/
     public static boolean prefs_black_theme = false; /** Темная тема оформления **/
     public static boolean prefs_black_charts = false; /** Темная диаграмма **/
+    public static Set<String> prefs_enabled_charts;
 
     /** === Списки === **/
     /** Курсы **/
@@ -105,9 +147,9 @@ public class bm_Main extends Activity
     public static Bitmap[] imgChartsBitmap;
     public static boolean imgRefreshIsBlocked;
     public static TextView textLast,textLow,textHigh;
-    public static String[] txtLast = new String[VARs.pairs_CODE.length];
-    public static String[] txtLow = new String[VARs.pairs_CODE.length];
-    public static String[] txtHigh = new String[VARs.pairs_CODE.length];
+    public static String[] txtLast = new String[bm_Main.pairs_CODE.length];
+    public static String[] txtLow = new String[bm_Main.pairs_CODE.length];
+    public static String[] txtHigh = new String[bm_Main.pairs_CODE.length];
 
     //public static WebView webCharts;
     /** Ордеры **/
@@ -293,19 +335,66 @@ public class bm_Main extends Activity
                     showSystemUI();
             }},250);}*/
             if(imgCharts!=null){
-                for(int i=0;i<VARs.pairs_UI.length;i++)
+                for(int i=0;i<bm_Main.pairs_UI.length;i++)
                 {
                         imgChartsBitmap[i]=BitmapFactory.decodeResource(getResources(), R.drawable.charts_loading);
                         imgCharts.setImageBitmap(imgChartsBitmap[i]);
                 }
             }
-            refresh_pair_page();
         }
         if(prefs_fullscreen){hideSystemUI();}else{mDecorView.getRootView().postDelayed(new Runnable() {
             @Override
             public void run() {
                 showSystemUI();
             }},250);}
+
+        doRefresh();
+    }
+
+    public void doRefresh(){
+        if(mTitle.equals(getResources().getString(R.string.title_charts))){
+            Thread thread = new Thread()
+            {
+                @Override
+                public void run() {
+                    bm_Charts.update_charts();
+                }
+            };
+            thread.start();
+        } else if (mTitle.equals(getResources().getString(R.string.title_office))){
+            Thread thread = new Thread()
+            {
+                @Override
+                public void run() {
+                    bm_Office.updateInfo();
+                }
+            };
+            thread.start();
+        } else {
+            refresh_pair_page();
+        }
+
+        updateNavDrawer();
+    }
+
+    public void updateNavDrawer(){
+        ArrayList<String> NAV_DRAWER = new ArrayList<String>(Arrays.asList(bm_Main.pairs_UI));
+
+        NAV_DRAWER.add(0, getString(R.string.title_charts));
+        NAV_DRAWER.add(1, getString(R.string.title_office));
+        //NAV_DRAWER.add(getString(R.string.title_fullscreen));
+        //NAV_DRAWER.add(getString(R.string.title_about));
+        /** CHAT **/
+        NAV_DRAWER.add(2, getString(R.string.chat));
+                                                         /*
+        navDrawer.my_adapter.updateNavDrawer(NAV_DRAWER.toArray(new String[NAV_DRAWER.size()]));
+        navDrawer.my_adapter.notifyDataSetChanged();
+        navDrawer.my_adapter.notifyDataSetInvalidated();
+                      */
+
+        navDrawer.my_adapter.clear();
+        navDrawer.my_adapter.addAll(NAV_DRAWER);
+        navDrawer.my_adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -313,8 +402,8 @@ public class bm_Main extends Activity
         // Pair+"*"+Last+"*"+Buy+"*"+Sell+"*"+Updated+"*"+High+"*"+Low;
         FileOutputStream fos = null;
         try {
-            for(int i=0;i<VARs.pairs_CODE.length;i++){
-                fos = openFileOutput("charts_"+VARs.pairs_CODE[i]+".json", Context.MODE_PRIVATE);
+            for(int i=0;i<bm_Main.pairs_CODE.length;i++){
+                fos = openFileOutput("charts_"+bm_Main.pairs_CODE[i]+".json", Context.MODE_PRIVATE);
                 fos.write(chartsListElements.get(i).getAsString().getBytes());
                 fos.close();
             }
@@ -346,58 +435,58 @@ public class bm_Main extends Activity
                 mTitle = getString(R.string.chat);
                 break;
             case 4:
-                mTitle = VARs.pairs_UI[0];
+                mTitle = bm_Main.pairs_UI[0];
                 break;
             case 5:
-                mTitle = VARs.pairs_UI[1];
+                mTitle = bm_Main.pairs_UI[1];
                 break;
             case 6:
-                mTitle = VARs.pairs_UI[2];
+                mTitle = bm_Main.pairs_UI[2];
                 break;
             case 7:
-                mTitle = VARs.pairs_UI[3];
+                mTitle = bm_Main.pairs_UI[3];
                 break;
             case 8:
-                mTitle = VARs.pairs_UI[4];
+                mTitle = bm_Main.pairs_UI[4];
                 break;
             case 9:
-                mTitle = VARs.pairs_UI[5];
+                mTitle = bm_Main.pairs_UI[5];
                 break;
             case 10:
-                mTitle = VARs.pairs_UI[6];
+                mTitle = bm_Main.pairs_UI[6];
                 break;
             case 11:
-                mTitle = VARs.pairs_UI[7];
+                mTitle = bm_Main.pairs_UI[7];
                 break;
             case 12:
-                mTitle = VARs.pairs_UI[8];
+                mTitle = bm_Main.pairs_UI[8];
                 break;
             case 13:
-                mTitle = VARs.pairs_UI[9];
+                mTitle = bm_Main.pairs_UI[9];
                 break;
             case 14:
-                mTitle = VARs.pairs_UI[10];
+                mTitle = bm_Main.pairs_UI[10];
                 break;
             case 15:
-                mTitle = VARs.pairs_UI[11];
+                mTitle = bm_Main.pairs_UI[11];
                 break;
             case 16:
-                mTitle = VARs.pairs_UI[12];
+                mTitle = bm_Main.pairs_UI[12];
                 break;
             case 17:
-                mTitle = VARs.pairs_UI[13];
+                mTitle = bm_Main.pairs_UI[13];
                 break;
             case 18:
-                mTitle = VARs.pairs_UI[14];
+                mTitle = bm_Main.pairs_UI[14];
                 break;
             case 19:
-                mTitle = VARs.pairs_UI[15];
+                mTitle = bm_Main.pairs_UI[15];
                 break;
             case 20:
-                mTitle = VARs.pairs_UI[16];
+                mTitle = bm_Main.pairs_UI[16];
                 break;
             case 21:
-                mTitle = VARs.pairs_UI[17];
+                mTitle = bm_Main.pairs_UI[17];
                 break;
         }
     }
@@ -523,27 +612,7 @@ public class bm_Main extends Activity
                 return true;
             }
             case R.id.action_refresh:{
-                if(mTitle.equals(getResources().getString(R.string.title_charts))){
-                    Thread thread = new Thread()
-                    {
-                        @Override
-                        public void run() {
-                            bm_Charts.update_charts();
-                        }
-                    };
-                    thread.start();
-                } else if (mTitle.equals(getResources().getString(R.string.title_office))){
-                    Thread thread = new Thread()
-                    {
-                        @Override
-                        public void run() {
-                            bm_Office.updateInfo();
-                        }
-                    };
-                    thread.start();
-                } else {
-                    refresh_pair_page();
-                }
+                doRefresh();
                 return true;
             }
         }
@@ -590,6 +659,8 @@ public class bm_Main extends Activity
 
     public static View pageChat(ViewGroup container, LayoutInflater inflater){
         View rootView = inflater.inflate(R.layout.chat, container, false);
+
+
         final WebView webView = (WebView) rootView.findViewById(R.id.webChat);
 
         webView.getSettings().setJavaScriptEnabled(true);
@@ -614,7 +685,6 @@ public class bm_Main extends Activity
 
                 webView.loadUrl("javascript:(function() { " + "document.getElementById('header-ticker').style.display='none'; " + "})()");
 
-
                 //webView.loadUrl("javascript:(function() { " + "document.getElementById('nav-container').style.display='none'; " + "})()");
                 webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('menu')[0].style.display='none'; " + "})()");
 
@@ -623,9 +693,7 @@ public class bm_Main extends Activity
 
                 webView.loadUrl("javascript:(function() { " + "document.getElementById('header-logo').style.display='none'; " + "})()");
 
-
                 //webView.loadUrl("javascript:(function() { " + "document.getElementsById('body')[0].style.color = 'red'; " + "})()");
-
             }
         });
         webView.loadUrl("https://btc-e.com/");
@@ -682,7 +750,7 @@ public class bm_Main extends Activity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 navDrawer.selectItem(position + 3);
                 //bm_MainState.onNavigationDrawerItemSelected(position+2);
-                mTitle = VARs.pairs_UI[position];
+                mTitle = bm_Main.pairs_UI[position];
                 bm_MainState.invalidateOptionsMenu();
             }
         });
@@ -739,12 +807,12 @@ public class bm_Main extends Activity
 
         //int pair_code=-1;
         int pair_code=0; /** Fix crash on back button and resume **/
-        for(int i=0;i<VARs.pairs_UI.length;i++)
-        {if(VARs.pairs_UI[i].equals(mTitle)){
+        for(int i=0;i<bm_Main.pairs_UI.length;i++)
+        {if(bm_Main.pairs_UI[i].equals(mTitle)){
             pair_code=i;
         }}
         final int PAIR_CODE = pair_code;
-        final String PAIR_ID = VARs.pairs_CODE[PAIR_CODE];
+        final String PAIR_ID = bm_Main.pairs_CODE[PAIR_CODE];
 
         btn_Buy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -801,8 +869,8 @@ public class bm_Main extends Activity
                     }
                 });
 
-                for(int i=0;i<VARs.pairs_UI.length;i++)
-                {if(VARs.pairs_UI[i].equals(mTitle)){
+                for(int i=0;i<bm_Main.pairs_UI.length;i++)
+                {if(bm_Main.pairs_UI[i].equals(mTitle)){
                     editTradePrice.setText(pairAskElements[i].get(0).getPrice());
                     textTradeAmount.setText(textTradeAmount.getText()+" "+mTitle.toString().split(" / ")[0]+":");
                     textTradePrice.setText(textTradePrice.getText()+" "+mTitle.toString().split(" / ")[0]+":");
@@ -848,8 +916,8 @@ public class bm_Main extends Activity
                 final TextView textTradeTotal = (TextView) layer.findViewById(R.id.textTradeTotal);
                 final TextView textTradeTax = (TextView) layer.findViewById(R.id.textTradeTax);
 
-                for(int i=0;i<VARs.pairs_UI.length;i++)
-                {if(VARs.pairs_UI[i].equals(mTitle)){
+                for(int i=0;i<bm_Main.pairs_UI.length;i++)
+                {if(bm_Main.pairs_UI[i].equals(mTitle)){
                     editTradePrice.setText(pairAskElements[i].get(0).getPrice());
                     textTradeAmount.setText(textTradeAmount.getText()+" "+mTitle.toString().split(" / ")[0]+":");
                     textTradePrice.setText(textTradePrice.getText()+" "+mTitle.toString().split(" / ")[0]+":");
@@ -969,11 +1037,11 @@ public class bm_Main extends Activity
         pairAskList = (ListView) rootView.findViewById(R.id.listAsk);
         pairBidsList = (ListView) rootView.findViewById(R.id.listBids);
 
-        if(pairAskElements==null){pairAskElements = (List<bm_ListElementsDepth>[]) new List[VARs.pairs_CODE.length];}
-        if(pairBidsElements==null){pairBidsElements=(List<bm_ListElementsDepth>[]) new List[VARs.pairs_CODE.length];}
+        if(pairAskElements==null){pairAskElements = (List<bm_ListElementsDepth>[]) new List[bm_Main.pairs_CODE.length];}
+        if(pairBidsElements==null){pairBidsElements=(List<bm_ListElementsDepth>[]) new List[bm_Main.pairs_CODE.length];}
 
-        if(pairAskAdaptor==null){pairAskAdaptor=new bm_DepthAdaptor[VARs.pairs_CODE.length];}
-        if(pairBidsAdaptor==null){pairBidsAdaptor=new bm_DepthAdaptor[VARs.pairs_CODE.length];}
+        if(pairAskAdaptor==null){pairAskAdaptor=new bm_DepthAdaptor[bm_Main.pairs_CODE.length];}
+        if(pairBidsAdaptor==null){pairBidsAdaptor=new bm_DepthAdaptor[bm_Main.pairs_CODE.length];}
 
         if(pairAskElements[PAIR_CODE]!=null && pairBidsAdaptor!=null){
             //pairAskAdaptor = new bm_DepthAdaptor(bm_MainContext,R.layout.depth_list_item,pairAskElements);
@@ -995,7 +1063,7 @@ public class bm_Main extends Activity
         final LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.chartsLayout);
 
 
-        if(imgChartsBitmap==null){imgChartsBitmap=new Bitmap[VARs.pairs_CODE.length];}
+        if(imgChartsBitmap==null){imgChartsBitmap=new Bitmap[bm_Main.pairs_CODE.length];}
 
         if(imgChartsBitmap[PAIR_CODE]!=null){imgCharts.setImageBitmap(imgChartsBitmap[PAIR_CODE]);}
 
@@ -1094,19 +1162,19 @@ public class bm_Main extends Activity
         {
             @Override
             public void run() {
-                for(int i=0;i<VARs.pairs_UI.length;i++){
-                    if(VARs.pairs_UI[i].equals(mTitle)){
-                        bm_Depth.update_depth(VARs.pairs_CODE[i]);
+                for(int i=0;i<bm_Main.pairs_UI.length;i++){
+                    if(bm_Main.pairs_UI[i].equals(mTitle)){
+                        bm_Depth.update_depth(bm_Main.pairs_CODE[i]);
                         bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 bm_MainState.setProgressBarIndeterminateVisibility(true);
                             }
                         });
-                        bm_ActiveOrders.getActiveOrders(VARs.pairs_CODE[i]);
-                        bm_PairHistory.getHistory(VARs.pairs_CODE[i]);
+                        bm_ActiveOrders.getActiveOrders(bm_Main.pairs_CODE[i]);
+                        bm_PairHistory.getHistory(bm_Main.pairs_CODE[i]);
 
-                        JsonObject Ticker = btce_getTicker.getTickerObj(VARs.pairs_CODE[i]);
+                        JsonObject Ticker = btce_getTicker.getTickerObj(bm_Main.pairs_CODE[i]);
                         if(Ticker!=null){
                         bm_Main.txtLast[i] = btce_getTicker.get_last(Ticker);
                         bm_Main.txtLow[i] = btce_getTicker.get_low(Ticker);
@@ -1118,10 +1186,10 @@ public class bm_Main extends Activity
                             try {
                                 final int PAIR_CODE=i;
                                 if(prefs_black_charts){
-                                    imgChartsBitmap[i] = invert(BitmapFactory.decodeStream((InputStream) new URL(API_ZLAB_URL+VARs.pairs_CODE[i]+".php").getContent()));
+                                    imgChartsBitmap[i] = invert(BitmapFactory.decodeStream((InputStream) new URL(API_ZLAB_URL+bm_Main.pairs_CODE[i]+".php").getContent()));
                                     DIAGRAM_IS_BLACK=true;
                                 } else {
-                                    imgChartsBitmap[i] = BitmapFactory.decodeStream((InputStream) new URL(API_ZLAB_URL+VARs.pairs_CODE[i]+".php").getContent());
+                                    imgChartsBitmap[i] = BitmapFactory.decodeStream((InputStream) new URL(API_ZLAB_URL+bm_Main.pairs_CODE[i]+".php").getContent());
                                 }
                                 //DIAGRAM_LAST_REFRESH =System.currentTimeMillis()/1000;
                                 bm_Main.bm_MainState.runOnUiThread(new Runnable() {
@@ -1164,6 +1232,56 @@ public class bm_Main extends Activity
         API_SECRET = prefs.getString("prefs_API_SECRET","93356012c426dfa50528757c0ffc9707db13477c81b34f332e9350a2f81adc1c");
         API_URL_PRIVATE = prefs.getString("prefs_API_URL_PRIVATE","https://btc-e.com/tapi");
         API_URL_PUBLIC = prefs.getString("prefs_API_URL_PUBLIC","https://btc-e.com/api/2/");
+
+        /*Set<String> prefs_enabled_charts_selections = prefs.getStringSet("prefs_enabled_charts",
+                new HashSet<String>(Arrays.asList(
+                        "BTC / USD",
+                        "BTC / RUR",
+                        "BTC / EUR",
+                        "LTC / BTC",
+                        "LTC / USD",
+                        "LTC / RUR",
+                        "LTC / EUR",
+                        "NMC / BTC",
+                        "NMC / USD",
+                        "NVC / BTC",
+                        "NVC / USD",
+                        "USD / RUR",
+                        "EUR / USD",
+                        "TRC / BTC",
+                        "PPC / BTC",
+                        "PPC / USD",
+                        "FTC / BTC",
+                        "XPM / BTC"))); */
+
+        //prefs_enabled_charts = new HashSet<String>(Arrays.asList(VARs.pairs_UI));
+
+        prefs_enabled_charts = prefs.getStringSet("prefs_enabled_charts",new HashSet<String>(Arrays.asList(VARs.pairs_UIz)));
+
+        int c=0;
+        for(int j=0;j<VARs.pairs_UIz.length;j++){
+            if(bm_Main.prefs_enabled_charts.contains(VARs.pairs_UIz[j])){
+                c++;
+            }
+        }
+        pairs_UI=new String[c];
+        pairs_CODE=new String[c];
+        txtLast = new String[c];
+        txtLow = new String[c];
+        txtHigh = new String[c];
+        c=0;
+
+        for(int j=0;j<VARs.pairs_UIz.length;j++){
+            if(bm_Main.prefs_enabled_charts.contains(VARs.pairs_UIz[j])){
+                pairs_UI[c]=VARs.pairs_UIz[j];
+                pairs_CODE[c]=VARs.pairs_CODEz[j];
+                c++;
+            }
+        }
+
+
+
+        //prefs_enabled_charts[]
     }
 
     public void configUI(){
@@ -1278,53 +1396,45 @@ public class bm_Main extends Activity
 
     private static void chartsArrayBlank(){
         chartsListElements=new ArrayList<bm_ListElementCharts>();
-        chartsListElements.add(new bm_ListElementCharts("BTC / USD","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("BTC / RUR","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("BTC / EUR","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("LTC / BTC","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("LTC / USD","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("LTC / RUR","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("LTC / EUR","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("NMC / BTC","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("NMC / USD","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("NVC / BTC","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("NVC / USD","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("USD / RUR","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("EUR / USD","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("TRC / BTC","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("PPC / BTC","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("PPC / USD","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("FTC / BTC","0.00","0.00","0.00","","",""));
-        chartsListElements.add(new bm_ListElementCharts("XPM / BTC","0.00","0.00","0.00","","",""));
-
+          /*
+        for(int i=0;i<bm_Main.pairs_CODE.length;i++){
+            chartsListElements.add(new bm_ListElementCharts(bm_Main.pairs_UI[i],bm_Main.pairs_CODE[i],"0.00","0.00","0.00","","",""));
+        }
+           */
         // Pair+"*"+Last+"*"+Buy+"*"+Sell+"*"+Updated+"*"+High+"*"+Low;
         FileInputStream fis = null;
-        try {
-            for(int i=0;i<VARs.pairs_CODE.length;i++){
-                fis = bm_MainState.openFileInput("charts_"+VARs.pairs_CODE[i]+".json");
+        for(int i=0;i<bm_Main.pairs_CODE.length;i++){
+            try {
+                    fis = bm_MainState.openFileInput("charts_"+bm_Main.pairs_CODE[i]+".json");
 
-                StringBuffer fileContent = new StringBuffer("");
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = fis.read(buffer)) != -1) {
-                    fileContent.append(new String(buffer));
-                }
+                    StringBuffer fileContent = new StringBuffer("");
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = fis.read(buffer)) != -1) {
+                        fileContent.append(new String(buffer));
+                    }
 
-                String[] chartsElementsArray=fileContent.toString().split("&");
+                    String[] chartsElementsArray=fileContent.toString().split("&");
 
-                chartsListElements.remove(i);
-                chartsListElements.add(i,new bm_ListElementCharts(
-                        chartsElementsArray[0],
-                        chartsElementsArray[1],
-                        chartsElementsArray[2],
-                        chartsElementsArray[3],
-                        chartsElementsArray[4],
-                        chartsElementsArray[5],
-                        chartsElementsArray[6]));
+                    /** Проверка на out of bound **/
+            try{
+                    chartsListElements.remove(i);
+            } catch (IndexOutOfBoundsException e){}
+
+                    chartsListElements.add(i,new bm_ListElementCharts(
+                            chartsElementsArray[0],
+                            chartsElementsArray[1],
+                            chartsElementsArray[2],
+                            chartsElementsArray[3],
+                            chartsElementsArray[4],
+                            chartsElementsArray[5],
+                            chartsElementsArray[6],
+                            chartsElementsArray[7]));
+                REFRESH_COUNTER++;
+            } catch (Exception e) {
+                //Log.e("ERR", "MSG");
+                chartsListElements.add(new bm_ListElementCharts(bm_Main.pairs_UI[i],bm_Main.pairs_CODE[i],"0.00","0.00","0.00","","",""));
             }
-            REFRESH_COUNTER++;
-        } catch (Exception e) {
-            //Log.e("ERR", "MSG");
         }
 
 

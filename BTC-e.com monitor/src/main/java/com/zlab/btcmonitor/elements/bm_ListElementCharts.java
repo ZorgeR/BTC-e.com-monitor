@@ -7,6 +7,7 @@ import java.util.Date;
 public class bm_ListElementCharts {
 
     private String Pair;
+    private String PairCode;
     private String Last;
     private String Buy;
     private String Sell;
@@ -16,10 +17,11 @@ public class bm_ListElementCharts {
     //private Date postDate;
     //private Drawable avatar;
 
-    public bm_ListElementCharts(String pair, String last, String buy, String sell, String updated, String high, String low)
+    public bm_ListElementCharts(String pair, String paircode, String last, String buy, String sell, String updated, String high, String low)
     {
         //"high":8.611,"low":6.4937,"avg":7.55235,"vol":8715193.94423,"vol_cur":1136312.65928,"last":8.3897,"buy":8.3897,"sell":8.375,"updated":1385057269,"server_time":1385057270
         Pair = pair;
+        PairCode = paircode;
         Last = last;
         Buy = buy;
         Sell = sell;
@@ -31,6 +33,10 @@ public class bm_ListElementCharts {
     public String getPair()
     {
         return Pair;
+    }
+    public String getPairCode()
+    {
+        return PairCode;
     }
     public String getLast()
     {
@@ -55,6 +61,6 @@ public class bm_ListElementCharts {
         return Low;
     }
     public String getAsString(){
-        return Pair+"&"+Last+"&"+Buy+"&"+Sell+"&"+Updated+"&"+High+"&"+Low;
+        return Pair+"&"+PairCode+"&"+Last+"&"+Buy+"&"+Sell+"&"+Updated+"&"+High+"&"+Low;
     }
 }

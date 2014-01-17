@@ -22,8 +22,8 @@ public class bm_Depth {
             }
         });
         int PAIR_CODE=-1;
-        for(int i=0;i<VARs.pairs_CODE.length;i++)
-        {if(VARs.pairs_CODE[i].equals(pair)){
+        for(int i=0;i<bm_Main.pairs_CODE.length;i++)
+        {if(bm_Main.pairs_CODE[i].equals(pair)){
             PAIR_CODE=i;
         }}
 

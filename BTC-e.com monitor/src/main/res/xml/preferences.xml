@@ -9,7 +9,7 @@
         <CheckBoxPreference android:key="prefs_bottom_actionbar" android:title="@string/bottom_panel" android:summary="@string/need_restart" android:defaultValue="false"></CheckBoxPreference>
         <CheckBoxPreference android:key="prefs_black_theme" android:title="@string/theme_black" android:summary="@string/need_restart" android:defaultValue="false"></CheckBoxPreference>
         <CheckBoxPreference android:key="prefs_black_charts" android:title="@string/black_diagram" android:defaultValue="false"></CheckBoxPreference>
-
+        <MultiSelectListPreference android:key="prefs_enabled_charts" android:title="@string/enabled_charts" android:entries="@array/CUR_LIST" android:entryValues="@array/CUR_LIST" android:defaultValue="@array/CUR_LIST"></MultiSelectListPreference>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/api_settings">
         <EditTextPreference android:key="prefs_API_KEY" android:title="API Key" android:defaultValue="UTGST9S5-KJU056A3-OLRLAPNL-DWQCIC05-UJT5UASQ"></EditTextPreference>

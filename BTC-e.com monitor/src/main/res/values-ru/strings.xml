@@ -25,6 +25,7 @@
     <string name="sec_settings">Безопасность</string>
     <string name="finance">Финансы:</string>
     <string name="chat">Чат</string>
+    <string name="enabled_charts">Валютные пары</string>
 
     <string name="pin_new">Введите новый PIN</string>
     <string name="pin_new_repeat">Повторите новый PIN</string>

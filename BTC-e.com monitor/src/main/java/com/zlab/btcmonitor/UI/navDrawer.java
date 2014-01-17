@@ -19,9 +19,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.zlab.btcmonitor.R;
+import com.zlab.btcmonitor.bm_Main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -52,8 +54,9 @@ public class navDrawer extends Fragment {
     private ActionBarDrawerToggle mDrawerToggle;
 
     private static DrawerLayout mDrawerLayout;
-    private static ListView mDrawerListView;
+    public static ListView mDrawerListView;
     public static View mFragmentContainerView;
+    public static navDrawerCustomView my_adapter;
 
     private static int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
@@ -95,7 +98,10 @@ public class navDrawer extends Fragment {
             }
         });
 
-        ArrayList<String> NAV_DRAWER = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.CUR_LIST)));
+        //ArrayList<String> NAV_DRAWER = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.CUR_LIST)));
+
+        List<String> NAV_DRAWER = new ArrayList<String>(Arrays.asList(bm_Main.pairs_UI));
+
         NAV_DRAWER.add(0, getString(R.string.title_charts));
         NAV_DRAWER.add(1, getString(R.string.title_office));
         //NAV_DRAWER.add(getString(R.string.title_fullscreen));
@@ -103,7 +109,7 @@ public class navDrawer extends Fragment {
         /** CHAT **/
         NAV_DRAWER.add(2, getString(R.string.chat));
 
-        navDrawerCustomView my_adapter = new navDrawerCustomView(getActionBar().getThemedContext(),NAV_DRAWER.toArray(new String[NAV_DRAWER.size()]));
+        my_adapter = new navDrawerCustomView(getActionBar().getThemedContext(),NAV_DRAWER);
 
         mDrawerListView.setAdapter(my_adapter);
 

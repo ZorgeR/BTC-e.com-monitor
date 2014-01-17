@@ -25,6 +25,7 @@
     <string name="sec_settings">Security settings</string>
     <string name="finance">Finance:</string>
     <string name="chat">Chat</string>
+    <string name="enabled_charts">Сurrency pairs</string>
 
     <string name="pin_new">Enter new PIN</string>
     <string name="pin_new_repeat">Repeat new PIN</string>

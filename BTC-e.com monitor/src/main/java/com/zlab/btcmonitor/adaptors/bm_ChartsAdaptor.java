@@ -175,10 +175,16 @@ public class bm_ChartsAdaptor extends ArrayAdapter<bm_ListElementCharts> {
             if(bm_Main.prefs_show_vector){
                 img_vector.setVisibility(View.VISIBLE);
                 if(bm_Main.chartsListDiff!=null && bm_Main.chartsListDiff.size()!=0){
+                    Double diff = 0.00;
+                    Double diffSell = 0.00;
+                    Double diffBuy = 0.00;
 
-                    Double diff = Double.parseDouble(bm_Main.chartsListDiff.get(position));
-                    Double diffSell = Double.parseDouble(bm_Main.chartsListDiffSell.get(position));
-                    Double diffBuy = Double.parseDouble(bm_Main.chartsListDiffBuy.get(position));
+                    try{
+                        diff = Double.parseDouble(bm_Main.chartsListDiff.get(position));
+                        diffSell = Double.parseDouble(bm_Main.chartsListDiffSell.get(position));
+                        diffBuy = Double.parseDouble(bm_Main.chartsListDiffBuy.get(position));
+                    } catch (IndexOutOfBoundsException e){
+                    }
 
                     NumberFormat formatter = new DecimalFormat("#0.00000");
 
@@ -242,6 +248,7 @@ public class bm_ChartsAdaptor extends ArrayAdapter<bm_ListElementCharts> {
             });
             */
         }
+
 
         return v;
     }

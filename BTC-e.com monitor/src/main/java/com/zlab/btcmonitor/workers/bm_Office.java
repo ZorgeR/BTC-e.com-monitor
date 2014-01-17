@@ -49,7 +49,7 @@ public class bm_Office {
                 //Log.e("JSON: >>> ",Ticker.toString());
                 //String pair, String last, String buy, String sell, String updated, String high, String low
                 bm_ListElementCharts el = new bm_ListElementCharts(
-                        funds_code[i],
+                        funds_code[i],"",
                         btce_getInfo.getFunds(RETURN, funds_code[i]),
                         "","","","","");
 
