@@ -382,15 +382,8 @@ public class bm_Main extends Activity
 
         NAV_DRAWER.add(0, getString(R.string.title_charts));
         NAV_DRAWER.add(1, getString(R.string.title_office));
-        //NAV_DRAWER.add(getString(R.string.title_fullscreen));
-        //NAV_DRAWER.add(getString(R.string.title_about));
         /** CHAT **/
         NAV_DRAWER.add(2, getString(R.string.chat));
-                                                         /*
-        navDrawer.my_adapter.updateNavDrawer(NAV_DRAWER.toArray(new String[NAV_DRAWER.size()]));
-        navDrawer.my_adapter.notifyDataSetChanged();
-        navDrawer.my_adapter.notifyDataSetInvalidated();
-                      */
 
         navDrawer.my_adapter.clear();
         navDrawer.my_adapter.addAll(NAV_DRAWER);
@@ -604,11 +597,6 @@ public class bm_Main extends Activity
                 AlertDialog AboutDialog = ab.create();
                 AboutDialog.show();
 
-                /*
-                View layer = getLayoutInflater().inflate(R.layout.about,null);
-                PopupWindow pw = new PopupWindow(bm_MainContext);
-                pw.setContentView(layer);
-                pw.showAtLocation(mDecorView.getRootView(),Gravity.CENTER,0,0);*/
                 return true;
             }
             case R.id.action_refresh:{
@@ -703,10 +691,6 @@ public class bm_Main extends Activity
     public static View pageOffice(ViewGroup container, LayoutInflater inflater){
         View rootView = inflater.inflate(R.layout.office, container, false);
         if(fundsListElements!=null){
-            //fundsAdaptor = new bm_ChartsAdaptor(bm_MainContext,R.layout.charts_list_item, fundsListElements);
-            //fundsList.setAdapter(fundsAdaptor);
-                    /*if(fundsList==null){*/fundsList = (ListView) rootView.findViewById(R.id.FundsList);//}
-            //if(fundsAdaptor==null){
             fundsAdaptor = new bm_FundsAdaptor(bm_MainContext,R.layout.charts_list_item,fundsListElements);
             //fundsList.setAdapter(fundsAdaptor);
             //}
