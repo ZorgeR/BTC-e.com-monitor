@@ -328,12 +328,6 @@ public class bm_Main extends Activity
             getSettigns();
             if(chartsAdaptor!=null){chartsAdaptor.notifyDataSetChanged();}
             if(fundsAdaptor!=null){fundsAdaptor.notifyDataSetChanged();}
-            /*
-            if(prefs_fullscreen){hideSystemUI();}else{mDecorView.getRootView().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    showSystemUI();
-            }},250);}*/
             if(imgCharts!=null){
                 for(int i=0;i<bm_Main.pairs_UI.length;i++)
                 {
@@ -341,14 +335,13 @@ public class bm_Main extends Activity
                         imgCharts.setImageBitmap(imgChartsBitmap[i]);
                 }
             }
+            doRefresh();
         }
         if(prefs_fullscreen){hideSystemUI();}else{mDecorView.getRootView().postDelayed(new Runnable() {
             @Override
             public void run() {
                 showSystemUI();
             }},250);}
-
-        doRefresh();
     }
 
     public void doRefresh(){
@@ -373,7 +366,6 @@ public class bm_Main extends Activity
         } else {
             refresh_pair_page();
         }
-
         updateNavDrawer();
     }
 
@@ -1263,8 +1255,6 @@ public class bm_Main extends Activity
             }
         }
 
-
-
         //prefs_enabled_charts[]
     }
 
@@ -1380,11 +1370,6 @@ public class bm_Main extends Activity
 
     private static void chartsArrayBlank(){
         chartsListElements=new ArrayList<bm_ListElementCharts>();
-          /*
-        for(int i=0;i<bm_Main.pairs_CODE.length;i++){
-            chartsListElements.add(new bm_ListElementCharts(bm_Main.pairs_UI[i],bm_Main.pairs_CODE[i],"0.00","0.00","0.00","","",""));
-        }
-           */
         // Pair+"*"+Last+"*"+Buy+"*"+Sell+"*"+Updated+"*"+High+"*"+Low;
         FileInputStream fis = null;
         for(int i=0;i<bm_Main.pairs_CODE.length;i++){
@@ -1420,7 +1405,5 @@ public class bm_Main extends Activity
                 chartsListElements.add(new bm_ListElementCharts(bm_Main.pairs_UI[i],bm_Main.pairs_CODE[i],"0.00","0.00","0.00","","",""));
             }
         }
-
-
     }
 }

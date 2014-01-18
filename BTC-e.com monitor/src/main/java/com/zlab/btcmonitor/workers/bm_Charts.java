@@ -114,12 +114,6 @@ public class bm_Charts {
                 }
             }
 
-            bm_Main.bm_MainState.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    bm_Main.chartsAdaptor.notifyDataSetInvalidated();
-                }});
-
             String fail_list="";
                                /*
             List<bm_ListElementCharts> newChartsList = new ArrayList<bm_ListElementCharts>();
