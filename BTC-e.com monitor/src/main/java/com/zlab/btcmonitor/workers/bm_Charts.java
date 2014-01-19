@@ -29,27 +29,6 @@ public class bm_Charts {
         if(!bm_Main.chartsBlocked){
             bm_Main.chartsBlocked=true;
 
-            int c=0;
-            for(int j=0;j<VARs.pairs_UIz.length;j++){
-                if(bm_Main.prefs_enabled_charts.contains(VARs.pairs_UIz[j])){
-                    c++;
-                }
-            }
-            bm_Main.pairs_UI = new String[c];
-            bm_Main.pairs_CODE = new String[c];
-            bm_Main.txtLast = new String[c];
-            bm_Main.txtLow = new String[c];
-            bm_Main.txtHigh = new String[c];
-            c=0;
-
-            for(int j=0;j<VARs.pairs_UIz.length;j++){
-                if(bm_Main.prefs_enabled_charts.contains(VARs.pairs_UIz[j])){
-                    bm_Main.pairs_UI[c]=VARs.pairs_UIz[j];
-                    bm_Main.pairs_CODE[c]=VARs.pairs_CODEz[j];
-                    c++;
-                }
-            }
-
             pairs_code = bm_Main.pairs_CODE.clone();
             pairs_UI = bm_Main.pairs_UI.clone();
 
