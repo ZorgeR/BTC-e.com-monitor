@@ -23,10 +23,7 @@ import com.zlab.btcmonitor.UI.navDrawer;
 import com.zlab.btcmonitor._API.VARs;
 import com.zlab.btcmonitor._API.btce_getTicker;
 import com.zlab.btcmonitor.adaptors.*;
-import com.zlab.btcmonitor.elements.bm_ListElementCharts;
-import com.zlab.btcmonitor.elements.bm_ListElementOrder;
-import com.zlab.btcmonitor.elements.bm_ListElementsDepth;
-import com.zlab.btcmonitor.elements.bm_ListElementsHistory;
+import com.zlab.btcmonitor.elements.*;
 import com.zlab.btcmonitor.workers.*;
 
 import java.io.*;
@@ -38,47 +35,6 @@ public class bm_Main extends Activity
         implements navDrawer.NavigationDrawerCallbacks {
 
     /** **/
-    public static String[] pairs_UI = {
-            "BTC / USD",
-            "BTC / RUR",
-            "BTC / EUR",
-            "LTC / BTC",
-            "LTC / USD",
-            "LTC / RUR",
-            "LTC / EUR",
-            "NMC / BTC",
-            "NMC / USD",
-            "NVC / BTC",
-            "NVC / USD",
-            "USD / RUR",
-            "EUR / USD",
-            "TRC / BTC",
-            "PPC / BTC",
-            "PPC / USD",
-            "FTC / BTC",
-            "XPM / BTC"
-    };
-
-    public static String[] pairs_CODE = {
-            "btc_usd",
-            "btc_rur",
-            "btc_eur",
-            "ltc_btc",
-            "ltc_usd",
-            "ltc_rur",
-            "ltc_eur",
-            "nmc_btc",
-            "nmc_usd",
-            "nvc_btc",
-            "nvc_usd",
-            "usd_rur",
-            "eur_usd",
-            "trc_btc",
-            "ppc_btc",
-            "ppc_usd",
-            "ftc_btc",
-            "xpm_btc"};
-
     public static navDrawer mBmNavDrawer;
     public static bm_Main bm_MainState;
     public static Context bm_MainContext;
@@ -101,6 +57,8 @@ public class bm_Main extends Activity
     static String PIN;
     private static String PINCheck="";
     private static boolean PIN_SHOW;
+    public static String[] pairs_UI;
+    public static String[] pairs_CODE;
 
     /** API **/
     public static String API_URL_PRIVATE;
@@ -128,7 +86,7 @@ public class bm_Main extends Activity
     public static bm_ChartsAdaptor chartsAdaptor;
     public static List<bm_ListElementCharts> chartsListElements;
     public static List<bm_ListElementCharts> chartsListElementsOld;
-    public static List<String> chartsListDiff,chartsListDiffSell,chartsListDiffBuy;
+    public static List<bm_ChartsListDiffElements> chartsListDiff,chartsListDiffSell,chartsListDiffBuy;
     public static boolean chartsBlocked=false;
     /** Финансы **/
     public static bm_FundsAdaptor fundsAdaptor;
@@ -147,9 +105,9 @@ public class bm_Main extends Activity
     public static Bitmap[] imgChartsBitmap;
     public static boolean imgRefreshIsBlocked;
     public static TextView textLast,textLow,textHigh;
-    public static String[] txtLast = new String[bm_Main.pairs_CODE.length];
-    public static String[] txtLow = new String[bm_Main.pairs_CODE.length];
-    public static String[] txtHigh = new String[bm_Main.pairs_CODE.length];
+    public static String[] txtLast = new String[VARs.pairs_CODEz.length];
+    public static String[] txtLow = new String[VARs.pairs_CODEz.length];
+    public static String[] txtHigh = new String[VARs.pairs_CODEz.length];
 
     //public static WebView webCharts;
     /** Ордеры **/
@@ -165,6 +123,11 @@ public class bm_Main extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         /** Определение версии API **/
         currentApiVersion = android.os.Build.VERSION.SDK_INT;
+
+        /** Обновление массива валют **/
+        pairs_UI=VARs.pairs_UIz;
+        pairs_CODE=VARs.pairs_CODEz;
+
         /** Инициализация настроек **/
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         getSettigns();
@@ -1233,27 +1196,6 @@ public class bm_Main extends Activity
         //prefs_enabled_charts = new HashSet<String>(Arrays.asList(VARs.pairs_UI));
 
         prefs_enabled_charts = prefs.getStringSet("prefs_enabled_charts",new HashSet<String>(Arrays.asList(VARs.pairs_UIz)));
-
-        int c=0;
-        for(int j=0;j<VARs.pairs_UIz.length;j++){
-            if(bm_Main.prefs_enabled_charts.contains(VARs.pairs_UIz[j])){
-                c++;
-            }
-        }
-        pairs_UI=new String[c];
-        pairs_CODE=new String[c];
-        txtLast = new String[c];
-        txtLow = new String[c];
-        txtHigh = new String[c];
-        c=0;
-
-        for(int j=0;j<VARs.pairs_UIz.length;j++){
-            if(bm_Main.prefs_enabled_charts.contains(VARs.pairs_UIz[j])){
-                pairs_UI[c]=VARs.pairs_UIz[j];
-                pairs_CODE[c]=VARs.pairs_CODEz[j];
-                c++;
-            }
-        }
 
         //prefs_enabled_charts[]
     }

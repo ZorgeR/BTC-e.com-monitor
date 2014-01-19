@@ -63,4 +63,9 @@ public class bm_ListElementCharts {
     public String getAsString(){
         return Pair+"&"+PairCode+"&"+Last+"&"+Buy+"&"+Sell+"&"+Updated+"&"+High+"&"+Low;
     }
+
+    public void setPair(String newpair)
+    {
+        Pair=newpair;
+    }
 }

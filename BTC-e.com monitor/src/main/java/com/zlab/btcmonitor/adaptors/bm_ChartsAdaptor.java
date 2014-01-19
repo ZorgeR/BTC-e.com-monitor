@@ -180,9 +180,9 @@ public class bm_ChartsAdaptor extends ArrayAdapter<bm_ListElementCharts> {
                     Double diffBuy = 0.00;
 
                     try{
-                        diff = Double.parseDouble(bm_Main.chartsListDiff.get(position));
-                        diffSell = Double.parseDouble(bm_Main.chartsListDiffSell.get(position));
-                        diffBuy = Double.parseDouble(bm_Main.chartsListDiffBuy.get(position));
+                        diff = Double.parseDouble(bm_Main.chartsListDiff.get(position).getValue());
+                        diffSell = Double.parseDouble(bm_Main.chartsListDiffSell.get(position).getValue());
+                        diffBuy = Double.parseDouble(bm_Main.chartsListDiffBuy.get(position).getValue());
                     } catch (IndexOutOfBoundsException e){
                     }
 
