@@ -309,14 +309,25 @@ public class bm_Main extends Activity
 
     public void doRefresh(){
         if(mTitle.equals(getResources().getString(R.string.title_charts))){
-            Thread thread = new Thread()
-            {
-                @Override
-                public void run() {
-                    bm_Charts.update_charts();
-                }
-            };
-            thread.start();
+            if(!bm_Main.chartsBlocked){
+                bm_Main.chartsBlocked=true;
+
+                final String[] pairscode = bm_Main.pairs_CODE.clone();
+                final String[] pairsui = bm_Main.pairs_UI.clone();
+
+                bm_Charts.listElementsSizeCheck(pairscode,pairsui);
+                bm_Main.chartsAdaptor.setItems(bm_Main.chartsListElements);
+                bm_Main.chartsAdaptor.notifyDataSetChanged();
+
+                Thread thread = new Thread()
+                {
+                    @Override
+                    public void run() {
+                        bm_Charts.update_charts(pairscode,pairsui);
+                    }
+                };
+                thread.start();
+            }
         } else if (mTitle.equals(getResources().getString(R.string.title_office))){
             Thread thread = new Thread()
             {
@@ -703,17 +714,30 @@ public class bm_Main extends Activity
             @Override
             public void run() {
                 chartsList.setAdapter(chartsAdaptor);
+                //chartsList.requestLayout();
             }
         },250);
 
-        Thread thread = new Thread()
-        {
-            @Override
-            public void run() {
-                    bm_Charts.update_charts();
-            }
-        };
-        thread.start();
+        if(!bm_Main.chartsBlocked){
+            bm_Main.chartsBlocked=true;
+
+            final String[] pairscode = bm_Main.pairs_CODE.clone();
+            final String[] pairsui = bm_Main.pairs_UI.clone();
+
+            bm_Charts.listElementsSizeCheck(pairscode,pairsui);
+            bm_Main.chartsAdaptor.setItems(bm_Main.chartsListElements);
+            bm_Main.chartsAdaptor.notifyDataSetChanged();
+
+            Thread thread = new Thread()
+            {
+                @Override
+                public void run() {
+                    bm_Charts.update_charts(pairscode,pairsui);
+                }
+            };
+            thread.start();
+        }
+
         return rootView;
     }
     public static View pagePairs(ViewGroup container, LayoutInflater inflater){
@@ -1202,6 +1226,7 @@ public class bm_Main extends Activity
                 c++;
             }
         }
+
         bm_Main.pairs_UI = new String[c];
         bm_Main.pairs_CODE = new String[c];
         bm_Main.txtLast = new String[c];

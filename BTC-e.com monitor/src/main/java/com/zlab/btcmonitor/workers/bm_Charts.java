@@ -24,17 +24,12 @@ public class bm_Charts {
     private static String[] pairs_code;
     private static String[] pairs_UI;
 
-    public static void update_charts(){
-
-        if(!bm_Main.chartsBlocked){
-            bm_Main.chartsBlocked=true;
-
-            pairs_code = bm_Main.pairs_CODE.clone();
-            pairs_UI = bm_Main.pairs_UI.clone();
+    public static void update_charts(String[] pairscode, String[] pairsui){
+            pairs_code = pairscode;
+            pairs_UI = pairsui;
 
             JsonObject Ticker;
             bm_Main.REFRESH_COUNTER++;
-
             bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -42,62 +37,14 @@ public class bm_Charts {
                 }
             });
 
-
             bm_Main.chartsListElementsOld = new ArrayList<bm_ListElementCharts>(bm_Main.chartsListElements);
-            listElementsSizeCheck(pairs_code);
-
-
-
-            //bm_Main.chartsListElements = new ArrayList<bm_ListElementCharts>();
-
-
 
             String fail_list="";
-                               /*
-            List<bm_ListElementCharts> newChartsList = new ArrayList<bm_ListElementCharts>();
-
-            for(int j=0;j<bm_Main.chartsListElements.size();j++){
-                if(bm_Main.prefs_enabled_charts.contains(bm_Main.chartsListElements.get(j).getPair())){
-                    newChartsList.add(bm_Main.chartsListElements.get(j));
-                }
-            }
-
-            bm_Main.chartsListElements=newChartsList;
-            bm_Main.bm_MainState.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    bm_Main.chartsAdaptor.setItems(bm_Main.chartsListElements);
-                    bm_Main.chartsAdaptor.notifyDataSetChanged();}});  */
-                            /*
-            for(int i=0;i<pairs_UI.length;i++){
-                if(!bm_Main.prefs_enabled_charts.contains(pairs_UI[i])){
-                    //if(bm_Main.chartsListElements.size()>1){
-                    for(int j=0;j<bm_Main.chartsListElements.size();j++){
-                        if(bm_Main.chartsListElements.get(j).getPair().equals(pairs_UI[i])){
-                        bm_Main.chartsListElements.remove(j);}
-                    }
-                    //}
-                }
-            }
-                    */
-
-
             for(int i=0;i<pairs_code.length;i++){
-                                /*
                 Ticker = btce_getTicker.getTickerObj(pairs_code[i]);
                 final String pair = pairs_UI[i];
-                                  */
-     //listElementsSizeCheck(pairs_code);
-                Ticker = btce_getTicker.getTickerObj(pairs_code[i]);
-                final String pair = pairs_UI[i];
-
-                //Log.e("JSON: >>> ", Ticker.toString());
-                //String pair, String last, String buy, String sell, String updated, String high, String low
-
 
                 if(Ticker!=null){
-     //listElementsSizeCheck(pairs_code);
-                    //try{
                 final bm_ListElementCharts el = new bm_ListElementCharts(pairs_UI[i],pairs_code[i],
                         btce_getTicker.get_last(Ticker),
                         btce_getTicker.get_buy(Ticker),
@@ -105,7 +52,6 @@ public class bm_Charts {
                         btce_getTicker.get_updated(Ticker),
                         btce_getTicker.get_high(Ticker),
                         btce_getTicker.get_low(Ticker));
-                //Log.e("LAST: ",el.getLast());
 
                     bm_Main.chartsListElements.remove(i);
                     bm_Main.chartsListElements.add(i,el);
@@ -126,9 +72,6 @@ public class bm_Charts {
                         try {
                             bm_Main.chartsListDiff.remove(i);
 
-                        //bm_Main.bm_MainState.runOnUiThread(new Runnable() {
-                            //@Override
-                            //public void run() {
                                 bm_Main.chartsListDiff.add(i,new bm_ChartsListDiffElements(
                                         String.valueOf(
                                                 Double.parseDouble(bm_Main.chartsListElements.get(i).getLast())
@@ -151,33 +94,19 @@ public class bm_Charts {
                                                         -
                                                         Double.parseDouble(bm_Main.chartsListElementsOld.get(i).getBuy())
                                         ),pairs_code[i]));
-                            //}
-                        //});
                         } catch (IndexOutOfBoundsException e){
 
                         }
 
                     }
-                    //} catch (IndexOutOfBoundsException e){
-                    //}
-                    //Log.e("chartsListElements." + i, bm_Main.chartsListElements.get(i).getLast());
-                    //Log.e("chartsListElementsOld."+i,bm_Main.chartsListElementsOld.get(i).getLast());
-                    //Log.e("chartsListDiffSell."+i,bm_Main.chartsListDiffSell.get(i));
-                    //Log.e("chartsListDiffBuy."+i,bm_Main.chartsListDiffBuy.get(i));
                     invalidateAdaptor();
                 } else {
-                    //bm_Main.chartsListElements.remove(i);
-                    //bm_Main.chartsListElements.add(i,bm_Main.chartsListElementsOld.get(i));
                     if(fail_list.equals("")){
                         fail_list=pair.replace(" ","");
                     } else {
                         fail_list=fail_list+", "+pair.replace(" ","");
                     }
                 }
-                //btce_getTicker.get_avg(Ticker);
-                //btce_getTicker.get_server_time(Ticker);
-                //btce_getTicker.get_vol(Ticker);
-                //btce_getTicker.get_vol_cur(Ticker);
             }
 
             if(!fail_list.equals("")){
@@ -186,40 +115,19 @@ public class bm_Charts {
                     @Override
                     public void run() {
                         /** **/
-                        //Toast.makeText(bm_Main.bm_MainContext,bm_Main.bm_MainState.getResources().getString(R.string.cant_retrieve)+": "+pair,Toast.LENGTH_SHORT).show();
                         Toast.makeText(bm_Main.bm_MainContext,bm_Main.bm_MainState.getResources().getString(R.string.cant_retrieve)+": "+fail_list_throw,Toast.LENGTH_LONG).show();
                     }
                 });
             }
-            //if(bm_Main.chartsListElements.size()==0){bm_Main.chartsListElements=bm_Main.chartsListElementsOld;}
-
-            //invalidateAdaptor();
             bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     bm_Main.bm_MainState.setProgressBarIndeterminateVisibility(false);
                     bm_Main.chartsAdaptor.setItems(bm_Main.chartsListElements);
                     bm_Main.chartsAdaptor.notifyDataSetChanged();
-                    /*
-                    if (navDrawer.mCallbacks != null) {
-                        navDrawer.mCallbacks.onNavigationDrawerItemSelected(0);
-                    } */
-                                        /*
-                                        if (navDrawer.mCallbacks != null) {
-                                            navDrawer.mCallbacks.onNavigationDrawerItemSelected(0);
-                                        }
-                                        */
                 }
             });
             bm_Main.chartsBlocked=false;
-        } else {
-            /* bm_Main.bm_MainState.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(bm_Main.bm_MainContext,"Уже работаю! Ждите!",Toast.LENGTH_LONG).show();
-                }
-            });  */
-        }
     }
 
     private static void invalidateAdaptor(){
@@ -232,7 +140,10 @@ public class bm_Charts {
         });
     }
 
-    private static void listElementsSizeCheck(final String[] pairs_code){
+    public static void listElementsSizeCheck(String[] pairscode, String[] pairsui){
+
+        pairs_code = pairscode;
+        pairs_UI = pairsui;
 
         List<bm_ChartsListDiffElements> chartsListDiffTmp;
         List<bm_ChartsListDiffElements> chartsListDiffSellTmp;
@@ -249,8 +160,6 @@ public class bm_Charts {
                 bm_Main.chartsListDiffBuy.add(new bm_ChartsListDiffElements("0.00","none"));
             }
         }
-        //if(bm_Main.chartsListElements.size()!=pairs_code.length || bm_Main.chartsListDiff.size()!=pairs_code.length){
-
             while(bm_Main.chartsListElements.size()>pairs_code.length){
                 for(int i=0;i<pairs_code.length;i++){
                     for(int j=0;j<bm_Main.chartsListElements.size();j++){
@@ -260,8 +169,6 @@ public class bm_Charts {
                         }
                     }
                 }
-                //bm_Main.chartsListElements.remove(bm_Main.chartsListElements.size()-1);
-                //bm_Main.chartsListElementsOld.remove(bm_Main.chartsListElementsOld.size()-1);
             }
 
 
@@ -271,7 +178,6 @@ public class bm_Charts {
                 bm_Main.chartsListDiffSell.remove(bm_Main.chartsListDiffSell.size()-1);
                 bm_Main.chartsListDiffBuy.remove(bm_Main.chartsListDiffBuy.size()-1);
             }
-            //invalidateAdaptor();
 
             while(bm_Main.chartsListElements.size()<pairs_code.length){
                 FileInputStream fis = null;
@@ -331,6 +237,6 @@ public class bm_Charts {
                             }
                         }
 
-        //invalidateAdaptor();
+
     }
 }
