@@ -1215,8 +1215,8 @@ public class bm_Main extends Activity
         prefs_bottom_actionbar = prefs.getBoolean("prefs_bottom_actionbar",false);
         prefs_black_theme = prefs.getBoolean("prefs_black_theme",false);
         prefs_black_charts = prefs.getBoolean("prefs_black_charts",false);
-        API_KEY = prefs.getString("prefs_API_KEY","UTGST9S5-KJU056A3-OLRLAPNL-DWQCIC05-UJT5UASQ");
-        API_SECRET = prefs.getString("prefs_API_SECRET","93356012c426dfa50528757c0ffc9707db13477c81b34f332e9350a2f81adc1c");
+        API_KEY = prefs.getString("prefs_API_KEY","GMJ4FH97-TZG5KON4-VUO0XOC2-AM2TLCI9-UL90D0OR");
+        API_SECRET = prefs.getString("prefs_API_SECRET","4403412b3793c319bffba269d5862992ca5cd400b5cded0ebe3e0ec3a3a8c4d1");
         API_URL_PRIVATE = prefs.getString("prefs_API_URL_PRIVATE","https://btc-e.com/tapi");
         API_URL_PUBLIC = prefs.getString("prefs_API_URL_PUBLIC","https://btc-e.com/api/2/");
 

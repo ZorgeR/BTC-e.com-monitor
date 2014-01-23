@@ -12,8 +12,8 @@
         <MultiSelectListPreference android:key="prefs_enabled_charts" android:title="@string/enabled_charts" android:entries="@array/CUR_LIST" android:entryValues="@array/CUR_LIST" android:defaultValue="@array/CUR_LIST"></MultiSelectListPreference>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/api_settings">
-        <EditTextPreference android:key="prefs_API_KEY" android:title="API Key" android:defaultValue="UTGST9S5-KJU056A3-OLRLAPNL-DWQCIC05-UJT5UASQ"></EditTextPreference>
-        <EditTextPreference android:key="prefs_API_SECRET" android:title="API Secret" android:defaultValue="93356012c426dfa50528757c0ffc9707db13477c81b34f332e9350a2f81adc1c"></EditTextPreference>
+        <EditTextPreference android:key="prefs_API_KEY" android:title="API Key" android:defaultValue="GMJ4FH97-TZG5KON4-VUO0XOC2-AM2TLCI9-UL90D0OR"></EditTextPreference>
+        <EditTextPreference android:key="prefs_API_SECRET" android:title="API Secret" android:defaultValue="4403412b3793c319bffba269d5862992ca5cd400b5cded0ebe3e0ec3a3a8c4d1"></EditTextPreference>
         <EditTextPreference android:key="prefs_API_URL_PRIVATE" android:title="API URL - PRIVATE" android:defaultValue="https://btc-e.com/tapi"></EditTextPreference>
         <EditTextPreference android:key="prefs_API_URL_PUBLIC" android:title="API URL - PUBLIC" android:defaultValue="https://btc-e.com/api/2/"></EditTextPreference>
     </PreferenceCategory>
