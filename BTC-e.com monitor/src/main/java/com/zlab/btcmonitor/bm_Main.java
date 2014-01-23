@@ -57,8 +57,8 @@ public class bm_Main extends Activity
     static String PIN;
     private static String PINCheck="";
     private static boolean PIN_SHOW;
-    public static String[] pairs_UI;
-    public static String[] pairs_CODE;
+    //public static String[] pairs_UI;
+    //public static String[] pairs_CODE;
 
     /** API **/
     public static String API_URL_PRIVATE;
@@ -85,9 +85,11 @@ public class bm_Main extends Activity
     public static ListView chartsList;
     public static bm_ChartsAdaptor chartsAdaptor;
     public static List<bm_ListElementCharts> chartsListElements;
+    public static List<bm_ListElementCharts> chartsListElementsToShow;
     public static List<bm_ListElementCharts> chartsListElementsOld;
     public static List<bm_ChartsListDiffElements> chartsListDiff,chartsListDiffSell,chartsListDiffBuy;
     public static boolean chartsBlocked=false;
+    public static boolean[] chartsEnabled=new boolean[VARs.pairs_CODE.length];
     /** Финансы **/
     public static bm_FundsAdaptor fundsAdaptor;
     public static List<bm_ListElementCharts> fundsListElements;
@@ -105,9 +107,9 @@ public class bm_Main extends Activity
     public static Bitmap[] imgChartsBitmap;
     public static boolean imgRefreshIsBlocked;
     public static TextView textLast,textLow,textHigh;
-    public static String[] txtLast = new String[VARs.pairs_CODEz.length];
-    public static String[] txtLow = new String[VARs.pairs_CODEz.length];
-    public static String[] txtHigh = new String[VARs.pairs_CODEz.length];
+    public static String[] txtLast = new String[VARs.pairs_CODE.length];
+    public static String[] txtLow = new String[VARs.pairs_CODE.length];
+    public static String[] txtHigh = new String[VARs.pairs_CODE.length];
 
     //public static WebView webCharts;
     /** Ордеры **/
@@ -125,8 +127,8 @@ public class bm_Main extends Activity
         currentApiVersion = android.os.Build.VERSION.SDK_INT;
 
         /** Обновление массива валют **/
-        pairs_UI=VARs.pairs_UIz;
-        pairs_CODE=VARs.pairs_CODEz;
+        //pairs_UI=VARs.pairs_UIz;
+        //pairs_CODE=VARs.pairs_CODEz;
 
         /** Инициализация настроек **/
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -289,10 +291,18 @@ public class bm_Main extends Activity
         if(SETTINGS_IS_OPENED){
             SETTINGS_IS_OPENED=false;
             getSettigns();
-            if(chartsAdaptor!=null){chartsAdaptor.notifyDataSetChanged();}
+            if(chartsAdaptor!=null){
+                //bm_Main.chartsAdaptor.setItems(bm_ChartsAdaptor.hide(bm_Main.chartsListElements));
+                reHide();
+                chartsAdaptor = new bm_ChartsAdaptor(bm_MainContext,R.layout.charts_list_item,chartsListElementsToShow);
+                chartsList.setAdapter(chartsAdaptor);
+                chartsList.requestLayout();
+                chartsAdaptor.notifyDataSetChanged();
+                chartsAdaptor.notifyDataSetInvalidated();
+            }
             if(fundsAdaptor!=null){fundsAdaptor.notifyDataSetChanged();}
             if(imgCharts!=null){
-                for(int i=0;i<bm_Main.pairs_UI.length;i++)
+                for(int i=0;i<VARs.pairs_CODE.length;i++)
                 {
                         imgChartsBitmap[i]=BitmapFactory.decodeResource(getResources(), R.drawable.charts_loading);
                         imgCharts.setImageBitmap(imgChartsBitmap[i]);
@@ -305,6 +315,7 @@ public class bm_Main extends Activity
             public void run() {
                 showSystemUI();
             }},250);}
+        updateNavDrawer();
     }
 
     public void doRefresh(){
@@ -312,18 +323,19 @@ public class bm_Main extends Activity
             if(!bm_Main.chartsBlocked){
                 bm_Main.chartsBlocked=true;
 
-                final String[] pairscode = bm_Main.pairs_CODE.clone();
-                final String[] pairsui = bm_Main.pairs_UI.clone();
+                //final String[] pairscode = VARs.pairs_CODE.clone();
+                //final String[] pairsui = VARs.pairs_UI.clone();
 
-                bm_Charts.listElementsSizeCheck(pairscode,pairsui);
-                bm_Main.chartsAdaptor.setItems(bm_Main.chartsListElements);
+                //bm_Charts.listElementsSizeCheckkkkk(pairscode,pairsui);          /***************************************************************************/
+                //bm_Main.chartsAdaptor.setItems(bm_ChartsAdaptor.hide(bm_Main.chartsListElements));
+                reHide();
                 bm_Main.chartsAdaptor.notifyDataSetChanged();
 
                 Thread thread = new Thread()
                 {
                     @Override
                     public void run() {
-                        bm_Charts.update_charts(pairscode,pairsui);
+                        bm_Charts.update_charts(/*pairscode,pairsui*/);
                     }
                 };
                 thread.start();
@@ -340,11 +352,16 @@ public class bm_Main extends Activity
         } else {
             refresh_pair_page();
         }
-        updateNavDrawer();
     }
 
     public void updateNavDrawer(){
-        ArrayList<String> NAV_DRAWER = new ArrayList<String>(Arrays.asList(bm_Main.pairs_UI));
+        ArrayList<String> newlist=new ArrayList<String>();
+        for(int i=0;i< VARs.pairs_CODE.length;i++){
+            if(bm_Main.chartsEnabled[i]){
+                newlist.add(VARs.pairs_UI[i]);
+            }
+        }
+        ArrayList<String> NAV_DRAWER = newlist;
 
         NAV_DRAWER.add(0, getString(R.string.title_charts));
         NAV_DRAWER.add(1, getString(R.string.title_office));
@@ -361,8 +378,8 @@ public class bm_Main extends Activity
         // Pair+"*"+Last+"*"+Buy+"*"+Sell+"*"+Updated+"*"+High+"*"+Low;
         FileOutputStream fos = null;
         try {
-            for(int i=0;i<bm_Main.pairs_CODE.length;i++){
-                fos = openFileOutput("charts_"+bm_Main.pairs_CODE[i]+".json", Context.MODE_PRIVATE);
+            for(int i=0;i<VARs.pairs_CODE.length;i++){
+                fos = openFileOutput("charts_"+VARs.pairs_CODE[i]+".json", Context.MODE_PRIVATE);
                 fos.write(chartsListElements.get(i).getAsString().getBytes());
                 fos.close();
             }
@@ -394,58 +411,58 @@ public class bm_Main extends Activity
                 mTitle = getString(R.string.chat);
                 break;
             case 4:
-                mTitle = bm_Main.pairs_UI[0];
+                mTitle = VARs.pairs_UI[0];
                 break;
             case 5:
-                mTitle = bm_Main.pairs_UI[1];
+                mTitle = VARs.pairs_UI[1];
                 break;
             case 6:
-                mTitle = bm_Main.pairs_UI[2];
+                mTitle = VARs.pairs_UI[2];
                 break;
             case 7:
-                mTitle = bm_Main.pairs_UI[3];
+                mTitle = VARs.pairs_UI[3];
                 break;
             case 8:
-                mTitle = bm_Main.pairs_UI[4];
+                mTitle = VARs.pairs_UI[4];
                 break;
             case 9:
-                mTitle = bm_Main.pairs_UI[5];
+                mTitle = VARs.pairs_UI[5];
                 break;
             case 10:
-                mTitle = bm_Main.pairs_UI[6];
+                mTitle = VARs.pairs_UI[6];
                 break;
             case 11:
-                mTitle = bm_Main.pairs_UI[7];
+                mTitle = VARs.pairs_UI[7];
                 break;
             case 12:
-                mTitle = bm_Main.pairs_UI[8];
+                mTitle = VARs.pairs_UI[8];
                 break;
             case 13:
-                mTitle = bm_Main.pairs_UI[9];
+                mTitle = VARs.pairs_UI[9];
                 break;
             case 14:
-                mTitle = bm_Main.pairs_UI[10];
+                mTitle = VARs.pairs_UI[10];
                 break;
             case 15:
-                mTitle = bm_Main.pairs_UI[11];
+                mTitle = VARs.pairs_UI[11];
                 break;
             case 16:
-                mTitle = bm_Main.pairs_UI[12];
+                mTitle = VARs.pairs_UI[12];
                 break;
             case 17:
-                mTitle = bm_Main.pairs_UI[13];
+                mTitle = VARs.pairs_UI[13];
                 break;
             case 18:
-                mTitle = bm_Main.pairs_UI[14];
+                mTitle = VARs.pairs_UI[14];
                 break;
             case 19:
-                mTitle = bm_Main.pairs_UI[15];
+                mTitle = VARs.pairs_UI[15];
                 break;
             case 20:
-                mTitle = bm_Main.pairs_UI[16];
+                mTitle = VARs.pairs_UI[16];
                 break;
             case 21:
-                mTitle = bm_Main.pairs_UI[17];
+                mTitle = VARs.pairs_UI[17];
                 break;
         }
     }
@@ -524,6 +541,7 @@ public class bm_Main extends Activity
                     item.setChecked(true);
                 }
                 getSettigns();
+                reHide();
                 chartsAdaptor.notifyDataSetInvalidated();
                 return true;
             }
@@ -537,6 +555,7 @@ public class bm_Main extends Activity
                     item.setChecked(true);
                 }
                 getSettigns();
+                reHide();
                 chartsAdaptor.notifyDataSetInvalidated();
                 return true;
             }
@@ -550,6 +569,7 @@ public class bm_Main extends Activity
                     item.setChecked(true);
                 }
                 getSettigns();
+                reHide();
                 chartsAdaptor.notifyDataSetInvalidated();
                 return true;
             }
@@ -700,39 +720,43 @@ public class bm_Main extends Activity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 navDrawer.selectItem(position + 3);
                 //bm_MainState.onNavigationDrawerItemSelected(position+2);
-                mTitle = bm_Main.pairs_UI[position];
+                mTitle = VARs.pairs_UI[position];
                 bm_MainState.invalidateOptionsMenu();
             }
         });
 
         if(chartsListElements==null){chartsArrayBlank();}
+
         if(chartsAdaptor==null){
-            chartsAdaptor = new bm_ChartsAdaptor(bm_MainContext,R.layout.charts_list_item,chartsListElements);
+            reHide();
+            chartsAdaptor = new bm_ChartsAdaptor(bm_MainContext,R.layout.charts_list_item,chartsListElementsToShow);
         }
 
         chartsList.postDelayed(new Runnable() {
             @Override
             public void run() {
                 chartsList.setAdapter(chartsAdaptor);
-                //chartsList.requestLayout();
+                chartsList.requestLayout();
+                bm_Main.chartsAdaptor.notifyDataSetChanged();
             }
         },250);
 
         if(!bm_Main.chartsBlocked){
             bm_Main.chartsBlocked=true;
 
-            final String[] pairscode = bm_Main.pairs_CODE.clone();
-            final String[] pairsui = bm_Main.pairs_UI.clone();
+            //final String[] pairscode = VARs.pairs_CODE.clone();
+            //final String[] pairsui = VARs.pairs_UI.clone();
 
-            bm_Charts.listElementsSizeCheck(pairscode,pairsui);
-            bm_Main.chartsAdaptor.setItems(bm_Main.chartsListElements);
+            //bm_Charts.listElementsSizeCheckkkkk(pairscode,pairsui);
+            //bm_Main.chartsAdaptor.setItems(bm_ChartsAdaptor.hide(bm_Main.chartsListElements));
+            reHide();
             bm_Main.chartsAdaptor.notifyDataSetChanged();
 
             Thread thread = new Thread()
             {
                 @Override
                 public void run() {
-                    bm_Charts.update_charts(pairscode,pairsui);
+                    bm_Charts.update_charts(/*pairscode,pairsui*/);
                 }
             };
             thread.start();
@@ -770,12 +794,12 @@ public class bm_Main extends Activity
 
         //int pair_code=-1;
         int pair_code=0; /** Fix crash on back button and resume **/
-        for(int i=0;i<bm_Main.pairs_UI.length;i++)
-        {if(bm_Main.pairs_UI[i].equals(mTitle)){
+        for(int i=0;i<VARs.pairs_CODE.length;i++)
+        {if(VARs.pairs_UI[i].equals(mTitle)){
             pair_code=i;
         }}
         final int PAIR_CODE = pair_code;
-        final String PAIR_ID = bm_Main.pairs_CODE[PAIR_CODE];
+        final String PAIR_ID = VARs.pairs_CODE[PAIR_CODE];
 
         btn_Buy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -832,8 +856,8 @@ public class bm_Main extends Activity
                     }
                 });
 
-                for(int i=0;i<bm_Main.pairs_UI.length;i++)
-                {if(bm_Main.pairs_UI[i].equals(mTitle)){
+                for(int i=0;i<VARs.pairs_CODE.length;i++)
+                {if(VARs.pairs_UI[i].equals(mTitle)){
                     editTradePrice.setText(pairAskElements[i].get(0).getPrice());
                     textTradeAmount.setText(textTradeAmount.getText()+" "+mTitle.toString().split(" / ")[0]+":");
                     textTradePrice.setText(textTradePrice.getText()+" "+mTitle.toString().split(" / ")[0]+":");
@@ -879,8 +903,8 @@ public class bm_Main extends Activity
                 final TextView textTradeTotal = (TextView) layer.findViewById(R.id.textTradeTotal);
                 final TextView textTradeTax = (TextView) layer.findViewById(R.id.textTradeTax);
 
-                for(int i=0;i<bm_Main.pairs_UI.length;i++)
-                {if(bm_Main.pairs_UI[i].equals(mTitle)){
+                for(int i=0;i<VARs.pairs_CODE.length;i++)
+                {if(VARs.pairs_UI[i].equals(mTitle)){
                     editTradePrice.setText(pairAskElements[i].get(0).getPrice());
                     textTradeAmount.setText(textTradeAmount.getText()+" "+mTitle.toString().split(" / ")[0]+":");
                     textTradePrice.setText(textTradePrice.getText()+" "+mTitle.toString().split(" / ")[0]+":");
@@ -1000,11 +1024,11 @@ public class bm_Main extends Activity
         pairAskList = (ListView) rootView.findViewById(R.id.listAsk);
         pairBidsList = (ListView) rootView.findViewById(R.id.listBids);
 
-        if(pairAskElements==null){pairAskElements = (List<bm_ListElementsDepth>[]) new List[bm_Main.pairs_CODE.length];}
-        if(pairBidsElements==null){pairBidsElements=(List<bm_ListElementsDepth>[]) new List[bm_Main.pairs_CODE.length];}
+        if(pairAskElements==null){pairAskElements = (List<bm_ListElementsDepth>[]) new List[VARs.pairs_CODE.length];}
+        if(pairBidsElements==null){pairBidsElements=(List<bm_ListElementsDepth>[]) new List[VARs.pairs_CODE.length];}
 
-        if(pairAskAdaptor==null){pairAskAdaptor=new bm_DepthAdaptor[bm_Main.pairs_CODE.length];}
-        if(pairBidsAdaptor==null){pairBidsAdaptor=new bm_DepthAdaptor[bm_Main.pairs_CODE.length];}
+        if(pairAskAdaptor==null){pairAskAdaptor=new bm_DepthAdaptor[VARs.pairs_CODE.length];}
+        if(pairBidsAdaptor==null){pairBidsAdaptor=new bm_DepthAdaptor[VARs.pairs_CODE.length];}
 
         if(pairAskElements[PAIR_CODE]!=null && pairBidsAdaptor!=null){
             //pairAskAdaptor = new bm_DepthAdaptor(bm_MainContext,R.layout.depth_list_item,pairAskElements);
@@ -1026,7 +1050,7 @@ public class bm_Main extends Activity
         final LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.chartsLayout);
 
 
-        if(imgChartsBitmap==null){imgChartsBitmap=new Bitmap[bm_Main.pairs_CODE.length];}
+        if(imgChartsBitmap==null){imgChartsBitmap=new Bitmap[VARs.pairs_CODE.length];}
 
         if(imgChartsBitmap[PAIR_CODE]!=null){imgCharts.setImageBitmap(imgChartsBitmap[PAIR_CODE]);}
 
@@ -1125,19 +1149,19 @@ public class bm_Main extends Activity
         {
             @Override
             public void run() {
-                for(int i=0;i<bm_Main.pairs_UI.length;i++){
-                    if(bm_Main.pairs_UI[i].equals(mTitle)){
-                        bm_Depth.update_depth(bm_Main.pairs_CODE[i]);
+                for(int i=0;i<VARs.pairs_CODE.length;i++){
+                    if(VARs.pairs_CODE[i].equals(mTitle)){
+                        bm_Depth.update_depth(VARs.pairs_CODE[i]);
                         bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 bm_MainState.setProgressBarIndeterminateVisibility(true);
                             }
                         });
-                        bm_ActiveOrders.getActiveOrders(bm_Main.pairs_CODE[i]);
-                        bm_PairHistory.getHistory(bm_Main.pairs_CODE[i]);
+                        bm_ActiveOrders.getActiveOrders(VARs.pairs_CODE[i]);
+                        bm_PairHistory.getHistory(VARs.pairs_CODE[i]);
 
-                        JsonObject Ticker = btce_getTicker.getTickerObj(bm_Main.pairs_CODE[i]);
+                        JsonObject Ticker = btce_getTicker.getTickerObj(VARs.pairs_CODE[i]);
                         if(Ticker!=null){
                         bm_Main.txtLast[i] = btce_getTicker.get_last(Ticker);
                         bm_Main.txtLow[i] = btce_getTicker.get_low(Ticker);
@@ -1149,10 +1173,10 @@ public class bm_Main extends Activity
                             try {
                                 final int PAIR_CODE=i;
                                 if(prefs_black_charts){
-                                    imgChartsBitmap[i] = invert(BitmapFactory.decodeStream((InputStream) new URL(API_ZLAB_URL+bm_Main.pairs_CODE[i]+".php").getContent()));
+                                    imgChartsBitmap[i] = invert(BitmapFactory.decodeStream((InputStream) new URL(API_ZLAB_URL+VARs.pairs_CODE[i]+".php").getContent()));
                                     DIAGRAM_IS_BLACK=true;
                                 } else {
-                                    imgChartsBitmap[i] = BitmapFactory.decodeStream((InputStream) new URL(API_ZLAB_URL+bm_Main.pairs_CODE[i]+".php").getContent());
+                                    imgChartsBitmap[i] = BitmapFactory.decodeStream((InputStream) new URL(API_ZLAB_URL+VARs.pairs_CODE[i]+".php").getContent());
                                 }
                                 //DIAGRAM_LAST_REFRESH =System.currentTimeMillis()/1000;
                                 bm_Main.bm_MainState.runOnUiThread(new Runnable() {
@@ -1219,26 +1243,34 @@ public class bm_Main extends Activity
 
         //prefs_enabled_charts = new HashSet<String>(Arrays.asList(VARs.pairs_UI));
 
-        prefs_enabled_charts = prefs.getStringSet("prefs_enabled_charts",new HashSet<String>(Arrays.asList(VARs.pairs_UIz)));
-        int c=0;
+        prefs_enabled_charts = prefs.getStringSet("prefs_enabled_charts",new HashSet<String>(Arrays.asList(VARs.pairs_UI)));
+
+
+        //int c=0;
+        /*
         for(int j=0;j<VARs.pairs_UIz.length;j++){
             if(bm_Main.prefs_enabled_charts.contains(VARs.pairs_UIz[j])){
                 c++;
             }
         }
+                    */
+        //chartsEnabled = new boolean[c];
+        //bm_Main.pairs_UI = VARs.pairs_UIz;
+        //bm_Main.pairs_CODE = VARs.pairs_CODEz;
+        //bm_Main.txtLast = new String[c];
+        //bm_Main.txtLow = new String[c];
+        //bm_Main.txtHigh = new String[c];
+        //c=0;
 
-        bm_Main.pairs_UI = new String[c];
-        bm_Main.pairs_CODE = new String[c];
-        bm_Main.txtLast = new String[c];
-        bm_Main.txtLow = new String[c];
-        bm_Main.txtHigh = new String[c];
-        c=0;
+        for(int j=0;j<VARs.pairs_CODE.length;j++){
+            if(bm_Main.prefs_enabled_charts.contains(VARs.pairs_UI[j])){
+                chartsEnabled[j]=true;
+                //bm_Main.pairs_UI[c]=VARs.pairs_UIz[j];
+                //bm_Main.pairs_CODE[c]=VARs.pairs_CODEz[j];
 
-        for(int j=0;j<VARs.pairs_UIz.length;j++){
-            if(bm_Main.prefs_enabled_charts.contains(VARs.pairs_UIz[j])){
-                bm_Main.pairs_UI[c]=VARs.pairs_UIz[j];
-                bm_Main.pairs_CODE[c]=VARs.pairs_CODEz[j];
-                c++;
+                //c++;
+            } else {
+                chartsEnabled[j]=false;
             }
         }
         //prefs_enabled_charts[]
@@ -1358,9 +1390,9 @@ public class bm_Main extends Activity
         chartsListElements=new ArrayList<bm_ListElementCharts>();
         // Pair+"*"+Last+"*"+Buy+"*"+Sell+"*"+Updated+"*"+High+"*"+Low;
         FileInputStream fis = null;
-        for(int i=0;i<bm_Main.pairs_CODE.length;i++){
+        for(int i=0;i<VARs.pairs_CODE.length;i++){
             try {
-                    fis = bm_MainState.openFileInput("charts_"+bm_Main.pairs_CODE[i]+".json");
+                    fis = bm_MainState.openFileInput("charts_"+VARs.pairs_CODE[i]+".json");
 
                     StringBuffer fileContent = new StringBuffer("");
                     byte[] buffer = new byte[1024];
@@ -1388,8 +1420,11 @@ public class bm_Main extends Activity
                 REFRESH_COUNTER++;
             } catch (Exception e) {
                 //Log.e("ERR", "MSG");
-                chartsListElements.add(new bm_ListElementCharts(bm_Main.pairs_UI[i],bm_Main.pairs_CODE[i],"0.00","0.00","0.00","","",""));
+                chartsListElements.add(new bm_ListElementCharts(VARs.pairs_UI[i],VARs.pairs_CODE[i],"0.00","0.00","0.00","","",""));
             }
         }
+    }
+    public static void reHide(){
+        chartsListElementsToShow=bm_ChartsAdaptor.hide(chartsListElements);
     }
 }

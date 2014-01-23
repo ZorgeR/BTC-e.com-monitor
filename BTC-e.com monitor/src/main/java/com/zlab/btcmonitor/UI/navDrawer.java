@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.zlab.btcmonitor.R;
+import com.zlab.btcmonitor._API.VARs;
 import com.zlab.btcmonitor.bm_Main;
 
 import java.util.ArrayList;
@@ -100,7 +101,7 @@ public class navDrawer extends Fragment {
 
         //ArrayList<String> NAV_DRAWER = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.CUR_LIST)));
 
-        List<String> NAV_DRAWER = new ArrayList<String>(Arrays.asList(bm_Main.pairs_UI));
+        List<String> NAV_DRAWER = new ArrayList<String>(Arrays.asList(VARs.pairs_UI));
 
         NAV_DRAWER.add(0, getString(R.string.title_charts));
         NAV_DRAWER.add(1, getString(R.string.title_office));

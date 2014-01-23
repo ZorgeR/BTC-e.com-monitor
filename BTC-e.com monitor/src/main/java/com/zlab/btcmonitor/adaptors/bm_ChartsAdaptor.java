@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.zlab.btcmonitor.R;
+import com.zlab.btcmonitor._API.VARs;
 import com.zlab.btcmonitor.elements.bm_ListElementCharts;
 import com.zlab.btcmonitor.bm_Main;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class bm_ChartsAdaptor extends ArrayAdapter<bm_ListElementCharts> {
@@ -43,13 +45,7 @@ public class bm_ChartsAdaptor extends ArrayAdapter<bm_ListElementCharts> {
         c = context;
         id = LayoutID;
         items = objects;
-    }
-
-    public bm_ChartsAdaptor(Context context, int LayoutID) {
-        super(context, LayoutID);
-        c = context;
-        id = LayoutID;
-        items = bm_Main.chartsListElements;
+        //items = hide(objects);
     }
 
     public bm_ListElementCharts getItem(int i)
@@ -61,8 +57,20 @@ public class bm_ChartsAdaptor extends ArrayAdapter<bm_ListElementCharts> {
     {
         return items;
     }
+    /*
     public void setItems(List<bm_ListElementCharts> newList){
         items = newList;
+        //items = hide(newList);
+    }   */
+
+    public static List<bm_ListElementCharts> hide(List<bm_ListElementCharts> objects){
+        List<bm_ListElementCharts> newlist=new ArrayList<bm_ListElementCharts>();
+        for(int i=0;i< VARs.pairs_CODE.length;i++){
+            if(bm_Main.chartsEnabled[i]){
+                newlist.add(objects.get(i));
+            }
+        }
+        return newlist;
     }
 
     @Override
