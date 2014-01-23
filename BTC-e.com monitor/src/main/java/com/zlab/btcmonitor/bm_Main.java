@@ -294,11 +294,11 @@ public class bm_Main extends Activity
             if(chartsAdaptor!=null){
                 //bm_Main.chartsAdaptor.setItems(bm_ChartsAdaptor.hide(bm_Main.chartsListElements));
                 reHide();
-                chartsAdaptor = new bm_ChartsAdaptor(bm_MainContext,R.layout.charts_list_item,chartsListElementsToShow);
-                chartsList.setAdapter(chartsAdaptor);
-                chartsList.requestLayout();
+                //chartsAdaptor = new bm_ChartsAdaptor(bm_MainContext,R.layout.charts_list_item,chartsListElementsToShow);
+                //chartsList.setAdapter(chartsAdaptor);
+                //chartsList.requestLayout();
                 chartsAdaptor.notifyDataSetChanged();
-                chartsAdaptor.notifyDataSetInvalidated();
+                //chartsAdaptor.notifyDataSetInvalidated();
             }
             if(fundsAdaptor!=null){fundsAdaptor.notifyDataSetChanged();}
             if(imgCharts!=null){
@@ -676,6 +676,8 @@ public class bm_Main extends Activity
     }
     public static View pageOffice(ViewGroup container, LayoutInflater inflater){
         View rootView = inflater.inflate(R.layout.office, container, false);
+        fundsList = (ListView) rootView.findViewById(R.id.FundsList);
+
         if(fundsListElements!=null){
             fundsAdaptor = new bm_FundsAdaptor(bm_MainContext,R.layout.charts_list_item,fundsListElements);
             //fundsList.setAdapter(fundsAdaptor);
@@ -1425,6 +1427,11 @@ public class bm_Main extends Activity
         }
     }
     public static void reHide(){
-        chartsListElementsToShow=bm_ChartsAdaptor.hide(chartsListElements);
+        if(chartsListElementsToShow==null){
+            chartsListElementsToShow=bm_ChartsAdaptor.hide(chartsListElements);
+        } else {
+            chartsListElementsToShow.removeAll(chartsListElementsToShow);
+            chartsListElementsToShow.addAll(bm_ChartsAdaptor.hide(chartsListElements));
+        }
     }
 }
