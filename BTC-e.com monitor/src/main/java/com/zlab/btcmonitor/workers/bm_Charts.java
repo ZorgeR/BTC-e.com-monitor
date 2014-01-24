@@ -137,12 +137,13 @@ public class bm_Charts {
                     }
                 });
             }
+
+            bm_Main.reHide();
             bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     bm_Main.bm_MainState.setProgressBarIndeterminateVisibility(false);
                     //bm_Main.chartsAdaptor.setItems(bm_ChartsAdaptor.hide(bm_Main.chartsListElements));
-                    bm_Main.reHide();
                     bm_Main.chartsAdaptor.notifyDataSetChanged();
                     //bm_Main.chartsAdaptor.notifyDataSetInvalidated();
                 }
@@ -152,14 +153,13 @@ public class bm_Charts {
 
     private static void invalidateAdaptor(){
         //bm_Main.reHide();
+        bm_Main.reHide();
         bm_Main.bm_MainState.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 //bm_Main.chartsListElementsToShow=bm_ChartsAdaptor.hide(chartsListElements);
                 //bm_Main.chartsAdaptor.setItems(bm_ChartsAdaptor.hide(bm_Main.chartsListElements));
                 //bm_Main.chartsAdaptor.notifyDataSetChanged();
-
-                bm_Main.reHide();
                 //bm_Main.chartsAdaptor = new bm_ChartsAdaptor(bm_Main.bm_MainContext,R.layout.charts_list_item,bm_Main.chartsListElementsToShow);
                 //bm_Main.chartsList.setAdapter(bm_Main.chartsAdaptor);
                 //bm_Main.chartsList.requestLayout();

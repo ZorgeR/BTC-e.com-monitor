@@ -29,6 +29,8 @@ import com.zlab.btcmonitor.workers.*;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.*;
 
 public class bm_Main extends Activity
@@ -103,10 +105,10 @@ public class bm_Main extends Activity
     public static bm_DepthAdaptor[] pairAskAdaptor;
     public static bm_DepthAdaptor[] pairBidsAdaptor;
     public static Button btn_Orders,btn_Buy,btn_Sell,btn_History;
-    public static ImageView imgCharts;
+    public static ImageView[] imgCharts;
     public static Bitmap[] imgChartsBitmap;
-    public static boolean imgRefreshIsBlocked;
-    public static TextView textLast,textLow,textHigh;
+    public static boolean[] imgRefreshIsBlocked = new boolean[VARs.pairs_CODE.length];
+    public static TextView[] textLast,textLow,textHigh;
     public static String[] txtLast = new String[VARs.pairs_CODE.length];
     public static String[] txtLow = new String[VARs.pairs_CODE.length];
     public static String[] txtHigh = new String[VARs.pairs_CODE.length];
@@ -305,7 +307,7 @@ public class bm_Main extends Activity
                 for(int i=0;i<VARs.pairs_CODE.length;i++)
                 {
                         imgChartsBitmap[i]=BitmapFactory.decodeResource(getResources(), R.drawable.charts_loading);
-                        imgCharts.setImageBitmap(imgChartsBitmap[i]);
+                        imgCharts[i].setImageBitmap(imgChartsBitmap[i]);
                 }
             }
             doRefresh();
@@ -411,58 +413,58 @@ public class bm_Main extends Activity
                 mTitle = getString(R.string.chat);
                 break;
             case 4:
-                mTitle = VARs.pairs_UI[0];
+                mTitle = chartsListElementsToShow.get(0).getPair();
                 break;
             case 5:
-                mTitle = VARs.pairs_UI[1];
+                mTitle = chartsListElementsToShow.get(1).getPair();
                 break;
             case 6:
-                mTitle = VARs.pairs_UI[2];
+                mTitle = chartsListElementsToShow.get(2).getPair();
                 break;
             case 7:
-                mTitle = VARs.pairs_UI[3];
+                mTitle = chartsListElementsToShow.get(3).getPair();
                 break;
             case 8:
-                mTitle = VARs.pairs_UI[4];
+                mTitle = chartsListElementsToShow.get(4).getPair();
                 break;
             case 9:
-                mTitle = VARs.pairs_UI[5];
+                mTitle = chartsListElementsToShow.get(5).getPair();
                 break;
             case 10:
-                mTitle = VARs.pairs_UI[6];
+                mTitle = chartsListElementsToShow.get(6).getPair();
                 break;
             case 11:
-                mTitle = VARs.pairs_UI[7];
+                mTitle = chartsListElementsToShow.get(7).getPair();
                 break;
             case 12:
-                mTitle = VARs.pairs_UI[8];
+                mTitle = chartsListElementsToShow.get(8).getPair();
                 break;
             case 13:
-                mTitle = VARs.pairs_UI[9];
+                mTitle = chartsListElementsToShow.get(9).getPair();
                 break;
             case 14:
-                mTitle = VARs.pairs_UI[10];
+                mTitle = chartsListElementsToShow.get(10).getPair();
                 break;
             case 15:
-                mTitle = VARs.pairs_UI[11];
+                mTitle = chartsListElementsToShow.get(11).getPair();
                 break;
             case 16:
-                mTitle = VARs.pairs_UI[12];
+                mTitle = chartsListElementsToShow.get(12).getPair();
                 break;
             case 17:
-                mTitle = VARs.pairs_UI[13];
+                mTitle = chartsListElementsToShow.get(13).getPair();
                 break;
             case 18:
-                mTitle = VARs.pairs_UI[14];
+                mTitle = chartsListElementsToShow.get(14).getPair();
                 break;
             case 19:
-                mTitle = VARs.pairs_UI[15];
+                mTitle = chartsListElementsToShow.get(15).getPair();
                 break;
             case 20:
-                mTitle = VARs.pairs_UI[16];
+                mTitle = chartsListElementsToShow.get(16).getPair();
                 break;
             case 21:
-                mTitle = VARs.pairs_UI[17];
+                mTitle = chartsListElementsToShow.get(17).getPair();
                 break;
         }
     }
@@ -490,7 +492,6 @@ public class bm_Main extends Activity
             super.onBackPressed();
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mBmNavDrawer.isDrawerOpen()) {
@@ -722,7 +723,7 @@ public class bm_Main extends Activity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 navDrawer.selectItem(position + 3);
                 //bm_MainState.onNavigationDrawerItemSelected(position+2);
-                mTitle = VARs.pairs_UI[position];
+                mTitle = chartsListElementsToShow.get(position).getPair()/*VARs.pairs_UI[position]*/;
                 bm_MainState.invalidateOptionsMenu();
             }
         });
@@ -769,31 +770,6 @@ public class bm_Main extends Activity
     public static View pagePairs(ViewGroup container, LayoutInflater inflater){
         View rootView = inflater.inflate(R.layout.pairs, container, false);
 
-        btn_Buy = (Button) rootView.findViewById(R.id.btnBuy);
-        btn_Sell = (Button) rootView.findViewById(R.id.btnSell);
-        btn_Orders = (Button) rootView.findViewById(R.id.btnOrders);
-        btn_History = (Button) rootView.findViewById(R.id.btnHistory);
-        imgCharts = (ImageView) rootView.findViewById(R.id.imgCharts);
-        textLast = (TextView) rootView.findViewById(R.id.textLast);
-        textLow = (TextView) rootView.findViewById(R.id.textLow);
-        textHigh = (TextView) rootView.findViewById(R.id.textHigh);
-        //webCharts = (WebView) rootView.findViewById(R.id.webCharts);
-        TextView textOrdersLeft = (TextView) rootView.findViewById(R.id.textOrdersLeft);
-        TextView textOrdersRight = (TextView) rootView.findViewById(R.id.textOrdersRight);
-
-
-        if(bm_Main.currentApiVersion >= Build.VERSION_CODES.JELLY_BEAN){
-            textLast.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
-            textLow.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
-            textHigh.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
-            textOrdersLeft.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
-            textOrdersRight.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
-            btn_Buy.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
-            btn_Sell.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
-            btn_Orders.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
-            btn_History.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
-        }
-
         //int pair_code=-1;
         int pair_code=0; /** Fix crash on back button and resume **/
         for(int i=0;i<VARs.pairs_CODE.length;i++)
@@ -802,6 +778,40 @@ public class bm_Main extends Activity
         }}
         final int PAIR_CODE = pair_code;
         final String PAIR_ID = VARs.pairs_CODE[PAIR_CODE];
+
+
+        btn_Buy = (Button) rootView.findViewById(R.id.btnBuy);
+        btn_Sell = (Button) rootView.findViewById(R.id.btnSell);
+        btn_Orders = (Button) rootView.findViewById(R.id.btnOrders);
+        btn_History = (Button) rootView.findViewById(R.id.btnHistory);
+
+        if(textLast==null){textLast=new TextView[VARs.pairs_CODE.length];}
+        if(textLow==null){textLow=new TextView[VARs.pairs_CODE.length];}
+        if(textHigh==null){textHigh=new TextView[VARs.pairs_CODE.length];}
+
+        textLast[PAIR_CODE] = (TextView) rootView.findViewById(R.id.textLast);
+        textLow[PAIR_CODE] = (TextView) rootView.findViewById(R.id.textLow);
+        textHigh[PAIR_CODE] = (TextView) rootView.findViewById(R.id.textHigh);
+
+        if(imgCharts==null){imgCharts=new ImageView[VARs.pairs_CODE.length];}
+        imgCharts[PAIR_CODE] = (ImageView) rootView.findViewById(R.id.imgCharts);
+
+        //webCharts = (WebView) rootView.findViewById(R.id.webCharts);
+        TextView textOrdersLeft = (TextView) rootView.findViewById(R.id.textOrdersLeft);
+        TextView textOrdersRight = (TextView) rootView.findViewById(R.id.textOrdersRight);
+
+
+        if(bm_Main.currentApiVersion >= Build.VERSION_CODES.JELLY_BEAN){
+            textLast[PAIR_CODE].setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            textLow[PAIR_CODE].setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            textHigh[PAIR_CODE].setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            textOrdersLeft.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            textOrdersRight.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            btn_Buy.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            btn_Sell.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            btn_Orders.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+            btn_History.setTypeface(Typeface.create("sans-serif-condensed",Typeface.BOLD));
+        }
 
         btn_Buy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -925,8 +935,10 @@ public class bm_Main extends Activity
                         try {
                         Double total = Double.parseDouble(editTradeAmount.getText().toString()) * Double.parseDouble(editTradePrice.getText().toString());
                         Double tax = total * 0.002;
-                            textTradeTotal.setText(total.toString() + " " + mTitle.toString().split(" / ")[1]);
-                            textTradeTax.setText(tax.toString() + " " + mTitle.toString().split(" / ")[1]);
+                            if(PAIR_ID.equals("usd_rur")){tax=total * 0.005;}
+                            NumberFormat formatter = new DecimalFormat("#0.00000");
+                            textTradeTotal.setText(formatter.format(total) + " " + mTitle.toString().split(" / ")[1]);
+                            textTradeTax.setText(formatter.format(tax) + " " + mTitle.toString().split(" / ")[1]);
                         } catch (Exception e ){}
                     }
 
@@ -943,8 +955,10 @@ public class bm_Main extends Activity
                         try {
                         Double total = (Double.parseDouble(editTradeAmount.getText().toString()) * Double.parseDouble(editTradePrice.getText().toString()));
                         Double tax = total * 0.002;
-                            textTradeTotal.setText(total.toString() + " " + mTitle.toString().split(" / ")[1]);
-                            textTradeTax.setText(tax.toString() + " " + mTitle.toString().split(" / ")[1]);
+                            if(PAIR_ID.equals("usd_rur")){tax=total * 0.005;}
+                            NumberFormat formatter = new DecimalFormat("#0.00000");
+                            textTradeTotal.setText(formatter.format(total) + " " + mTitle.toString().split(" / ")[1]);
+                            textTradeTax.setText(formatter.format(tax) + " " + mTitle.toString().split(" / ")[1]);
                         } catch (Exception e ){}
                     }
                     @Override
@@ -1054,7 +1068,7 @@ public class bm_Main extends Activity
 
         if(imgChartsBitmap==null){imgChartsBitmap=new Bitmap[VARs.pairs_CODE.length];}
 
-        if(imgChartsBitmap[PAIR_CODE]!=null){imgCharts.setImageBitmap(imgChartsBitmap[PAIR_CODE]);}
+        if(imgChartsBitmap[PAIR_CODE]!=null){imgCharts[PAIR_CODE].setImageBitmap(imgChartsBitmap[PAIR_CODE]);}
 
         bm_Main.orderElements = new ArrayList<bm_ListElementOrder>();
         Thread thread = new Thread()
@@ -1078,8 +1092,8 @@ public class bm_Main extends Activity
                 bm_Main.txtLow[PAIR_CODE] = btce_getTicker.get_low(Ticker);
                 bm_Main.txtHigh[PAIR_CODE] = btce_getTicker.get_high(Ticker);}
 
-                if(!imgRefreshIsBlocked/* && (DIAGRAM_LAST_REFRESH - (System.currentTimeMillis()/1000))>DIAGRAM_COOLDOWN*/){
-                    imgRefreshIsBlocked=true;
+                if(!imgRefreshIsBlocked[PAIR_CODE]/* && (DIAGRAM_LAST_REFRESH - (System.currentTimeMillis()/1000))>DIAGRAM_COOLDOWN*/){
+                    imgRefreshIsBlocked[PAIR_CODE]=true;
                 try {
 
                     if(prefs_black_charts){
@@ -1093,21 +1107,21 @@ public class bm_Main extends Activity
                     bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            imgCharts.setImageBitmap(imgChartsBitmap[PAIR_CODE]);
+                            imgCharts[PAIR_CODE].setImageBitmap(imgChartsBitmap[PAIR_CODE]);
                         }
                     });
                 } catch (MalformedURLException e) {
                 } catch (IOException e) {
                 }
-                    imgRefreshIsBlocked=false;
+                    imgRefreshIsBlocked[PAIR_CODE]=false;
                 }
 
                 bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(txtLast[PAIR_CODE]!=null){textLast.setText(bm_MainState.getString(R.string.last)+" "+txtLast[PAIR_CODE]);}
-                        if(txtLow[PAIR_CODE]!=null){textLow.setText(bm_MainState.getString(R.string.low)+" "+txtLow[PAIR_CODE]);}
-                        if(txtHigh[PAIR_CODE]!=null){textHigh.setText(bm_MainState.getString(R.string.high)+" "+txtHigh[PAIR_CODE]);}
+                        if(txtLast[PAIR_CODE]!=null){textLast[PAIR_CODE].setText(bm_MainState.getString(R.string.last)+" "+txtLast[PAIR_CODE]);}
+                        if(txtLow[PAIR_CODE]!=null){textLow[PAIR_CODE].setText(bm_MainState.getString(R.string.low)+" "+txtLow[PAIR_CODE]);}
+                        if(txtHigh[PAIR_CODE]!=null){textHigh[PAIR_CODE].setText(bm_MainState.getString(R.string.high)+" "+txtHigh[PAIR_CODE]);}
                         bm_MainState.setProgressBarIndeterminateVisibility(false);
                     }
                 });
@@ -1152,7 +1166,7 @@ public class bm_Main extends Activity
             @Override
             public void run() {
                 for(int i=0;i<VARs.pairs_CODE.length;i++){
-                    if(VARs.pairs_CODE[i].equals(mTitle)){
+                    if(VARs.pairs_UI[i].equals(mTitle)){
                         bm_Depth.update_depth(VARs.pairs_CODE[i]);
                         bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                             @Override
@@ -1169,9 +1183,9 @@ public class bm_Main extends Activity
                         bm_Main.txtLow[i] = btce_getTicker.get_low(Ticker);
                         bm_Main.txtHigh[i] = btce_getTicker.get_high(Ticker);}
 
-                        if(!imgRefreshIsBlocked/* && (DIAGRAM_LAST_REFRESH - (System.currentTimeMillis()/1000))>DIAGRAM_COOLDOWN*/){
+                        if(!imgRefreshIsBlocked[i]/* && (DIAGRAM_LAST_REFRESH - (System.currentTimeMillis()/1000))>DIAGRAM_COOLDOWN*/){
 
-                                imgRefreshIsBlocked=true;
+                                imgRefreshIsBlocked[i]=true;
                             try {
                                 final int PAIR_CODE=i;
                                 if(prefs_black_charts){
@@ -1184,21 +1198,21 @@ public class bm_Main extends Activity
                                 bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        imgCharts.setImageBitmap(imgChartsBitmap[PAIR_CODE]);
+                                        imgCharts[PAIR_CODE].setImageBitmap(imgChartsBitmap[PAIR_CODE]);
                                     }
                                 });
                             } catch (MalformedURLException e) {
                             } catch (IOException e) {
                             }
-                                imgRefreshIsBlocked=false;
+                                imgRefreshIsBlocked[i]=false;
                         }
                         final int pos=i;
                         bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(txtLast[pos]!=null){textLast.setText(bm_MainState.getString(R.string.last)+" "+txtLast[pos]);}
-                                if(txtLow[pos]!=null){textLow.setText(bm_MainState.getString(R.string.low)+" "+txtLow[pos]);}
-                                if(txtHigh[pos]!=null){textHigh.setText(bm_MainState.getString(R.string.high)+" "+txtHigh[pos]);}
+                                if(txtLast[pos]!=null){textLast[pos].setText(bm_MainState.getString(R.string.last)+" "+txtLast[pos]);}
+                                if(txtLow[pos]!=null){textLow[pos].setText(bm_MainState.getString(R.string.low)+" "+txtLow[pos]);}
+                                if(txtHigh[pos]!=null){textHigh[pos].setText(bm_MainState.getString(R.string.high)+" "+txtHigh[pos]);}
                                 bm_MainState.setProgressBarIndeterminateVisibility(false);
                             }
                         });
