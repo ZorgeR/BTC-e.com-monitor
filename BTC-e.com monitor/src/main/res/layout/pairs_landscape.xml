@@ -100,7 +100,7 @@
                     >
                 <LinearLayout
                         android:orientation="vertical"
-                        android:layout_width="2px"
+                        android:layout_width="4px"
                         android:layout_height="fill_parent">
                 </LinearLayout>
                 <ListView

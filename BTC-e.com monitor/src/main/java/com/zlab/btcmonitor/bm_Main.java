@@ -805,7 +805,7 @@ public class bm_Main extends Activity
     public static View pagePairs(ViewGroup container, LayoutInflater inflater){
         View rootView;
 
-        if(bm_MainState.getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT){
+        if(bm_MainState.getResources().getConfiguration().orientation==Configuration.ORIENTATION_PORTRAIT){
             rootView = inflater.inflate(R.layout.pairs, container, false);
         } else {
             rootView = inflater.inflate(R.layout.pairs_landscape, container, false);
@@ -1185,49 +1185,51 @@ public class bm_Main extends Activity
         pairAskList = (ListView) rootView.findViewById(R.id.listAsk);
         pairBidsList = (ListView) rootView.findViewById(R.id.listBids);
 
-        pairAskList.setOnTouchListener(new ListView.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int action = event.getAction();
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN:
-                        // Disallow ScrollView to intercept touch events.
-                        v.getParent().requestDisallowInterceptTouchEvent(true);
-                        break;
+        if(bm_MainState.getResources().getConfiguration().orientation==Configuration.ORIENTATION_LANDSCAPE){
+            pairAskList.setOnTouchListener(new ListView.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    int action = event.getAction();
+                    switch (action) {
+                        case MotionEvent.ACTION_DOWN:
+                            // Disallow ScrollView to intercept touch events.
+                            v.getParent().requestDisallowInterceptTouchEvent(true);
+                            break;
 
-                    case MotionEvent.ACTION_UP:
-                        // Allow ScrollView to intercept touch events.
-                        v.getParent().requestDisallowInterceptTouchEvent(false);
-                        break;
+                        case MotionEvent.ACTION_UP:
+                            // Allow ScrollView to intercept touch events.
+                            v.getParent().requestDisallowInterceptTouchEvent(false);
+                            break;
+                    }
+
+                    // Handle ListView touch events.
+                    v.onTouchEvent(event);
+                    return true;
                 }
+            });
 
-                // Handle ListView touch events.
-                v.onTouchEvent(event);
-                return true;
-            }
-        });
+            pairBidsList.setOnTouchListener(new ListView.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    int action = event.getAction();
+                    switch (action) {
+                        case MotionEvent.ACTION_DOWN:
+                            // Disallow ScrollView to intercept touch events.
+                            v.getParent().requestDisallowInterceptTouchEvent(true);
+                            break;
 
-        pairBidsList.setOnTouchListener(new ListView.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int action = event.getAction();
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN:
-                        // Disallow ScrollView to intercept touch events.
-                        v.getParent().requestDisallowInterceptTouchEvent(true);
-                        break;
+                        case MotionEvent.ACTION_UP:
+                            // Allow ScrollView to intercept touch events.
+                            v.getParent().requestDisallowInterceptTouchEvent(false);
+                            break;
+                    }
 
-                    case MotionEvent.ACTION_UP:
-                        // Allow ScrollView to intercept touch events.
-                        v.getParent().requestDisallowInterceptTouchEvent(false);
-                        break;
+                    // Handle ListView touch events.
+                    v.onTouchEvent(event);
+                    return true;
                 }
-
-                // Handle ListView touch events.
-                v.onTouchEvent(event);
-                return true;
-            }
-        });
+            });
+        }
 
         if(pairAskElements==null){pairAskElements = (List<bm_ListElementsDepth>[]) new List[VARs.pairs_CODE.length];}
         if(pairBidsElements==null){pairBidsElements=(List<bm_ListElementsDepth>[]) new List[VARs.pairs_CODE.length];}
