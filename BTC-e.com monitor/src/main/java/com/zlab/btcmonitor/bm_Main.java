@@ -101,6 +101,7 @@ public class bm_Main extends Activity
     /** Пары **/
     public static ListView pairAskList;
     public static ListView pairBidsList;
+    public static Double listPrice;
     public static List<bm_ListElementsDepth>[] pairAskElements;
     public static List<bm_ListElementsDepth>[] pairBidsElements;
     public static bm_DepthAdaptor[] pairAskAdaptor;
@@ -1001,7 +1002,6 @@ public class bm_Main extends Activity
         btn_Sell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 AlertDialog.Builder action_dialog = new AlertDialog.Builder(bm_MainContext);
                 action_dialog.setTitle(bm_Main.bm_MainState.getResources().getString(R.string.sell));
                 LayoutInflater inflater = bm_MainState.getLayoutInflater();
@@ -1230,6 +1230,290 @@ public class bm_Main extends Activity
                 }
             });
         }
+
+        pairAskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                listPrice=Double.parseDouble(pairAskElements[PAIR_CODE].get(position).getPrice());
+                //Toast.makeText(bm_MainContext,listPrice.toString(),Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder action_dialog = new AlertDialog.Builder(bm_MainContext);
+                action_dialog.setTitle(bm_Main.bm_MainState.getResources().getString(R.string.buy));
+                LayoutInflater inflater = bm_MainState.getLayoutInflater();
+                View layer = inflater.inflate(R.layout.trade,null);
+
+                final EditText editTradeAmount = (EditText) layer.findViewById(R.id.editTradeAmount);
+                final EditText editTradePrice = (EditText) layer.findViewById(R.id.editTradePrice);
+                TextView textTradeAmount = (TextView) layer.findViewById(R.id.textTradeAmount);
+                TextView textTradePrice = (TextView) layer.findViewById(R.id.textTradePrice);
+                final TextView textTradeTotal = (TextView) layer.findViewById(R.id.textTradeTotal);
+                final TextView textTradeTax = (TextView) layer.findViewById(R.id.textTradeTax);
+                final SeekBar seekBarTrade = (SeekBar) layer.findViewById(R.id.seekBarTrade);
+                textTradeTotal.setText("0.0" + " " + mTitle.toString().split(" / ")[1]);
+                textTradeTax.setText("0.0" + " " + mTitle.toString().split(" / ")[0]);
+
+                final TextView textBalance = (TextView) layer.findViewById(R.id.textBal);
+
+                Double bl=0.0;
+                for(int i=0;i<fundsListElements.size();i++){
+                    if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[1].toUpperCase())){
+                        textBalance.setText(new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[1]);
+                        bl=Double.parseDouble(fundsListElements.get(i).getLast());
+                    }
+                }
+                for(int i=0;i<fundsListElements.size();i++){
+                    if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[0].toUpperCase())){
+                        textBalance.setText(textBalance.getText()+"\n"+new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[0]);
+                    }
+                }
+
+                final Double dbl=bl;
+
+                seekBarTrade.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        //if(editTradeAmount.getText().toString().equals("")){editTradeAmount.setText("0.00");}
+                        //if(editTradePrice.getText().toString().equals("")){editTradePrice.setText("0.00");}
+
+                        Double total=dbl/Double.parseDouble(editTradePrice.getText().toString());
+                        NumberFormat formatter = new DecimalFormat("#.#####");
+
+                        editTradeAmount.setText(formatter.format(total/100*progress).replace(",","."));
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                        if(editTradeAmount.getText().toString().equals("")){editTradeAmount.setText("0");}
+                        if(editTradePrice.getText().toString().equals("")){editTradePrice.setText("0");}
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                    }
+                });
+
+                editTradeAmount.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        try {
+                            Double total = Double.parseDouble(editTradeAmount.getText().toString()) * Double.parseDouble(editTradePrice.getText().toString());
+                            Double tax = Double.parseDouble(editTradeAmount.getText().toString()) * 0.002;
+                            if(PAIR_ID.equals("usd_rur")){tax=total * 0.005;}
+                            NumberFormat formatter = new DecimalFormat("#.#####");
+
+                            textTradeTotal.setText(formatter.format(total) + " " + mTitle.toString().split(" / ")[1]);
+                            textTradeTax.setText(formatter.format(tax) + " " + mTitle.toString().split(" / ")[0]);
+                            if(dbl<total){
+                                editTradeAmount.setTextColor(Color.RED);
+                            } else {
+                                editTradeAmount.setTextColor(textTradeTax.getTextColors());
+                            }
+                        } catch (Exception e ){}
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                    }
+                });
+
+                editTradePrice.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        try {
+                            Double total = (Double.parseDouble(editTradeAmount.getText().toString()) * Double.parseDouble(editTradePrice.getText().toString()));
+                            Double tax = Double.parseDouble(editTradeAmount.getText().toString()) * 0.002;
+                            if(PAIR_ID.equals("usd_rur")){tax=total * 0.005;}
+
+                            NumberFormat formatter = new DecimalFormat("#.########");
+                            textTradeTotal.setText(formatter.format(total) + " " + mTitle.toString().split(" / ")[1]);
+                            textTradeTax.setText(formatter.format(tax) + " " + mTitle.toString().split(" / ")[0]);
+                            if(dbl<total){
+                                editTradeAmount.setTextColor(Color.RED);
+                            } else {
+                                editTradeAmount.setTextColor(textTradeTax.getTextColors());
+                            }
+                        } catch (Exception e ){}
+                    }
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                editTradePrice.setText(listPrice.toString());
+                for(int i=0;i<VARs.pairs_CODE.length;i++)
+                {if(VARs.pairs_UI[i].equals(mTitle)){
+                    textTradeAmount.setText(textTradeAmount.getText()+" "+mTitle.toString().split(" / ")[0]+":");
+                    textTradePrice.setText(textTradePrice.getText()+" "+mTitle.toString().split(" / ")[0]+":");
+                }}
+
+                action_dialog.setView(layer);
+                action_dialog.setNegativeButton(bm_MainState.getResources().getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                action_dialog.setPositiveButton(bm_Main.bm_MainState.getResources().getString(R.string.buy)+" "+mTitle.toString().split(" / ")[0],
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Thread thread = new Thread()
+                                {
+                                    @Override
+                                    public void run() {
+                                        bm_Trade.doTrade(PAIR_ID, "buy", editTradePrice.getText().toString(), editTradeAmount.getText().toString());
+                                    }
+                                };
+                                thread.start();
+                            }
+                        });
+                AlertDialog AboutDialog = action_dialog.create();
+                AboutDialog.show();
+            }
+        });
+        pairBidsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                listPrice=Double.parseDouble(pairBidsElements[PAIR_CODE].get(position).getPrice());
+                //Toast.makeText(bm_MainContext,listPrice.toString(),Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder action_dialog = new AlertDialog.Builder(bm_MainContext);
+                action_dialog.setTitle(bm_Main.bm_MainState.getResources().getString(R.string.sell));
+                LayoutInflater inflater = bm_MainState.getLayoutInflater();
+                View layer = inflater.inflate(R.layout.trade,null);
+
+                final EditText editTradeAmount = (EditText) layer.findViewById(R.id.editTradeAmount);
+                final EditText editTradePrice = (EditText) layer.findViewById(R.id.editTradePrice);
+                TextView textTradeAmount = (TextView) layer.findViewById(R.id.textTradeAmount);
+                TextView textTradePrice = (TextView) layer.findViewById(R.id.textTradePrice);
+                final TextView textTradeTotal = (TextView) layer.findViewById(R.id.textTradeTotal);
+                final TextView textTradeTax = (TextView) layer.findViewById(R.id.textTradeTax);
+                final SeekBar seekBarTrade = (SeekBar) layer.findViewById(R.id.seekBarTrade);
+                final TextView textBalance = (TextView) layer.findViewById(R.id.textBal);
+
+                Double bl=0.0;
+
+                for(int i=0;i<fundsListElements.size();i++){
+                    if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[0].toUpperCase())){
+                        textBalance.setText(new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[0]);
+                        bl=Double.parseDouble(fundsListElements.get(i).getLast());
+                    }
+                }
+                for(int i=0;i<fundsListElements.size();i++){
+                    if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[1].toUpperCase())){
+                        textBalance.setText(textBalance.getText()+"\n"+new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[1]);
+                    }
+                }
+
+                editTradePrice.setText(listPrice.toString());
+
+                for(int i=0;i<VARs.pairs_CODE.length;i++)
+                {if(VARs.pairs_UI[i].equals(mTitle)){
+                    textTradeAmount.setText(textTradeAmount.getText()+" "+mTitle.toString().split(" / ")[0]+":");
+                    textTradePrice.setText(textTradePrice.getText()+" "+mTitle.toString().split(" / ")[0]+":");
+                }}
+
+                textTradeTotal.setText("0.0" + " " + mTitle.toString().split(" / ")[1]);
+                textTradeTax.setText("0.0" + " " + mTitle.toString().split(" / ")[1]);
+
+                final Double dbl=bl;
+
+                seekBarTrade.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        NumberFormat formatter = new DecimalFormat("#.########");
+
+                        editTradeAmount.setText(formatter.format(dbl/100*progress).replace(",","."));
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                        //To change body of implemented methods use File | Settings | File Templates.
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        //To change body of implemented methods use File | Settings | File Templates.
+                    }
+                });
+                editTradeAmount.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        try {
+                            Double total = Double.parseDouble(editTradeAmount.getText().toString()) * Double.parseDouble(editTradePrice.getText().toString());
+                            Double tax = total * 0.002;
+                            if(PAIR_ID.equals("usd_rur")){tax=total * 0.005;}
+                            NumberFormat formatter = new DecimalFormat("#.#####");
+                            textTradeTotal.setText(formatter.format(total) + " " + mTitle.toString().split(" / ")[1]);
+                            textTradeTax.setText(formatter.format(tax) + " " + mTitle.toString().split(" / ")[1]);
+                            if(dbl<Double.parseDouble(editTradeAmount.getText().toString())){
+                                editTradeAmount.setTextColor(Color.RED);
+                            } else {
+                                editTradeAmount.setTextColor(textTradeTax.getTextColors());
+                            }
+                        } catch (Exception e ){}
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                    }
+                });
+
+                editTradePrice.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        try {
+                            Double total = (Double.parseDouble(editTradeAmount.getText().toString()) * Double.parseDouble(editTradePrice.getText().toString()));
+                            Double tax = total * 0.002;
+                            if(PAIR_ID.equals("usd_rur")){tax=total * 0.005;}
+                            NumberFormat formatter = new DecimalFormat("#.#####");
+                            textTradeTotal.setText(formatter.format(total) + " " + mTitle.toString().split(" / ")[1]);
+                            textTradeTax.setText(formatter.format(tax) + " " + mTitle.toString().split(" / ")[1]);
+                            if(dbl<Double.parseDouble(editTradeAmount.getText().toString())){
+                                editTradeAmount.setTextColor(Color.RED);
+                            } else {
+                                editTradeAmount.setTextColor(textTradeTax.getTextColors());
+                            }
+                        } catch (Exception e ){}
+                    }
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                    }
+                });
+
+                action_dialog.setView(layer);
+                action_dialog.setNegativeButton(bm_MainState.getResources().getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                action_dialog.setPositiveButton(bm_Main.bm_MainState.getResources().getString(R.string.sell)+" "+mTitle.toString().split(" / ")[0],
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Thread thread = new Thread()
+                                {
+                                    @Override
+                                    public void run() {
+                                        bm_Trade.doTrade(PAIR_ID,"sell",editTradePrice.getText().toString(),editTradeAmount.getText().toString());
+                                    }
+                                };
+                                thread.start();
+                            }
+                        });
+                AlertDialog AboutDialog = action_dialog.create();
+                AboutDialog.show();
+            }
+        });
 
         if(pairAskElements==null){pairAskElements = (List<bm_ListElementsDepth>[]) new List[VARs.pairs_CODE.length];}
         if(pairBidsElements==null){pairBidsElements=(List<bm_ListElementsDepth>[]) new List[VARs.pairs_CODE.length];}
