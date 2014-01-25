@@ -67,7 +67,7 @@ public class bm_ListElementCharts {
         return Low;
     }
     public String getAsString(){
-        return Pair+"&"+PairCode+"&"+Last+"&"+Buy+"&"+Sell+"&"+Updated+"&"+High+"&"+Low;
+        return Pair+"&"+PairCode+"&"+Last+"&"+Buy+"&"+Sell+"&"+Updated+"&"+High+"&"+Low+"&"+DiffLast+"&"+DiffBuy+"&"+DiffSell;
     }
 
     public String getDiffLast(){

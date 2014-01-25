@@ -635,10 +635,12 @@ public class bm_Main extends Activity
     public static View pageChat(ViewGroup container, LayoutInflater inflater){
         View rootView = inflater.inflate(R.layout.chat, container, false);
 
-
         final WebView webView = (WebView) rootView.findViewById(R.id.webChat);
 
         webView.getSettings().setJavaScriptEnabled(true);
+
+        final int wvwidth = webView.getWidth();
+        final int wvheight = webView.getHeight();
         /*
         webView.setWebViewClient(new WebViewClient() {
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
@@ -651,23 +653,42 @@ public class bm_Main extends Activity
             {
                 webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[0].style.display='none'; " + "})()");
                 webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[1].style.display='none'; " + "})()");
-
-                //webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[3].style.display='none'; " + "})()");
-
+                //webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[2].style.display='none'; " + "})()");
+                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[3].style.display='none'; " + "})()");
                 webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[4].style.display='none'; " + "})()");
                 webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[5].style.display='none'; " + "})()");
                 webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[6].style.display='none'; " + "})()");
 
                 webView.loadUrl("javascript:(function() { " + "document.getElementById('header-ticker').style.display='none'; " + "})()");
 
-                //webView.loadUrl("javascript:(function() { " + "document.getElementById('nav-container').style.display='none'; " + "})()");
                 webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('menu')[0].style.display='none'; " + "})()");
-
-
                 webView.loadUrl("javascript:(function() { " + "document.getElementById('footer').style.display='none'; " + "})()");
-
                 webView.loadUrl("javascript:(function() { " + "document.getElementById('header-logo').style.display='none'; " + "})()");
 
+
+                //webView.loadUrl("javascript:(function() { " + "document.getElementById('nav-container').style.display='none'; " + "})()");
+                webView.loadUrl("javascript:(function() { " + "var div = document.getElementsByClassName('block')[2];" +
+                        "div.style.width='95%';" +
+                        /*"div.style.height='75%';" +*/
+                        "div.style.position='absolute';" +
+                        /*"div.style.top='0';" +*/
+                        "div.style.left='0'; " +
+                        "document.body.style.width='"+100+"px'"+
+                        "document.body.style.height='"+100+"px'" + "})()");
+
+                webView.loadUrl("javascript:(function() { " + "var div = document.getElementById('nav-container');" +
+                        "div.style.left='0'; "+
+                        "div.style.width='100px'" +"})()");
+                                                           /*
+                webView.loadUrl("javascript:(function() { " + "var div = document.getElementsByClassName('profile');" +
+                        "div.style.width='100%';" +
+                        "div.style.height='100%';" +
+                        "div.style.position='absolute';" +
+                        "div.style.top='0';" +
+                        "div.style.left='0'; " + "})()");  */
+
+
+                //webView.loadUrl("javascript:(function() { " + "document.getElementById('users-online').style.display='block'; " + "})()");
                 //webView.loadUrl("javascript:(function() { " + "document.getElementsById('body')[0].style.color = 'red'; " + "})()");
             }
         });
