@@ -23,6 +23,7 @@
     <string name="bottom_panel">Кнопки снизу</string>
     <string name="api_settings">Настройки API</string>
     <string name="sec_settings">Безопасность</string>
+    <string name="early_settings">Ранний доступ</string>
     <string name="finance">Финансы:</string>
     <string name="chat">Чат</string>
     <string name="enabled_charts">Валютные пары</string>
@@ -77,6 +78,8 @@
     <string name="no_present">отсутствует</string>
     <string name="all_transaction">Всего транзакций</string>
     <string name="open_orders">Ордеров открыто</string>
+
+    <string name="chat_warning">Идет загрузка...\nВнимание: Чат находится на стадии альфа-тестирования</string>
 
     <string name="cant_retrieve">Не удалось получить данные по</string>
 

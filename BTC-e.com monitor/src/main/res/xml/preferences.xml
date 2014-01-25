@@ -20,4 +20,7 @@
     <PreferenceCategory android:title="@string/sec_settings">
         <CheckBoxPreference android:key="prefs_SEC_PIN" android:title="PIN" android:defaultValue="false"></CheckBoxPreference>
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/early_settings">
+        <CheckBoxPreference android:key="prefs_CHAT" android:title="@string/chat" android:defaultValue="false"></CheckBoxPreference>
+    </PreferenceCategory>
 </PreferenceScreen>

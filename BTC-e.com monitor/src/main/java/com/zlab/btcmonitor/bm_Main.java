@@ -60,6 +60,8 @@ public class bm_Main extends Activity
     static String PIN;
     private static String PINCheck="";
     private static boolean PIN_SHOW;
+    public static boolean prefs_CHAT=false;
+    public static int NOPAIRS_GROUP=3;
     //public static String[] pairs_UI;
     //public static String[] pairs_CODE;
 
@@ -372,7 +374,8 @@ public class bm_Main extends Activity
         NAV_DRAWER.add(0, getString(R.string.title_charts));
         NAV_DRAWER.add(1, getString(R.string.title_office));
         /** CHAT **/
-        NAV_DRAWER.add(2, getString(R.string.chat));
+        if(bm_Main.prefs_CHAT){
+            NAV_DRAWER.add(2, getString(R.string.chat));}
 
         navDrawer.my_adapter.clear();
         navDrawer.my_adapter.addAll(NAV_DRAWER);
@@ -405,71 +408,16 @@ public class bm_Main extends Activity
                 .commitAllowingStateLoss();
         PAGE_ID=position;
     }
-    public void onSectionAttached(int number) { /** WTF is this?  Idiot! **/ /** No, seriously! WHAT IS THIS SHIT? **/
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.title_charts);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_office);
-                break;
-            case 3:
-                mTitle = getString(R.string.chat);
-                break;
-            case 4:
-                mTitle = chartsListElementsToShow.get(0).getPair();
-                break;
-            case 5:
-                mTitle = chartsListElementsToShow.get(1).getPair();
-                break;
-            case 6:
-                mTitle = chartsListElementsToShow.get(2).getPair();
-                break;
-            case 7:
-                mTitle = chartsListElementsToShow.get(3).getPair();
-                break;
-            case 8:
-                mTitle = chartsListElementsToShow.get(4).getPair();
-                break;
-            case 9:
-                mTitle = chartsListElementsToShow.get(5).getPair();
-                break;
-            case 10:
-                mTitle = chartsListElementsToShow.get(6).getPair();
-                break;
-            case 11:
-                mTitle = chartsListElementsToShow.get(7).getPair();
-                break;
-            case 12:
-                mTitle = chartsListElementsToShow.get(8).getPair();
-                break;
-            case 13:
-                mTitle = chartsListElementsToShow.get(9).getPair();
-                break;
-            case 14:
-                mTitle = chartsListElementsToShow.get(10).getPair();
-                break;
-            case 15:
-                mTitle = chartsListElementsToShow.get(11).getPair();
-                break;
-            case 16:
-                mTitle = chartsListElementsToShow.get(12).getPair();
-                break;
-            case 17:
-                mTitle = chartsListElementsToShow.get(13).getPair();
-                break;
-            case 18:
-                mTitle = chartsListElementsToShow.get(14).getPair();
-                break;
-            case 19:
-                mTitle = chartsListElementsToShow.get(15).getPair();
-                break;
-            case 20:
-                mTitle = chartsListElementsToShow.get(16).getPair();
-                break;
-            case 21:
-                mTitle = chartsListElementsToShow.get(17).getPair();
-                break;
+    public void onSectionAttached(int number) {
+
+        if(number==1){
+            mTitle = getString(R.string.title_charts);
+        } else if(number==2){
+            mTitle = getString(R.string.title_office);
+        } else if(prefs_CHAT && number==3){
+            mTitle = getString(R.string.chat);
+        } else {
+            mTitle = chartsListElementsToShow.get(number-(NOPAIRS_GROUP+1)).getPair();
         }
     }
     public void restoreActionBar() {
@@ -642,7 +590,7 @@ public class bm_Main extends Activity
         for(int i=0;i<chartsListElementsToShow.size();i++){
                 if(mTitle.equals(chartsListElementsToShow.get(i).getPair())){
                     if (navDrawer.mCallbacks != null) {
-                        navDrawer.mCallbacks.onNavigationDrawerItemSelected(i+3);
+                        navDrawer.mCallbacks.onNavigationDrawerItemSelected(i+NOPAIRS_GROUP);
                     }
                 }
         }
@@ -652,60 +600,80 @@ public class bm_Main extends Activity
         View rootView = inflater.inflate(R.layout.chat, container, false);
 
         final WebView webView = (WebView) rootView.findViewById(R.id.webChat);
-
         webView.getSettings().setJavaScriptEnabled(true);
 
-        final int wvwidth = webView.getWidth();
-        final int wvheight = webView.getHeight();
+        //final int wvwidth = webView.getWidth();
+        //final int wvheight = webView.getHeight();
         /*
         webView.setWebViewClient(new WebViewClient() {
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 Toast.makeText(bm_MainContext, description, Toast.LENGTH_SHORT).show();
             }
         });*/
+
+        final ProgressDialog mProgressDialog = new ProgressDialog(bm_MainContext);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setMessage(bm_MainState.getResources().getString(R.string.chat_warning));
+
+        mProgressDialog.show();
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url)
             {
-                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[0].style.display='none'; " + "})()");
-                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[1].style.display='none'; " + "})()");
-                //webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[2].style.display='none'; " + "})()");
-                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[3].style.display='none'; " + "})()");
-                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[4].style.display='none'; " + "})()");
-                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[5].style.display='none'; " + "})()");
-                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('block')[6].style.display='none'; " + "})()");
-
-                webView.loadUrl("javascript:(function() { " + "document.getElementById('header-ticker').style.display='none'; " + "})()");
-
-                webView.loadUrl("javascript:(function() { " + "document.getElementsByClassName('menu')[0].style.display='none'; " + "})()");
-                webView.loadUrl("javascript:(function() { " + "document.getElementById('footer').style.display='none'; " + "})()");
-                webView.loadUrl("javascript:(function() { " + "document.getElementById('header-logo').style.display='none'; " + "})()");
+                webView.loadUrl("javascript:(function() { " +
+                        //"document.getElementById('PoW_working').style.display='none'"+
+                        //"document.getElementById('orp_con').style.display='none'"+
+                        "document.getElementById('content').getElementsByTagName('div')[0].style.display='none';"+
+                        "document.getElementById('header-logo').style.display='none';"+
+                        "document.getElementById('header-ticker').style.display='none';"+
+                        "document.getElementById('footer').style.display='none';"+
+                        "document.getElementsByClassName('block')[5].style.display='none';"+
+                        "document.getElementsByClassName('block')[6].style.display='none';"+
 
 
-                //webView.loadUrl("javascript:(function() { " + "document.getElementById('nav-container').style.display='none'; " + "})()");
-                webView.loadUrl("javascript:(function() { " + "var div = document.getElementsByClassName('block')[2];" +
-                        "div.style.width='95%';" +
-                        /*"div.style.height='75%';" +*/
-                        "div.style.position='absolute';" +
-                        /*"div.style.top='0';" +*/
-                        "div.style.left='0'; " +
-                        "document.body.style.width='"+100+"px'"+
-                        "document.body.style.height='"+100+"px'" + "})()");
+                        //"document.getElementById('content').style.margin='inherit';"+
+                        "document.getElementById('content').style.width='90%';"+
+                        "document.getElementById('nChatCon').style.width='inherit';"+
+                        "document.getElementById('nChat').style.width='inherit';"+
+                        "document.getElementById('content').getElementsByTagName('div')[1].style.width='inherit';"+
+                        "document.getElementById('content').getElementsByTagName('div')[1].style.float='none';"+
 
-                webView.loadUrl("javascript:(function() { " + "var div = document.getElementById('nav-container');" +
-                        "div.style.left='0'; "+
-                        "div.style.width='100px'" +"})()");
-                                                           /*
-                webView.loadUrl("javascript:(function() { " + "var div = document.getElementsByClassName('profile');" +
-                        "div.style.width='100%';" +
-                        "div.style.height='100%';" +
-                        "div.style.position='absolute';" +
-                        "div.style.top='0';" +
-                        "div.style.left='0'; " + "})()");  */
+                        "document.getElementsByClassName('menu')[0].style.display='none';" +
 
+                        //"var div = document.getElementById('header');"+
+                        "document.getElementById('header').style.height='0px';"+
+                        "document.getElementById('header').style.background='none';"+
+                        "document.getElementById('header').style.width='0px';" +
 
-                //webView.loadUrl("javascript:(function() { " + "document.getElementById('users-online').style.display='block'; " + "})()");
-                //webView.loadUrl("javascript:(function() { " + "document.getElementsById('body')[0].style.color = 'red'; " + "})()");
+                        //"div = document.getElementById('header-content');"+
+                        "document.getElementById('header-content').style.height='0px';"+
+                        "document.getElementById('header-content').style.width='200px';"+
+                        "document.getElementById('header-content').style.margin='initial';" +
+
+                        //"div = document.getElementById('header-profile');"+
+                        "document.getElementById('header-profile').style.width='300px';" +
+                        //"document.getElementById('header-profile').style.float='left';" +
+
+                        //"document.getElementById('nav-container').style.height='0px';" +
+
+                        //"document.getElementById('content').getElementsByTagName('div')[1].style.width='300px';"+
+                        //"document.getElementById('content').getElementsByTagName('div')[1].style.float='left';"+
+                        //"document.getElementById('content').getElementsByTagName('div')[1].style.margin-top='10px';"+
+                        //"document.getElementById('content').getElementsByTagName('div')[1].style.margin-left='10px';"+
+
+                        "document.getElementById('nav-container').getElementsByTagName('div').style.float='right';" +
+                        "document.getElementById('nav-container').getElementsByTagName('div').style.position='absolute';" +
+                        //"document.getElementById('nav-container').getElementsByTagName('div').style.top='0px';" +
+                        //"document.getElementById('nav-container').getElementsByTagName('div').style.left='95%';" +
+
+                        "document.getElementById('content').getElementsByTagName('div')[0].style.width='0px';"+
+                        //"document.getElementById('content').getElementsByTagName('div')[0].style.float='left';"+
+                        "document.getElementById('content').getElementsByTagName('div')[0].style.display='none';"+
+
+                        "})()");
+
+                mProgressDialog.dismiss();
             }
         });
         webView.loadUrl("https://btc-e.com/");
@@ -757,7 +725,7 @@ public class bm_Main extends Activity
         chartsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                navDrawer.selectItem(position + 3);
+                navDrawer.selectItem(position + bm_Main.NOPAIRS_GROUP);
                 //bm_MainState.onNavigationDrawerItemSelected(position+2);
                 mTitle = chartsListElementsToShow.get(position).getPair()/*VARs.pairs_UI[position]*/;
                 bm_MainState.invalidateOptionsMenu();
@@ -1711,7 +1679,9 @@ public class bm_Main extends Activity
         API_SECRET = prefs.getString("prefs_API_SECRET","4403412b3793c319bffba269d5862992ca5cd400b5cded0ebe3e0ec3a3a8c4d1");
         API_URL_PRIVATE = prefs.getString("prefs_API_URL_PRIVATE","https://btc-e.com/tapi");
         API_URL_PUBLIC = prefs.getString("prefs_API_URL_PUBLIC","https://btc-e.com/api/2/");
+        prefs_CHAT = prefs.getBoolean("prefs_CHAT",false);
 
+        if(prefs_CHAT){NOPAIRS_GROUP=3;}else{NOPAIRS_GROUP=2;}
         /*Set<String> prefs_enabled_charts_selections = prefs.getStringSet("prefs_enabled_charts",
                 new HashSet<String>(Arrays.asList(
                         "BTC / USD",

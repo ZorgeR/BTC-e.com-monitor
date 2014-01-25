@@ -23,6 +23,7 @@
     <string name="bottom_panel">Buttons on bottom panel</string>
     <string name="api_settings">API settings</string>
     <string name="sec_settings">Security settings</string>
+    <string name="early_settings">Early access</string>
     <string name="finance">Finance:</string>
     <string name="chat">Chat</string>
     <string name="enabled_charts">Сurrency pairs</string>
@@ -77,6 +78,8 @@
     <string name="no_present">no</string>
     <string name="all_transaction">Total transaction</string>
     <string name="open_orders">Orders opened</string>
+
+    <string name="chat_warning">Loading...\nWarning: Chat is in alpha testing</string>
 
     <string name="cant_retrieve">Can\'t get data for</string>
 
