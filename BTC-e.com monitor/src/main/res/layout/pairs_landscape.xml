@@ -98,6 +98,11 @@
                     android:layout_below="@+id/linearLayout2" android:id="@+id/linearLayout3"
                     android:layout_above="@+id/linearLayout5" android:layout_weight="1" android:minHeight="190dp"
                     >
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="2px"
+                        android:layout_height="fill_parent">
+                </LinearLayout>
                 <ListView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
