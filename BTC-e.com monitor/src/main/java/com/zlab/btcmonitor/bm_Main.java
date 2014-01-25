@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.*;
 import android.net.Uri;
 import android.os.Build;
@@ -307,7 +308,9 @@ public class bm_Main extends Activity
                 for(int i=0;i<VARs.pairs_CODE.length;i++)
                 {
                         imgChartsBitmap[i]=BitmapFactory.decodeResource(getResources(), R.drawable.charts_loading);
+                    try{
                         imgCharts[i].setImageBitmap(imgChartsBitmap[i]);
+                    } catch (NullPointerException e){}
                 }
             }
             doRefresh();
@@ -632,6 +635,18 @@ public class bm_Main extends Activity
         }
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        for(int i=0;i<chartsListElementsToShow.size();i++){
+                if(mTitle.equals(chartsListElementsToShow.get(i).getPair())){
+                    if (navDrawer.mCallbacks != null) {
+                        navDrawer.mCallbacks.onNavigationDrawerItemSelected(i+3);
+                    }
+                }
+        }
+    }
+
     public static View pageChat(ViewGroup container, LayoutInflater inflater){
         View rootView = inflater.inflate(R.layout.chat, container, false);
 
@@ -788,7 +803,13 @@ public class bm_Main extends Activity
         return rootView;
     }
     public static View pagePairs(ViewGroup container, LayoutInflater inflater){
-        View rootView = inflater.inflate(R.layout.pairs, container, false);
+        View rootView;
+
+        if(bm_MainState.getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT){
+            rootView = inflater.inflate(R.layout.pairs, container, false);
+        } else {
+            rootView = inflater.inflate(R.layout.pairs_landscape, container, false);
+        }
 
         //int pair_code=-1;
         int pair_code=0; /** Fix crash on back button and resume **/
@@ -1163,6 +1184,50 @@ public class bm_Main extends Activity
 
         pairAskList = (ListView) rootView.findViewById(R.id.listAsk);
         pairBidsList = (ListView) rootView.findViewById(R.id.listBids);
+
+        pairAskList.setOnTouchListener(new ListView.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
+
+        pairBidsList.setOnTouchListener(new ListView.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
 
         if(pairAskElements==null){pairAskElements = (List<bm_ListElementsDepth>[]) new List[VARs.pairs_CODE.length];}
         if(pairBidsElements==null){pairBidsElements=(List<bm_ListElementsDepth>[]) new List[VARs.pairs_CODE.length];}
