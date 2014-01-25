@@ -40,7 +40,7 @@ public class bm_Main extends Activity
     public static navDrawer mBmNavDrawer;
     public static bm_Main bm_MainState;
     public static Context bm_MainContext;
-    private static CharSequence mTitle;
+    public static CharSequence mTitle;
 
     /** Global **/
     public static int currentApiVersion;
@@ -89,7 +89,7 @@ public class bm_Main extends Activity
     public static List<bm_ListElementCharts> chartsListElements;
     public static List<bm_ListElementCharts> chartsListElementsToShow;
     public static List<bm_ListElementCharts> chartsListElementsOld;
-    public static List<bm_ChartsListDiffElements> chartsListDiff,chartsListDiffSell,chartsListDiffBuy;
+    //public static List<bm_ChartsListDiffElements> chartsListDiff,chartsListDiffSell,chartsListDiffBuy;
     public static boolean chartsBlocked=false;
     public static boolean[] chartsEnabled=new boolean[VARs.pairs_CODE.length];
     /** Финансы **/
@@ -108,7 +108,7 @@ public class bm_Main extends Activity
     public static ImageView[] imgCharts;
     public static Bitmap[] imgChartsBitmap;
     public static boolean[] imgRefreshIsBlocked = new boolean[VARs.pairs_CODE.length];
-    public static TextView[] textLast,textLow,textHigh;
+    public static TextView[] textLast,textLow,textHigh,textBal;
     public static String[] txtLast = new String[VARs.pairs_CODE.length];
     public static String[] txtLow = new String[VARs.pairs_CODE.length];
     public static String[] txtHigh = new String[VARs.pairs_CODE.length];
@@ -680,7 +680,6 @@ public class bm_Main extends Activity
         fundsList = (ListView) rootView.findViewById(R.id.FundsList);
 
         if(fundsListElements!=null){
-            fundsAdaptor = new bm_FundsAdaptor(bm_MainContext,R.layout.charts_list_item,fundsListElements);
             //fundsList.setAdapter(fundsAdaptor);
             //}
             //fundsAdaptor.notifyDataSetChanged();
@@ -788,6 +787,7 @@ public class bm_Main extends Activity
         if(textLast==null){textLast=new TextView[VARs.pairs_CODE.length];}
         if(textLow==null){textLow=new TextView[VARs.pairs_CODE.length];}
         if(textHigh==null){textHigh=new TextView[VARs.pairs_CODE.length];}
+        if(textBal==null){textBal=new TextView[VARs.pairs_CODE.length];}
 
         textLast[PAIR_CODE] = (TextView) rootView.findViewById(R.id.textLast);
         textLow[PAIR_CODE] = (TextView) rootView.findViewById(R.id.textLow);
@@ -827,8 +827,49 @@ public class bm_Main extends Activity
                 TextView textTradePrice = (TextView) layer.findViewById(R.id.textTradePrice);
                 final TextView textTradeTotal = (TextView) layer.findViewById(R.id.textTradeTotal);
                 final TextView textTradeTax = (TextView) layer.findViewById(R.id.textTradeTax);
+                final SeekBar seekBarTrade = (SeekBar) layer.findViewById(R.id.seekBarTrade);
                 textTradeTotal.setText("0.0" + " " + mTitle.toString().split(" / ")[1]);
                 textTradeTax.setText("0.0" + " " + mTitle.toString().split(" / ")[0]);
+
+                final TextView textBalance = (TextView) layer.findViewById(R.id.textBal);
+
+                Double bl=0.0;
+                    for(int i=0;i<fundsListElements.size();i++){
+                        if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[1].toUpperCase())){
+                            textBalance.setText(new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[1]);
+                            bl=Double.parseDouble(fundsListElements.get(i).getLast());
+                        }
+                    }
+                for(int i=0;i<fundsListElements.size();i++){
+                    if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[0].toUpperCase())){
+                        textBalance.setText(textBalance.getText()+"\n"+new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[0]);
+                    }
+                }
+
+                final Double dbl=bl;
+
+                seekBarTrade.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        //if(editTradeAmount.getText().toString().equals("")){editTradeAmount.setText("0.00");}
+                        //if(editTradePrice.getText().toString().equals("")){editTradePrice.setText("0.00");}
+
+                        Double total=dbl/Double.parseDouble(editTradePrice.getText().toString());
+                        NumberFormat formatter = new DecimalFormat("#.#####");
+
+                        editTradeAmount.setText(formatter.format(total/100*progress).replace(",","."));
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                        if(editTradeAmount.getText().toString().equals("")){editTradeAmount.setText("0");}
+                        if(editTradePrice.getText().toString().equals("")){editTradePrice.setText("0");}
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                    }
+                });
 
                 editTradeAmount.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -840,8 +881,16 @@ public class bm_Main extends Activity
                         try {
                             Double total = Double.parseDouble(editTradeAmount.getText().toString()) * Double.parseDouble(editTradePrice.getText().toString());
                             Double tax = Double.parseDouble(editTradeAmount.getText().toString()) * 0.002;
-                            textTradeTotal.setText(total.toString() + " " + mTitle.toString().split(" / ")[1]);
-                            textTradeTax.setText(tax.toString() + " " + mTitle.toString().split(" / ")[0]);
+                            if(PAIR_ID.equals("usd_rur")){tax=total * 0.005;}
+                            NumberFormat formatter = new DecimalFormat("#.#####");
+
+                            textTradeTotal.setText(formatter.format(total) + " " + mTitle.toString().split(" / ")[1]);
+                            textTradeTax.setText(formatter.format(tax) + " " + mTitle.toString().split(" / ")[0]);
+                            if(dbl<total){
+                                editTradeAmount.setTextColor(Color.RED);
+                            } else {
+                                editTradeAmount.setTextColor(textTradeTax.getTextColors());
+                            }
                         } catch (Exception e ){}
                     }
 
@@ -857,9 +906,17 @@ public class bm_Main extends Activity
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         try {
                         Double total = (Double.parseDouble(editTradeAmount.getText().toString()) * Double.parseDouble(editTradePrice.getText().toString()));
-                        Double tax = Double.parseDouble(editTradeAmount.getText().toString()) * 0.002;
-                            textTradeTotal.setText(total.toString() + " " + mTitle.toString().split(" / ")[1]);
-                            textTradeTax.setText(tax.toString() + " " + mTitle.toString().split(" / ")[0]);
+                            Double tax = Double.parseDouble(editTradeAmount.getText().toString()) * 0.002;
+                            if(PAIR_ID.equals("usd_rur")){tax=total * 0.005;}
+
+                            NumberFormat formatter = new DecimalFormat("#.########");
+                            textTradeTotal.setText(formatter.format(total) + " " + mTitle.toString().split(" / ")[1]);
+                            textTradeTax.setText(formatter.format(tax) + " " + mTitle.toString().split(" / ")[0]);
+                            if(dbl<total){
+                                editTradeAmount.setTextColor(Color.RED);
+                            } else {
+                                editTradeAmount.setTextColor(textTradeTax.getTextColors());
+                            }
                         } catch (Exception e ){}
                     }
                     @Override
@@ -914,10 +971,26 @@ public class bm_Main extends Activity
                 TextView textTradePrice = (TextView) layer.findViewById(R.id.textTradePrice);
                 final TextView textTradeTotal = (TextView) layer.findViewById(R.id.textTradeTotal);
                 final TextView textTradeTax = (TextView) layer.findViewById(R.id.textTradeTax);
+                final SeekBar seekBarTrade = (SeekBar) layer.findViewById(R.id.seekBarTrade);
+                final TextView textBalance = (TextView) layer.findViewById(R.id.textBal);
+
+                Double bl=0.0;
+
+                for(int i=0;i<fundsListElements.size();i++){
+                    if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[0].toUpperCase())){
+                        textBalance.setText(new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[0]);
+                        bl=Double.parseDouble(fundsListElements.get(i).getLast());
+                    }
+                }
+                for(int i=0;i<fundsListElements.size();i++){
+                    if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[1].toUpperCase())){
+                        textBalance.setText(textBalance.getText()+"\n"+new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[1]);
+                    }
+                }
 
                 for(int i=0;i<VARs.pairs_CODE.length;i++)
                 {if(VARs.pairs_UI[i].equals(mTitle)){
-                    editTradePrice.setText(pairAskElements[i].get(0).getPrice());
+                    editTradePrice.setText(pairBidsElements[i].get(0).getPrice());
                     textTradeAmount.setText(textTradeAmount.getText()+" "+mTitle.toString().split(" / ")[0]+":");
                     textTradePrice.setText(textTradePrice.getText()+" "+mTitle.toString().split(" / ")[0]+":");
                 }}
@@ -925,6 +998,26 @@ public class bm_Main extends Activity
                 textTradeTotal.setText("0.0" + " " + mTitle.toString().split(" / ")[1]);
                 textTradeTax.setText("0.0" + " " + mTitle.toString().split(" / ")[1]);
 
+                final Double dbl=bl;
+
+                seekBarTrade.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        NumberFormat formatter = new DecimalFormat("#.########");
+
+                        editTradeAmount.setText(formatter.format(dbl/100*progress).replace(",","."));
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                        //To change body of implemented methods use File | Settings | File Templates.
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        //To change body of implemented methods use File | Settings | File Templates.
+                    }
+                });
                 editTradeAmount.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -936,9 +1029,14 @@ public class bm_Main extends Activity
                         Double total = Double.parseDouble(editTradeAmount.getText().toString()) * Double.parseDouble(editTradePrice.getText().toString());
                         Double tax = total * 0.002;
                             if(PAIR_ID.equals("usd_rur")){tax=total * 0.005;}
-                            NumberFormat formatter = new DecimalFormat("#0.00000");
+                            NumberFormat formatter = new DecimalFormat("#.#####");
                             textTradeTotal.setText(formatter.format(total) + " " + mTitle.toString().split(" / ")[1]);
                             textTradeTax.setText(formatter.format(tax) + " " + mTitle.toString().split(" / ")[1]);
+                            if(dbl<Double.parseDouble(editTradeAmount.getText().toString())){
+                                editTradeAmount.setTextColor(Color.RED);
+                            } else {
+                                editTradeAmount.setTextColor(textTradeTax.getTextColors());
+                            }
                         } catch (Exception e ){}
                     }
 
@@ -956,9 +1054,14 @@ public class bm_Main extends Activity
                         Double total = (Double.parseDouble(editTradeAmount.getText().toString()) * Double.parseDouble(editTradePrice.getText().toString()));
                         Double tax = total * 0.002;
                             if(PAIR_ID.equals("usd_rur")){tax=total * 0.005;}
-                            NumberFormat formatter = new DecimalFormat("#0.00000");
+                            NumberFormat formatter = new DecimalFormat("#.#####");
                             textTradeTotal.setText(formatter.format(total) + " " + mTitle.toString().split(" / ")[1]);
                             textTradeTax.setText(formatter.format(tax) + " " + mTitle.toString().split(" / ")[1]);
+                            if(dbl<Double.parseDouble(editTradeAmount.getText().toString())){
+                                editTradeAmount.setTextColor(Color.RED);
+                            } else {
+                                editTradeAmount.setTextColor(textTradeTax.getTextColors());
+                            }
                         } catch (Exception e ){}
                     }
                     @Override
@@ -1075,6 +1178,7 @@ public class bm_Main extends Activity
         {
             @Override
             public void run() {
+                    bm_Office.updateInfo();
                     bm_Depth.update_depth(PAIR_ID);
 
                 bm_Main.bm_MainState.runOnUiThread(new Runnable() {
@@ -1432,11 +1536,14 @@ public class bm_Main extends Activity
                             chartsElementsArray[4],
                             chartsElementsArray[5],
                             chartsElementsArray[6],
-                            chartsElementsArray[7]));
+                            chartsElementsArray[7],
+                            chartsElementsArray[8],
+                            chartsElementsArray[9],
+                            chartsElementsArray[10]));
                 REFRESH_COUNTER++;
             } catch (Exception e) {
                 //Log.e("ERR", "MSG");
-                chartsListElements.add(new bm_ListElementCharts(VARs.pairs_UI[i],VARs.pairs_CODE[i],"0.00","0.00","0.00","","",""));
+                chartsListElements.add(new bm_ListElementCharts(VARs.pairs_UI[i],VARs.pairs_CODE[i],"0.00","0.00","0.00","","","","0.00","0.00","0.00"));
             }
         }
     }

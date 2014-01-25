@@ -59,6 +59,7 @@
     <string name="total">Всего</string>
     <string name="price_for">Цена за</string>
     <string name="amount_of">Количество</string>
+    <string name="yourbal">Ваши средства:</string>
 
     <string name="low_balance_nopermission">Результат: недостаточно средств или нет прав на трейдинг.</string>
     <string name="result_success">Результат: Успешно</string>

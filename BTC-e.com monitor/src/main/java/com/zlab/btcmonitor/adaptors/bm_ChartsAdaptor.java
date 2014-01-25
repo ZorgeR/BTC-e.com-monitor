@@ -182,15 +182,15 @@ public class bm_ChartsAdaptor extends ArrayAdapter<bm_ListElementCharts> {
 
             if(bm_Main.prefs_show_vector){
                 img_vector.setVisibility(View.VISIBLE);
-                if(bm_Main.chartsListDiff!=null && bm_Main.chartsListDiff.size()!=0){
+                if(!o.getDiffLast().equals("") || !o.getDiffLast().equals("0.00")){
                     Double diff = 0.00;
                     Double diffSell = 0.00;
                     Double diffBuy = 0.00;
 
                     try{
-                        diff = Double.parseDouble(bm_Main.chartsListDiff.get(position).getValue());
-                        diffSell = Double.parseDouble(bm_Main.chartsListDiffSell.get(position).getValue());
-                        diffBuy = Double.parseDouble(bm_Main.chartsListDiffBuy.get(position).getValue());
+                        diff = Double.parseDouble(o.getDiffLast());
+                        diffSell = Double.parseDouble(o.getDiffSell());
+                        diffBuy = Double.parseDouble(o.getDiffBuy());
                     } catch (IndexOutOfBoundsException e){
                     }
 

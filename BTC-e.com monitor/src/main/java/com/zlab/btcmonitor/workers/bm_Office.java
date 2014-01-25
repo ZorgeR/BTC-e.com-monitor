@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.zlab.btcmonitor.R;
 import com.zlab.btcmonitor._API.VARs;
 import com.zlab.btcmonitor._API.btce_getInfo;
+import com.zlab.btcmonitor.adaptors.bm_FundsAdaptor;
 import com.zlab.btcmonitor.elements.bm_ListElementCharts;
 import com.zlab.btcmonitor.bm_Main;
 import com.zlab.btcmonitor.UI.navDrawer;
@@ -41,6 +42,7 @@ public class bm_Office {
             bm_Main.getInfo_data = bm_Main.getInfo_data +bm_Main.bm_MainState.getResources().getString(R.string.open_orders)+": "+ btce_getInfo.getOpenOrders(RETURN);
 
             //bm_Main.office_stat=bm_Main.office_stat+"Ваши счета:";
+
             bm_Main.fundsListElements = new ArrayList<bm_ListElementCharts>();
 
             String[] funds_code = VARs.funds_code;
@@ -51,10 +53,9 @@ public class bm_Office {
                 bm_ListElementCharts el = new bm_ListElementCharts(
                         funds_code[i],"",
                         btce_getInfo.getFunds(RETURN, funds_code[i]),
-                        "","","","","");
+                        "","","","","","","","");
 
                 //Log.e("LAST: ",el.getLast());
-
                 bm_Main.fundsListElements.add(el);
 
                 //btce_getTicker.get_avg(Ticker);
@@ -81,8 +82,11 @@ public class bm_Office {
         bm_Main.bm_MainState.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (navDrawer.mCallbacks != null) {
-                    navDrawer.mCallbacks.onNavigationDrawerItemSelected(1);
+                bm_Main.fundsAdaptor = new bm_FundsAdaptor(bm_Main.bm_MainContext,R.layout.charts_list_item,bm_Main.fundsListElements);
+                if(bm_Main.mTitle.equals(bm_Main.bm_MainState.getString(R.string.title_office))){
+                    if (navDrawer.mCallbacks != null) {
+                        navDrawer.mCallbacks.onNavigationDrawerItemSelected(1);
+                    }
                 }
                 bm_Main.bm_MainState.setProgressBarIndeterminateVisibility(false);
             }

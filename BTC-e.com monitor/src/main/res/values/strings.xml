@@ -59,6 +59,7 @@
     <string name="total">Total</string>
     <string name="price_for">Price per</string>
     <string name="amount_of">Amount</string>
+    <string name="yourbal">Your balance:</string>
 
     <string name="low_balance_nopermission">Result: not enough money or do not have permission to trading.</string>
     <string name="result_success">Result: Success</string>
