@@ -83,11 +83,32 @@ public class bm_Office {
             @Override
             public void run() {
                 bm_Main.fundsAdaptor = new bm_FundsAdaptor(bm_Main.bm_MainContext,R.layout.charts_list_item,bm_Main.fundsListElements);
+
+
                 if(bm_Main.mTitle.equals(bm_Main.bm_MainState.getString(R.string.title_office))){
+                    if(bm_Main.fundsListElements!=null){
+                        bm_Main.fundsList.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                bm_Main.fundsList.setAdapter(bm_Main.fundsAdaptor);
+                            }
+                        },250);
+
+                    }
+
+                    if(bm_Main.getInfo_data != null && !bm_Main.getInfo_data.isEmpty()){
+                        bm_Main.office_footer.setText(bm_Main.getInfo_data);
+                    } else {
+                        bm_Main.office_footer.setText(bm_Main.mTitle);
+                    }
+                    /*
                     if (navDrawer.mCallbacks != null) {
                         navDrawer.mCallbacks.onNavigationDrawerItemSelected(1);
                     }
+                    */
                 }
+
+                //bm_Main.fundsAdaptor.notifyDataSetChanged();
                 bm_Main.bm_MainState.setProgressBarIndeterminateVisibility(false);
             }
         });

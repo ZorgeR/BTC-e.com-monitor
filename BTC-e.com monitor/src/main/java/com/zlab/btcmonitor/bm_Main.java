@@ -100,6 +100,7 @@ public class bm_Main extends Activity
     public static List<bm_ListElementCharts> fundsListElements;
     public static ListView fundsList;
     public static boolean fundsBlocked=false;
+    public static TextView office_footer;
     /** Пары **/
     public static ListView pairAskList;
     public static ListView pairBidsList;
@@ -705,17 +706,18 @@ public class bm_Main extends Activity
             thread.start();
         }
 
-        TextView textView = (TextView) rootView.findViewById(R.id.textStat);
+        office_footer = (TextView) rootView.findViewById(R.id.textStat);
         TextView txtHead = (TextView) rootView.findViewById(R.id.txtHead);
         if(bm_Main.currentApiVersion >= Build.VERSION_CODES.JELLY_BEAN){
             txtHead.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
-            textView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
+            office_footer.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
         }
+        /*
         if(getInfo_data != null && !getInfo_data.isEmpty()){
-            textView.setText(getInfo_data);
+            office_footer.setText(getInfo_data);
         } else {
-            textView.setText(mTitle);
-        }
+            office_footer.setText(mTitle);
+        }       */
         return rootView;
     }
     public static View pageCharts(ViewGroup container, LayoutInflater inflater){
@@ -845,6 +847,7 @@ public class bm_Main extends Activity
                 final TextView textBalance = (TextView) layer.findViewById(R.id.textBal);
 
                 Double bl=0.0;
+                if(fundsListElements!=null){
                     for(int i=0;i<fundsListElements.size();i++){
                         if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[1].toUpperCase())){
                             textBalance.setText(new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[1]);
@@ -855,6 +858,8 @@ public class bm_Main extends Activity
                     if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[0].toUpperCase())){
                         textBalance.setText(textBalance.getText()+"\n"+new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[0]);
                     }
+                }} else {
+                    Toast.makeText(bm_Main.bm_MainContext,"No `info` permission?",Toast.LENGTH_SHORT).show();
                 }
 
                 final Double dbl=bl;
@@ -986,6 +991,7 @@ public class bm_Main extends Activity
 
                 Double bl=0.0;
 
+                if(fundsListElements!=null){
                 for(int i=0;i<fundsListElements.size();i++){
                     if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[0].toUpperCase())){
                         textBalance.setText(new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[0]);
@@ -996,6 +1002,8 @@ public class bm_Main extends Activity
                     if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[1].toUpperCase())){
                         textBalance.setText(textBalance.getText()+"\n"+new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[1]);
                     }
+                }} else {
+                    Toast.makeText(bm_Main.bm_MainContext,"No `info` permission?",Toast.LENGTH_SHORT).show();
                 }
 
                 for(int i=0;i<VARs.pairs_CODE.length;i++)
@@ -1222,6 +1230,7 @@ public class bm_Main extends Activity
                 final TextView textBalance = (TextView) layer.findViewById(R.id.textBal);
 
                 Double bl=0.0;
+                if(fundsListElements!=null){
                 for(int i=0;i<fundsListElements.size();i++){
                     if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[1].toUpperCase())){
                         textBalance.setText(new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[1]);
@@ -1232,6 +1241,8 @@ public class bm_Main extends Activity
                     if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[0].toUpperCase())){
                         textBalance.setText(textBalance.getText()+"\n"+new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[0]);
                     }
+                }} else {
+                    Toast.makeText(bm_Main.bm_MainContext,"No `info` permission?",Toast.LENGTH_SHORT).show();
                 }
 
                 final Double dbl=bl;
@@ -1364,7 +1375,7 @@ public class bm_Main extends Activity
                 final TextView textBalance = (TextView) layer.findViewById(R.id.textBal);
 
                 Double bl=0.0;
-
+                if(fundsListElements!=null){
                 for(int i=0;i<fundsListElements.size();i++){
                     if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[0].toUpperCase())){
                         textBalance.setText(new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[0]);
@@ -1375,6 +1386,8 @@ public class bm_Main extends Activity
                     if(fundsListElements.get(i).getPair().toUpperCase().equals(mTitle.toString().split(" / ")[1].toUpperCase())){
                         textBalance.setText(textBalance.getText()+"\n"+new DecimalFormat("#.#####").format(Double.parseDouble(fundsListElements.get(i).getLast()))+" "+mTitle.toString().split(" / ")[1]);
                     }
+                }} else {
+                    Toast.makeText(bm_Main.bm_MainContext,"No `info` permission?",Toast.LENGTH_SHORT).show();
                 }
 
                 editTradePrice.setText(listPrice.toString());
