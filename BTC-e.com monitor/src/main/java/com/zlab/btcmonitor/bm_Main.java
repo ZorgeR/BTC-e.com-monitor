@@ -410,7 +410,6 @@ public class bm_Main extends Activity
         PAGE_ID=position;
     }
     public void onSectionAttached(int number) {
-
         if(number==1){
             mTitle = getString(R.string.title_charts);
         } else if(number==2){
@@ -418,7 +417,8 @@ public class bm_Main extends Activity
         } else if(prefs_CHAT && number==3){
             mTitle = getString(R.string.chat);
         } else {
-            mTitle = chartsListElementsToShow.get(number-(NOPAIRS_GROUP+1)).getPair();
+            if(chartsListElementsToShow!=null){
+            mTitle = chartsListElementsToShow.get(number-(NOPAIRS_GROUP+1)).getPair();}
         }
     }
     public void restoreActionBar() {
@@ -1847,15 +1847,25 @@ public class bm_Main extends Activity
         inversion.getPixels(pixel, 0, width, 0, 0, width, height);
 
         // Modify pixels
-        for (int i = 0; i < pixels; i++){
-            String color = Integer.toHexString(pixel[i]);
-            String r = color.substring(2,4);
-            String g = color.substring(4,6);
-            String b = color.substring(6,8);
-            if(r.equals(g) && g.equals(b)){
-                pixel[i] ^= RGB_MASK;
+        try{
+            for (int i = 0; i < pixels; i++){
+                String color = Integer.toHexString(pixel[i]);
+                String r = color.substring(2,4);
+                String g = color.substring(4,6);
+                String b = color.substring(6,8);
+                if(r.equals(g) && g.equals(b)){
+                    pixel[i] ^= RGB_MASK;
+                }
             }
+        } catch (Exception e){
+            bm_Main.bm_MainState.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(bm_Main.bm_MainContext,"error: null graph.",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
+
         inversion.setPixels(pixel, 0, width, 0, 0, width, height);
         // Return inverted Bitmap
         return inversion;

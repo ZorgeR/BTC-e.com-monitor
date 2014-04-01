@@ -4,9 +4,11 @@
         <item>BTC / USD</item>
         <item>BTC / RUR</item>
         <item>BTC / EUR</item>
+        <item>BTC / CNH</item>
         <item>LTC / BTC</item>
         <item>LTC / USD</item>
         <item>LTC / RUR</item>
+        <item>LTC / CNH</item>
         <item>LTC / EUR</item>
         <item>NMC / BTC</item>
         <item>NMC / USD</item>
@@ -14,6 +16,8 @@
         <item>NVC / USD</item>
         <item>USD / RUR</item>
         <item>EUR / USD</item>
+        <item>EUR / RUR</item>
+        <item>USD / CNH</item>
         <item>TRC / BTC</item>
         <item>PPC / BTC</item>
         <item>PPC / USD</item>
