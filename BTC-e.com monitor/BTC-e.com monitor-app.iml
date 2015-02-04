@@ -6,16 +6,11 @@
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
-      </configuration>
-    </facet>
-    <facet type="android-gradle" name="Android-Gradle">
-      <configuration>
-        <option name="GRADLE_PROJECT_PATH" value=":BTC-e.com monitor" />
+        <option name="APK_PATH" value="/build/classes/debug/BTC-e.com monitor-BTC-e.com monitor.apk" />
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/build/classes/debug" />
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/build/source/r/debug" isTestSource="false" />
@@ -49,7 +44,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/instrumentTest/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/instrumentTest/res" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/instrumentTest/resources" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/build/apk" />
       <excludeFolder url="file://$MODULE_DIR$/build/assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/bundles" />
@@ -63,11 +58,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="jsoup-1.7.3" level="project" />
-    <orderEntry type="library" name="gson-2.2.4" level="project" />
-    <orderEntry type="library" name="commons-codec-1.8" level="project" />
-    <orderEntry type="library" name="android-support-v13" level="project" />
-    <orderEntry type="library" name="afreechart-0.0.4" level="project" />
+    <orderEntry type="library" exported="" name="jsoup-1.7.3" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
+    <orderEntry type="library" exported="" name="commons-codec-1.8" level="project" />
+    <orderEntry type="library" exported="" name="android-support-v13" level="project" />
+    <orderEntry type="library" exported="" name="afreechart-0.0.4" level="project" />
   </component>
 </module>
-

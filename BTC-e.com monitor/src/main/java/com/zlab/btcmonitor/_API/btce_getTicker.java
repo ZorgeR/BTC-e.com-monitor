@@ -26,7 +26,9 @@ public class btce_getTicker {
         if(response!=null){
             JsonElement jelement = new JsonParser().parse(response.body());
             JsonObject json_all = jelement.getAsJsonObject();
+            try{
             return json_all.get("ticker").getAsJsonObject();
+            } catch (Exception e){e.printStackTrace();return null;}
         } else {
             return null;
         }

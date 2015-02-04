@@ -33,10 +33,10 @@ public class btce_getDepth {
     }
 
     public static JsonArray getDepthAsk(JsonObject DepthObj){
-        return DepthObj.get("asks").getAsJsonArray();
+        try{return DepthObj.get("asks").getAsJsonArray();}catch (Exception e){e.printStackTrace();return null;}
     }
     public static JsonArray getDepthBids(JsonObject DepthObj){
-        return DepthObj.get("bids").getAsJsonArray();
+        try{return DepthObj.get("bids").getAsJsonArray();}catch (Exception e){e.printStackTrace();return null;}
     }
 
     //{"asks":[[700,0.07501942],[701,0.02498058],[721.89,0.12006]],"bids":[[700,0.0142025],[699.008,0.0734028],[660.002,0.01],[660,21.10717543]]}

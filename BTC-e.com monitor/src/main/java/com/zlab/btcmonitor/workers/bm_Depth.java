@@ -62,43 +62,45 @@ public class bm_Depth {
             JsonArray depthAsk = btce_getDepth.getDepthAsk(depthObj);
             JsonArray depthBids = btce_getDepth.getDepthBids(depthObj);
 
-            for(int i=0;i<depthAsk.size();i++){
-                bm_ListElementsDepth el = new bm_ListElementsDepth(
-                        depthAsk.get(i).getAsJsonArray().get(0).getAsString(),
-                        depthAsk.get(i).getAsJsonArray().get(1).getAsString()
-                );
-                bm_Main.pairAskElements[PAIR_CODE].add(el);
-            }
-            for(int i=0;i<depthBids.size();i++){
-                bm_ListElementsDepth el = new bm_ListElementsDepth(
-                        depthBids.get(i).getAsJsonArray().get(0).getAsString(),
-                        depthBids.get(i).getAsJsonArray().get(1).getAsString()
-                );
-                bm_Main.pairBidsElements[PAIR_CODE].add(el);
-            }
-            final int PAIR_CODE_F=PAIR_CODE;
-            bm_Main.bm_MainState.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if(bm_Main.pairAskAdaptor[PAIR_CODE_F]==null){
-                        bm_Main.pairAskAdaptor[PAIR_CODE_F] = new bm_DepthAdaptor(bm_Main.bm_MainContext, R.layout.depth_list_item,bm_Main.pairAskElements[PAIR_CODE_F]);
-                        bm_Main.pairAskList.setAdapter(bm_Main.pairAskAdaptor[PAIR_CODE_F]);
-                    } else {
-                        bm_Main.pairAskAdaptor[PAIR_CODE_F].setItems(bm_Main.pairAskElements[PAIR_CODE_F]);
-                        bm_Main.pairAskAdaptor[PAIR_CODE_F].notifyDataSetChanged();
-                    }
-                    if(bm_Main.pairBidsAdaptor[PAIR_CODE_F]==null){
-                        bm_Main.pairBidsAdaptor[PAIR_CODE_F] = new bm_DepthAdaptor(bm_Main.bm_MainContext,R.layout.depth_list_item,bm_Main.pairBidsElements[PAIR_CODE_F]);
-                        bm_Main.pairBidsList.setAdapter(bm_Main.pairBidsAdaptor[PAIR_CODE_F]);
-                    } else {
-                        bm_Main.pairBidsAdaptor[PAIR_CODE_F].setItems(bm_Main.pairBidsElements[PAIR_CODE_F]);
-                        bm_Main.pairBidsAdaptor[PAIR_CODE_F].notifyDataSetChanged();
-                    }
-                    bm_Main.bm_MainState.setProgressBarIndeterminateVisibility(false);
-                    bm_Main.btn_Buy.setEnabled(true);
-                    bm_Main.btn_Sell.setEnabled(true);
+            if(depthAsk!=null) {
+                for (int i = 0; i < depthAsk.size(); i++) {
+                    bm_ListElementsDepth el = new bm_ListElementsDepth(
+                            depthAsk.get(i).getAsJsonArray().get(0).getAsString(),
+                            depthAsk.get(i).getAsJsonArray().get(1).getAsString()
+                    );
+                    bm_Main.pairAskElements[PAIR_CODE].add(el);
                 }
-            });
+                for (int i = 0; i < depthBids.size(); i++) {
+                    bm_ListElementsDepth el = new bm_ListElementsDepth(
+                            depthBids.get(i).getAsJsonArray().get(0).getAsString(),
+                            depthBids.get(i).getAsJsonArray().get(1).getAsString()
+                    );
+                    bm_Main.pairBidsElements[PAIR_CODE].add(el);
+                }
+                final int PAIR_CODE_F = PAIR_CODE;
+                bm_Main.bm_MainState.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (bm_Main.pairAskAdaptor[PAIR_CODE_F] == null) {
+                            bm_Main.pairAskAdaptor[PAIR_CODE_F] = new bm_DepthAdaptor(bm_Main.bm_MainContext, R.layout.depth_list_item, bm_Main.pairAskElements[PAIR_CODE_F]);
+                            bm_Main.pairAskList.setAdapter(bm_Main.pairAskAdaptor[PAIR_CODE_F]);
+                        } else {
+                            bm_Main.pairAskAdaptor[PAIR_CODE_F].setItems(bm_Main.pairAskElements[PAIR_CODE_F]);
+                            bm_Main.pairAskAdaptor[PAIR_CODE_F].notifyDataSetChanged();
+                        }
+                        if (bm_Main.pairBidsAdaptor[PAIR_CODE_F] == null) {
+                            bm_Main.pairBidsAdaptor[PAIR_CODE_F] = new bm_DepthAdaptor(bm_Main.bm_MainContext, R.layout.depth_list_item, bm_Main.pairBidsElements[PAIR_CODE_F]);
+                            bm_Main.pairBidsList.setAdapter(bm_Main.pairBidsAdaptor[PAIR_CODE_F]);
+                        } else {
+                            bm_Main.pairBidsAdaptor[PAIR_CODE_F].setItems(bm_Main.pairBidsElements[PAIR_CODE_F]);
+                            bm_Main.pairBidsAdaptor[PAIR_CODE_F].notifyDataSetChanged();
+                        }
+                        bm_Main.bm_MainState.setProgressBarIndeterminateVisibility(false);
+                        bm_Main.btn_Buy.setEnabled(true);
+                        bm_Main.btn_Sell.setEnabled(true);
+                    }
+                });
+            }
         } else {
             bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                 @Override

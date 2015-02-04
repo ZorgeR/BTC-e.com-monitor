@@ -28,8 +28,9 @@ public class btce_getHistory {
 
         if(response!=null){
             JsonElement jelement = new JsonParser().parse(response.body());
+            try{
             JsonArray json_all = jelement.getAsJsonArray();
-            return json_all;
+            return json_all;} catch (Exception e){e.printStackTrace();return null;}
         } else {
             return null;
         }
