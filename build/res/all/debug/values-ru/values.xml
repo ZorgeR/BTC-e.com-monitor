@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/zorg/Разработка/Projects/BTC-e.com%20monitor/BTC-e.com%20monitor/src/main/res/values-ru/strings.xml -->
+    <eat-comment />
+
+    <string name="action_about">О программе</string>
+    <string name="action_classic">Классические пары</string>
+    <string name="action_detailed">Детальный список</string>
+    <string name="action_exit">Выход</string>
+    <string name="action_fullscreen">Полный экран</string>
+    <string name="action_refresh">Обновить</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_vector">Направление курса</string>
+    <string name="action_view">Внешний вид</string>
+    <string name="all_transaction">Всего транзакций</string>
+    <string name="amount_of">Количество</string>
+    <string name="api_settings">Настройки API</string>
+    <string name="app_name">BTC-e.com Trader Client</string>
+    <string name="black_diagram">Темная диаграмма</string>
+    <string name="bottom_panel">Кнопки снизу</string>
+    <string name="buy">Купить</string>
+    <string name="buy_orders">Ордера на покупку:</string>
+    <string name="cancel">Отмена</string>
+    <string name="cant_retrieve">Не удалось получить данные по</string>
+    <string name="chat">Чат</string>
+    <string name="chat_warning">Идет загрузка...\nВнимание: Чат находится на стадии альфа-тестирования</string>
+    <string name="close">Закрыть</string>
+    <string name="closed">закрыт.</string>
+    <string name="coast">*</string>
+    <string name="early_settings">Ранний доступ</string>
+    <string name="enabled_charts">Валютные пары</string>
+    <string name="finance">Финансы:</string>
+    <string name="high">High:</string>
+    <string name="history">История</string>
+    <string name="last">Last:</string>
+    <string name="last_query">Последний запрос</string>
+    <string name="low">Low:</string>
+    <string name="low_balance_nopermission">Результат: недостаточно средств или нет прав на трейдинг.</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="need_restart">Требуется перезапуск</string>
+    <string name="new_order">Создан ордер.</string>
+    <string name="no">Нет</string>
+    <string name="no_present">отсутствует</string>
+    <string name="only_kitkat">Требуется Android 4.4 для полноэкранного режима</string>
+    <string name="open_orders">Ордеров открыто</string>
+    <string name="order">Ордер</string>
+    <string name="order_cancelation">Отмена ордера</string>
+    <string name="order_cancelation_string">Вы уверены что хотите закрыть ордер: ID</string>
+    <string name="order_error">Ошибка! Ордер</string>
+    <string name="order_not_closed">НЕ закрыт.</string>
+    <string name="orders">Ордеры</string>
+    <string name="pin_fail">Неверный PIN!</string>
+    <string name="pin_new">Введите новый PIN</string>
+    <string name="pin_new_notset">PIN не установлен</string>
+    <string name="pin_new_nottrue">PIN не совпадает!</string>
+    <string name="pin_new_off">PIN отключен</string>
+    <string name="pin_new_repeat">Повторите новый PIN</string>
+    <string name="pin_new_set">PIN установлен</string>
+    <string name="present">присутвует</string>
+    <string name="price_for">Цена за</string>
+    <string name="receive">Получено</string>
+    <string name="result_success">Результат: Успешно</string>
+    <string name="sec_settings">Безопасность</string>
+    <string name="sell">Продать</string>
+    <string name="sell_orders">Ордера на продажу:</string>
+    <string name="stat">Статистика:</string>
+    <string name="still">Осталось</string>
+    <string name="success">успех</string>
+    <string name="tax">Комиссия</string>
+    <string name="theme_black">Темное оформление</string>
+    <string name="title_charts">Курсы</string>
+    <string name="title_fullscreen">Полный экран</string>
+    <string name="title_office">Личный кабинет</string>
+    <string name="total">Всего</string>
+    <string name="trade_permission">Право на трейдинг</string>
+    <string name="transaction_id">ID транзакции</string>
+    <string name="trial">Здравствуйте!\n\nЭто бесплатная, пробная версия приложения.\n\nЕсли оно приносит вам пользу, пожалуйста купите полную платную версию.\n\nСпасибо за понимание!</string>
+    <string name="trial2">Здравствуйте!\n\nВ платной версии появилось много обновлений, улучшений и исправлений:\n -ПИН-код на запуск\n -Скрытие валютных пар\n -Баланс при покупке и продаже\n -Покупка и продажа из стакана\n -Быстрый выбор размера сделки слайдером\n- Чат (ранний доступ)\n\nКупив платную версию вы ускорите разработку приложения.\n\nСпасибо за понимание!</string>
+    <string name="yes">Да!</string>
+    <string name="you_buy">Вы покупали</string>
+    <string name="you_sell">Вы продавали</string>
+    <string name="your_orders">Ваши ордера</string>
+    <string name="yourbal">Ваши средства:</string>
+
+</resources>

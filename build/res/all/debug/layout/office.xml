@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="console"
+            android:id="@+id/textStat"
+            android:paddingTop="5dp" android:paddingLeft="10dp"
+            android:layout_alignParentBottom="true" android:layout_alignParentLeft="true" android:paddingBottom="5dp"
+            android:textStyle="bold"/>
+    <ListView
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:id="@+id/FundsList"
+            android:layout_alignLeft="@+id/txtHead" android:layout_below="@+id/txtHead"
+            android:layout_above="@+id/textStat"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/finance"
+            android:id="@+id/txtHead"
+            android:layout_alignParentLeft="true" android:layout_alignParentTop="true" android:paddingLeft="10dp"
+            android:paddingTop="5dp" android:textStyle="bold"/>
+</RelativeLayout><!-- From: file:/Users/zorg/Разработка/Projects/BTC-e.com%20monitor/BTC-e.com%20monitor/src/main/res/layout/office.xml -->

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="ComAndroidSupportSupportV42103.aar" >
+        <source path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/build/exploded-bundles/ComAndroidSupportSupportV42103.aar/assets" />
+    </dataSet>
+    <dataSet config="main" >
+        <source path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/assets" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/debug/assets" />
+    </dataSet>
+
+</merger>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/action_view">
+        <CheckBoxPreference android:key="prefs_charts_classic" android:title="@string/action_classic" android:defaultValue="true"></CheckBoxPreference>
+        <CheckBoxPreference android:key="prefs_charts_detailed" android:title="@string/action_detailed" android:defaultValue="true"></CheckBoxPreference>
+        <CheckBoxPreference android:key="prefs_show_vector" android:title="@string/action_vector" android:defaultValue="true"></CheckBoxPreference>
+        <CheckBoxPreference android:key="prefs_fullscreen" android:title="@string/title_fullscreen" android:defaultValue="false"></CheckBoxPreference>
+        <CheckBoxPreference android:key="prefs_bottom_actionbar" android:title="@string/bottom_panel" android:summary="@string/need_restart" android:defaultValue="false"></CheckBoxPreference>
+        <CheckBoxPreference android:key="prefs_black_theme" android:title="@string/theme_black" android:summary="@string/need_restart" android:defaultValue="false"></CheckBoxPreference>
+        <CheckBoxPreference android:key="prefs_black_charts" android:title="@string/black_diagram" android:defaultValue="false"></CheckBoxPreference>
+        <MultiSelectListPreference android:key="prefs_enabled_charts" android:title="@string/enabled_charts" android:entries="@array/CUR_LIST" android:entryValues="@array/CUR_LIST" android:defaultValue="@array/CUR_LIST"></MultiSelectListPreference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/api_settings">
+        <EditTextPreference android:key="prefs_API_KEY" android:title="API Key" android:defaultValue="GMJ4FH97-TZG5KON4-VUO0XOC2-AM2TLCI9-UL90D0OR"></EditTextPreference>
+        <EditTextPreference android:key="prefs_API_SECRET" android:title="API Secret" android:defaultValue="4403412b3793c319bffba269d5862992ca5cd400b5cded0ebe3e0ec3a3a8c4d1"></EditTextPreference>
+        <EditTextPreference android:key="prefs_API_URL_PRIVATE" android:title="API URL - PRIVATE" android:defaultValue="https://btc-e.com/tapi"></EditTextPreference>
+        <EditTextPreference android:key="prefs_API_URL_PUBLIC" android:title="API URL - PUBLIC" android:defaultValue="https://btc-e.com/api/2/"></EditTextPreference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/sec_settings">
+        <CheckBoxPreference android:key="prefs_SEC_PIN" android:title="PIN" android:defaultValue="false"></CheckBoxPreference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/early_settings">
+        <CheckBoxPreference android:key="prefs_CHAT" android:title="@string/chat" android:defaultValue="false"></CheckBoxPreference>
+    </PreferenceCategory>
+</PreferenceScreen><!-- From: file:/Users/zorg/Разработка/Projects/BTC-e.com%20monitor/BTC-e.com%20monitor/src/main/res/xml/preferences.xml -->

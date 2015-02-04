@@ -1,0 +1,897 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res" >
+            <file
+                name="charts_loading"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable/charts_loading.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="bank_minus"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-hdpi/bank_minus.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="bank_plus"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-hdpi/bank_plus.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="charts_loading"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-hdpi/charts_loading.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="down_arrow"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-hdpi/down_arrow.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="drawer_shadow"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-hdpi/drawer_shadow.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_drawer"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-hdpi/ic_drawer.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-hdpi/ic_launcher.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_menu_fullscreen"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-hdpi/ic_menu_fullscreen.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_menu_refresh"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-hdpi/ic_menu_refresh.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="none_arrow"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-hdpi/none_arrow.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="up_arrow"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-hdpi/up_arrow.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="bank_minus"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-mdpi/bank_minus.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="bank_plus"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-mdpi/bank_plus.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="charts_loading"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-mdpi/charts_loading.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="drawer_shadow"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-mdpi/drawer_shadow.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_drawer"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-mdpi/ic_drawer.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-mdpi/ic_launcher.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_menu_fullscreen"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-mdpi/ic_menu_fullscreen.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_menu_refresh"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-mdpi/ic_menu_refresh.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="charts_loading"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xhdpi/charts_loading.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="drawer_shadow"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xhdpi/drawer_shadow.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_drawer"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xhdpi/ic_drawer.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xhdpi/ic_launcher.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_menu_fullscreen"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xhdpi/ic_menu_fullscreen.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_menu_refresh"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xhdpi/ic_menu_refresh.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="charts_loading"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xxhdpi/charts_loading.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="down_arrow"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xxhdpi/down_arrow.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="drawer_shadow"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xxhdpi/drawer_shadow.9.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="ic_drawer"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xxhdpi/ic_drawer.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xxhdpi/ic_launcher.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="ic_menu_fullscreen"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xxhdpi/ic_menu_fullscreen.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="ic_menu_refresh"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xxhdpi/ic_menu_refresh.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="none_arrow"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xxhdpi/none_arrow.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="up_arrow"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/drawable-xxhdpi/up_arrow.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="about"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/about.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_main"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/activity_main.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="blank"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/blank.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="charts"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/charts.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="charts_list_item"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/charts_list_item.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="chat"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/chat.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="depth_list_item"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/depth_list_item.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_main"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/fragment_main.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_navigation_drawer"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/fragment_navigation_drawer.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="history_list"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/history_list.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="history_list_item"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/history_list_item.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="navdrawer_item"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/navdrawer_item.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="office"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/office.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="orders_list"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/orders_list.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="orders_list_item"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/orders_list_item.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="pairs"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/pairs.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="pairs_landscape"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/pairs_landscape.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="pin"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/pin.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="trade"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/trade.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="trade_result"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/layout/trade_result.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="bmon_main"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/menu/bmon_main.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="global"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/menu/global.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/values/arrays.xml"
+                qualifiers="" >
+                <array name="CUR_LIST" >
+                    <item>
+BTC / USD
+                    </item>
+                    <item>
+BTC / RUR
+                    </item>
+                    <item>
+BTC / EUR
+                    </item>
+                    <item>
+BTC / CNH
+                    </item>
+                    <item>
+BTC / GBP
+                    </item>
+                    <item>
+LTC / BTC
+                    </item>
+                    <item>
+LTC / USD
+                    </item>
+                    <item>
+LTC / RUR
+                    </item>
+                    <item>
+LTC / EUR
+                    </item>
+                    <item>
+LTC / CNH
+                    </item>
+                    <item>
+LTC / GBP
+                    </item>
+                    <item>
+NMC / BTC
+                    </item>
+                    <item>
+NMC / USD
+                    </item>
+                    <item>
+NVC / BTC
+                    </item>
+                    <item>
+NVC / USD
+                    </item>
+                    <item>
+USD / RUR
+                    </item>
+                    <item>
+EUR / USD
+                    </item>
+                    <item>
+EUR / RUR
+                    </item>
+                    <item>
+USD / CNH
+                    </item>
+                    <item>
+GBP / USD
+                    </item>
+                    <item>
+TRC / BTC
+                    </item>
+                    <item>
+PPC / BTC
+                    </item>
+                    <item>
+PPC / USD
+                    </item>
+                    <item>
+FTC / BTC
+                    </item>
+                    <item>
+XPM / BTC
+                    </item>
+                </array>
+            </file>
+            <file
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/values/dimens.xml"
+                qualifiers="" >
+                <dimen name="activity_vertical_margin" >16dp
+                </dimen>
+                <dimen name="activity_horizontal_margin" >16dp
+                </dimen>
+                <dimen name="navigation_drawer_width" >240dp
+                </dimen>
+            </file>
+            <file
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/values/strings.xml"
+                qualifiers="" >
+                <string name="pin_new" >Enter new PIN
+                </string>
+                <string name="history" >History
+                </string>
+                <string name="tax" >Fee
+                </string>
+                <string name="buy_orders" >Buy orders:
+                </string>
+                <string name="last" >Last:
+                </string>
+                <string name="closed" >closed.
+                </string>
+                <string name="success" >success
+                </string>
+                <string name="sec_settings" >Security settings
+                </string>
+                <string name="close" >Close
+                </string>
+                <string name="new_order" >New order created.
+                </string>
+                <string name="sell_orders" >Sell orders:
+                </string>
+                <string name="low_balance_nopermission" >Result: not enough money or do not have permission to trading.
+                </string>
+                <string name="open_orders" >Orders opened
+                </string>
+                <string name="order_cancelation" >Cancel order
+                </string>
+                <string name="your_orders" >Your orders
+                </string>
+                <string name="pin_new_off" >PIN off
+                </string>
+                <string name="title_fullscreen" >Full Screen
+                </string>
+                <string name="trial2" >Hi!\n\nLots of updates, new futures and fixes available in paid version:\n -PIN-code protection\n -Hide unused pairs\n -Show the balance when buy, sell\n -Buy sell directly from orderbook\n -Slider to adjust order\n- Chat (yearly access)\n\nBuying the paid version you speed application development.\n\nThank you for understanding!
+                </string>
+                <string name="finance" >Finance:
+                </string>
+                <string name="pin_new_set" >PIN on
+                </string>
+                <string name="only_kitkat" >Required Android 4.4 for Full Screen
+                </string>
+                <string name="buy" >Buy
+                </string>
+                <string name="order_cancelation_string" >Are you sure to cancel order: ID
+                </string>
+                <string name="order_not_closed" >NOT closed.
+                </string>
+                <string name="total" >Total
+                </string>
+                <string name="action_vector" >Course direction
+                </string>
+                <string name="action_refresh" >Refresh
+                </string>
+                <string name="cancel" >Cancel
+                </string>
+                <string name="transaction_id" >Transaction ID
+                </string>
+                <string name="action_classic" >Classic pairs
+                </string>
+                <string name="early_settings" >Early access
+                </string>
+                <string name="action_detailed" >Detailed list
+                </string>
+                <string name="you_sell" >Sell
+                </string>
+                <string name="high" >High:
+                </string>
+                <string name="pin_new_notset" >PIN not set!
+                </string>
+                <string name="order_error" >Error! Order
+                </string>
+                <string name="navigation_drawer_close" >Close navigation drawer
+                </string>
+                <string name="black_diagram" >Use black charts
+                </string>
+                <string name="receive" >Receive
+                </string>
+                <string name="sell" >Sell
+                </string>
+                <string name="yes" >Yes!
+                </string>
+                <string name="yourbal" >Your balance:
+                </string>
+                <string name="chat_warning" >Loading...\nWarning: Chat is in alpha testing
+                </string>
+                <string name="stat" >Statistics:
+                </string>
+                <string name="no" >No
+                </string>
+                <string name="enabled_charts" >Сurrency pairs
+                </string>
+                <string name="need_restart" >Apply after restart
+                </string>
+                <string name="order" >Order
+                </string>
+                <string name="price_for" >Price per
+                </string>
+                <string name="cant_retrieve" >Can\'t get data for
+                </string>
+                <string name="no_present" >no
+                </string>
+                <string name="orders" >Orders
+                </string>
+                <string name="you_buy" >Buy
+                </string>
+                <string name="chat" >Chat
+                </string>
+                <string name="last_query" >Last query
+                </string>
+                <string name="result_success" >Result: Success
+                </string>
+                <string name="title_office" >Private office
+                </string>
+                <string name="trade_permission" >Trading permission
+                </string>
+                <string name="navigation_drawer_open" >Open navigation drawer
+                </string>
+                <string name="present" >present
+                </string>
+                <string name="pin_new_repeat" >Repeat new PIN
+                </string>
+                <string name="title_charts" >Exchange Rates
+                </string>
+                <string name="action_settings" >Settings
+                </string>
+                <string name="app_name" >BTC-e.com Trader Client
+                </string>
+                <string name="coast" >*
+                </string>
+                <string name="action_view" >Appearance
+                </string>
+                <string name="bottom_panel" >Buttons on bottom panel
+                </string>
+                <string name="all_transaction" >Total transaction
+                </string>
+                <string name="api_settings" >API settings
+                </string>
+                <string name="action_fullscreen" >Full Screen
+                </string>
+                <string name="amount_of" >Amount
+                </string>
+                <string name="action_about" >About
+                </string>
+                <string name="pin_new_nottrue" >PIN not equal!
+                </string>
+                <string name="trial" >Hi!\n\nThis is FREE version of app.\n\nIf application is usefully for you, please buy full version.\n\nThank you for understanding!
+                </string>
+                <string name="action_exit" >Exit
+                </string>
+                <string name="theme_black" >Dark theme
+                </string>
+                <string name="low" >Low:
+                </string>
+                <string name="pin_fail" >Invalid PIN!
+                </string>
+                <string name="still" >Remaining
+                </string>
+            </file>
+            <file
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/values/styles.xml"
+                qualifiers="" >
+
+                <style
+                    name="AppTheme"
+                    parent="android:Theme.Holo.Light.DarkActionBar" >
+
+                    <!-- Customize your theme here. -->
+                </style>
+            </file>
+            <file
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/values-en/strings.xml"
+                qualifiers="en" >
+                <string name="sell_orders" >Sell orders:
+                </string>
+                <string name="closed" >closed.
+                </string>
+                <string name="buy_orders" >Buy orders:
+                </string>
+                <string name="no" >No
+                </string>
+                <string name="action_refresh" >Refresh
+                </string>
+                <string name="navigation_drawer_close" >Close navigation drawer
+                </string>
+                <string name="action_detailed" >Detailed list
+                </string>
+                <string name="title_fullscreen" >Full Screen
+                </string>
+                <string name="theme_black" >Dark theme
+                </string>
+                <string name="buy" >Buy
+                </string>
+                <string name="open_orders" >Orders opened
+                </string>
+                <string name="action_exit" >Exit
+                </string>
+                <string name="action_about" >About
+                </string>
+                <string name="success" >success
+                </string>
+                <string name="you_buy" >Buy
+                </string>
+                <string name="pin_new" >Enter new PIN
+                </string>
+                <string name="action_fullscreen" >Full Screen
+                </string>
+                <string name="bottom_panel" >Buttons on bottom panel
+                </string>
+                <string name="chat" >Chat
+                </string>
+                <string name="last_query" >Last query
+                </string>
+                <string name="action_classic" >Classic pairs
+                </string>
+                <string name="title_office" >Private office
+                </string>
+                <string name="action_view" >Appearance
+                </string>
+                <string name="total" >Total
+                </string>
+                <string name="you_sell" >Sell
+                </string>
+                <string name="navigation_drawer_open" >Open navigation drawer
+                </string>
+                <string name="api_settings" >API settings
+                </string>
+                <string name="trial" >Hi!\n\nThis is FREE version of app.\n\nIf application is usefully for you, please buy full version.\n\nThank you for understanding!
+                </string>
+                <string name="trade_permission" >Trading permission
+                </string>
+                <string name="tax" >Fee
+                </string>
+                <string name="order_cancelation" >Cancel order
+                </string>
+                <string name="black_diagram" >Use black charts
+                </string>
+                <string name="order" >Order
+                </string>
+                <string name="sell" >Sell
+                </string>
+                <string name="coast" >*
+                </string>
+                <string name="stat" >Statistics:
+                </string>
+                <string name="cancel" >Cancel
+                </string>
+                <string name="low_balance_nopermission" >Result: not enough money or do not have permission to trading.
+                </string>
+                <string name="orders" >Orders
+                </string>
+                <string name="action_settings" >Settings
+                </string>
+                <string name="finance" >Finance:
+                </string>
+                <string name="pin_new_notset" >PIN not set!
+                </string>
+                <string name="order_cancelation_string" >Are you sure to cancel order: ID
+                </string>
+                <string name="pin_new_nottrue" >PIN not equal!
+                </string>
+                <string name="still" >Remaining
+                </string>
+                <string name="present" >present
+                </string>
+                <string name="early_settings" >Early access
+                </string>
+                <string name="low" >Low:
+                </string>
+                <string name="trial2" >Hi!\n\nLots of updates, new futures and fixes available in paid version:\n -PIN-code protection\n -Hide unused pairs\n -Show the balance when buy, sell\n -Buy sell directly from orderbook\n -Slider to adjust order\n- Chat (yearly access)\n\nBuying the paid version you speed application development.\n\nThank you for understanding!
+                </string>
+                <string name="only_kitkat" >Required Android 4.4 for Full Screen
+                </string>
+                <string name="last" >Last:
+                </string>
+                <string name="all_transaction" >Total transaction
+                </string>
+                <string name="high" >High:
+                </string>
+                <string name="pin_new_off" >PIN off
+                </string>
+                <string name="history" >History
+                </string>
+                <string name="chat_warning" >Loading...\nWarning: Chat is in alpha testing
+                </string>
+                <string name="cant_retrieve" >Can\'t get data for
+                </string>
+                <string name="pin_fail" >Invalid PIN!
+                </string>
+                <string name="order_error" >Error! Order
+                </string>
+                <string name="transaction_id" >Transaction ID
+                </string>
+                <string name="your_orders" >Your orders
+                </string>
+                <string name="order_not_closed" >NOT closed.
+                </string>
+                <string name="receive" >Receive
+                </string>
+                <string name="pin_new_repeat" >Repeat new PIN
+                </string>
+                <string name="close" >Close
+                </string>
+                <string name="enabled_charts" >Сurrency pairs
+                </string>
+                <string name="result_success" >Result: Success
+                </string>
+                <string name="yes" >Yes!
+                </string>
+                <string name="new_order" >New order created.
+                </string>
+                <string name="app_name" >BTC-e.com Trader Client
+                </string>
+                <string name="no_present" >no
+                </string>
+                <string name="sec_settings" >Security settings
+                </string>
+                <string name="yourbal" >Your balance:
+                </string>
+                <string name="price_for" >Price per
+                </string>
+                <string name="amount_of" >Amount
+                </string>
+                <string name="title_charts" >Exchange Rates
+                </string>
+                <string name="need_restart" >Apply after restart
+                </string>
+                <string name="action_vector" >Course direction
+                </string>
+                <string name="pin_new_set" >PIN on
+                </string>
+            </file>
+            <file
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/values-ru/strings.xml"
+                qualifiers="ru" >
+                <string name="title_office" >Личный кабинет
+                </string>
+                <string name="action_detailed" >Детальный список
+                </string>
+                <string name="you_sell" >Вы продавали
+                </string>
+                <string name="enabled_charts" >Валютные пары
+                </string>
+                <string name="yes" >Да!
+                </string>
+                <string name="no" >Нет
+                </string>
+                <string name="black_diagram" >Темная диаграмма
+                </string>
+                <string name="title_fullscreen" >Полный экран
+                </string>
+                <string name="closed" >закрыт.
+                </string>
+                <string name="need_restart" >Требуется перезапуск
+                </string>
+                <string name="sec_settings" >Безопасность
+                </string>
+                <string name="no_present" >отсутствует
+                </string>
+                <string name="navigation_drawer_open" >Open navigation drawer
+                </string>
+                <string name="title_charts" >Курсы
+                </string>
+                <string name="order" >Ордер
+                </string>
+                <string name="last_query" >Последний запрос
+                </string>
+                <string name="close" >Закрыть
+                </string>
+                <string name="low" >Low:
+                </string>
+                <string name="history" >История
+                </string>
+                <string name="result_success" >Результат: Успешно
+                </string>
+                <string name="pin_fail" >Неверный PIN!
+                </string>
+                <string name="new_order" >Создан ордер.
+                </string>
+                <string name="yourbal" >Ваши средства:
+                </string>
+                <string name="early_settings" >Ранний доступ
+                </string>
+                <string name="transaction_id" >ID транзакции
+                </string>
+                <string name="trial2" >Здравствуйте!\n\nВ платной версии появилось много обновлений, улучшений и исправлений:\n -ПИН-код на запуск\n -Скрытие валютных пар\n -Баланс при покупке и продаже\n -Покупка и продажа из стакана\n -Быстрый выбор размера сделки слайдером\n- Чат (ранний доступ)\n\nКупив платную версию вы ускорите разработку приложения.\n\nСпасибо за понимание!
+                </string>
+                <string name="buy" >Купить
+                </string>
+                <string name="last" >Last:
+                </string>
+                <string name="pin_new_repeat" >Повторите новый PIN
+                </string>
+                <string name="action_refresh" >Обновить
+                </string>
+                <string name="receive" >Получено
+                </string>
+                <string name="bottom_panel" >Кнопки снизу
+                </string>
+                <string name="pin_new_nottrue" >PIN не совпадает!
+                </string>
+                <string name="action_about" >О программе
+                </string>
+                <string name="high" >High:
+                </string>
+                <string name="action_settings" >Настройки
+                </string>
+                <string name="all_transaction" >Всего транзакций
+                </string>
+                <string name="app_name" >BTC-e.com Trader Client
+                </string>
+                <string name="api_settings" >Настройки API
+                </string>
+                <string name="order_not_closed" >НЕ закрыт.
+                </string>
+                <string name="tax" >Комиссия
+                </string>
+                <string name="sell_orders" >Ордера на продажу:
+                </string>
+                <string name="low_balance_nopermission" >Результат: недостаточно средств или нет прав на трейдинг.
+                </string>
+                <string name="still" >Осталось
+                </string>
+                <string name="trade_permission" >Право на трейдинг
+                </string>
+                <string name="orders" >Ордеры
+                </string>
+                <string name="present" >присутвует
+                </string>
+                <string name="finance" >Финансы:
+                </string>
+                <string name="cancel" >Отмена
+                </string>
+                <string name="action_view" >Внешний вид
+                </string>
+                <string name="action_fullscreen" >Полный экран
+                </string>
+                <string name="action_exit" >Выход
+                </string>
+                <string name="price_for" >Цена за
+                </string>
+                <string name="theme_black" >Темное оформление
+                </string>
+                <string name="total" >Всего
+                </string>
+                <string name="pin_new_notset" >PIN не установлен
+                </string>
+                <string name="order_error" >Ошибка! Ордер
+                </string>
+                <string name="amount_of" >Количество
+                </string>
+                <string name="pin_new_set" >PIN установлен
+                </string>
+                <string name="pin_new" >Введите новый PIN
+                </string>
+                <string name="action_classic" >Классические пары
+                </string>
+                <string name="success" >успех
+                </string>
+                <string name="only_kitkat" >Требуется Android 4.4 для полноэкранного режима
+                </string>
+                <string name="stat" >Статистика:
+                </string>
+                <string name="order_cancelation_string" >Вы уверены что хотите закрыть ордер: ID
+                </string>
+                <string name="sell" >Продать
+                </string>
+                <string name="buy_orders" >Ордера на покупку:
+                </string>
+                <string name="chat_warning" >Идет загрузка...\nВнимание: Чат находится на стадии альфа-тестирования
+                </string>
+                <string name="your_orders" >Ваши ордера
+                </string>
+                <string name="chat" >Чат
+                </string>
+                <string name="you_buy" >Вы покупали
+                </string>
+                <string name="cant_retrieve" >Не удалось получить данные по
+                </string>
+                <string name="trial" >Здравствуйте!\n\nЭто бесплатная, пробная версия приложения.\n\nЕсли оно приносит вам пользу, пожалуйста купите полную платную версию.\n\nСпасибо за понимание!
+                </string>
+                <string name="order_cancelation" >Отмена ордера
+                </string>
+                <string name="open_orders" >Ордеров открыто
+                </string>
+                <string name="navigation_drawer_close" >Close navigation drawer
+                </string>
+                <string name="action_vector" >Направление курса
+                </string>
+                <string name="pin_new_off" >PIN отключен
+                </string>
+                <string name="coast" >*
+                </string>
+            </file>
+            <file
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/values-w820dp/dimens.xml"
+                qualifiers="w820dp" >
+                <dimen name="activity_horizontal_margin" >64dp
+                </dimen>
+            </file>
+            <file
+                name="preferences"
+                path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/main/res/xml/preferences.xml"
+                qualifiers=""
+                type="xml" />
+        </source>
+        <source path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/build/res/rs/debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/Users/zorg/Разработка/Projects/BTC-e.com monitor/BTC-e.com monitor/src/debug/res" />
+    </dataSet>
+
+</merger>

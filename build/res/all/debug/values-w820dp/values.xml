@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/zorg/Разработка/Projects/BTC-e.com%20monitor/BTC-e.com%20monitor/src/main/res/values-w820dp/dimens.xml -->
+    <eat-comment />
+
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+
+</resources>

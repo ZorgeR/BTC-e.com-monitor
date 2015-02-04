@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android" name="Android">
+      <configuration>
+        <option name="APK_PATH" value="/build/classes/production/BTC-e.com monitor/BTC-e.com monitor.apk" />
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/.idea" />
-      <excludeFolder url="file://$MODULE_DIR$/build" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="afreechart-0.0.4" level="project" />
+    <orderEntry type="library" name="android-support-v13" level="project" />
     <orderEntry type="library" name="commons-codec-1.8" level="project" />
     <orderEntry type="library" name="gson-2.2.4" level="project" />
     <orderEntry type="library" name="jsoup-1.8.1" level="project" />
-    <orderEntry type="library" name="android-support-v13" level="project" />
   </component>
 </module>

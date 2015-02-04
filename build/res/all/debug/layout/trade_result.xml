@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:padding="10dp">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textTradeResultSuccess"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textTradeResultAmount" android:layout_gravity="left|center_vertical"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textTradeResultPrice" android:layout_gravity="left|center_vertical"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textTradeResultReceived" android:layout_gravity="left|center_vertical"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textTradeResultRemain" android:layout_gravity="left|center_vertical"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textTradeResultOrderID" android:layout_gravity="left|center_vertical"/>
+</LinearLayout><!-- From: file:/Users/zorg/Разработка/Projects/BTC-e.com%20monitor/BTC-e.com%20monitor/src/main/res/layout/trade_result.xml -->

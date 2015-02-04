@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:padding="10dp">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yourbal"
+            android:id="@+id/textView2"
+            />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.0"
+            android:id="@+id/textBal" android:layout_alignLeft="@+id/editTradeAmount"
+            android:layout_alignTop="@+id/textView2" android:textStyle="bold" android:paddingLeft="5dp"/>
+    <SeekBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBarTrade"
+            android:layout_below="@+id/textBal" android:indeterminate="false" android:max="100" android:progress="0"
+            android:layout_toRightOf="@+id/textView3" android:layout_toLeftOf="@+id/textView4"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="0%"
+            android:id="@+id/textView3"
+            android:layout_below="@+id/textBal" android:gravity="center_vertical"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="100%"
+            android:id="@+id/textView4"
+            android:layout_alignRight="@+id/editTradeAmount"
+            android:layout_below="@+id/textBal" android:gravity="center_vertical"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="@string/amount_of"
+            android:id="@+id/textTradeAmount"
+            android:gravity="center_vertical" android:singleLine="true"
+            android:layout_below="@+id/seekBarTrade"/>
+    <EditText
+            android:layout_width="160dp"
+            android:layout_height="35dp"
+            android:id="@+id/editTradeAmount"
+            android:layout_alignTop="@+id/textTradeAmount" android:layout_alignParentRight="true"
+            android:inputType="numberDecimal" android:singleLine="true" android:textStyle="bold"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="@string/price_for"
+            android:id="@+id/textTradePrice" android:layout_alignLeft="@+id/textTradeAmount"
+            android:layout_below="@+id/textTradeAmount"
+            android:gravity="center_vertical" android:singleLine="true"/>
+    <EditText
+            android:layout_width="160dp"
+            android:layout_height="35dp"
+            android:id="@+id/editTradePrice"
+            android:layout_below="@+id/textTradeAmount" android:layout_alignRight="@+id/editTradeAmount"
+            android:inputType="numberDecimal" android:singleLine="true" android:text="0.0" android:textStyle="bold"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total"
+            android:id="@+id/textView" android:layout_alignLeft="@+id/textTradeAmount"
+            android:layout_below="@+id/textTradePrice" android:layout_alignRight="@+id/textTradeAmount"
+            android:gravity="center_vertical" android:paddingTop="5dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTradeTotal" android:layout_toRightOf="@+id/textTradeAmount"
+            android:layout_below="@+id/textTradePrice" android:layout_alignRight="@+id/editTradeAmount"
+            android:gravity="center_vertical" android:textStyle="bold" android:singleLine="true" android:text="0.0"
+            android:layout_alignLeft="@+id/editTradePrice" android:paddingTop="5dp" android:paddingLeft="5dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tax"
+            android:id="@+id/textView1" android:layout_alignLeft="@+id/textTradeAmount"
+            android:layout_below="@+id/textView" android:layout_alignRight="@+id/textTradeAmount"
+            android:gravity="center_vertical"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTradeTax" android:layout_toRightOf="@+id/textTradeAmount"
+            android:layout_below="@+id/textView" android:layout_alignRight="@+id/editTradeAmount"
+            android:gravity="center_vertical" android:textStyle="bold" android:singleLine="true" android:text="0.0"
+            android:layout_alignLeft="@+id/editTradePrice" android:paddingLeft="5dp"/>
+</RelativeLayout><!-- From: file:/Users/zorg/Разработка/Projects/BTC-e.com%20monitor/BTC-e.com%20monitor/src/main/res/layout/trade.xml -->
