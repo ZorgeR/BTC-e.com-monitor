@@ -89,7 +89,7 @@
     <string name="low">Low:</string>
     <string name="high">High:</string>
 
-    <string name="trial">Hi!\n\nThis is FREE version of app.\n\nIf application is usefully for you, please buy full version.\n\nThank you for understanding!</string>
+    <string name="trial">Hi!\n\nThis is FREE version of app.\n\nIf application is usefull for you, please buy full version.\n\nThank you for understanding!</string>
 
     <string name="trial2">Hi!\n\nLots of updates, new futures and fixes available in paid version:\n -PIN-code protection\n -Hide unused pairs\n -Show the balance when buy, sell\n -Buy sell directly from orderbook\n -Slider to adjust order\n- Chat (yearly access)\n\nBuying the paid version you speed application development.\n\nThank you for understanding!</string>
 
