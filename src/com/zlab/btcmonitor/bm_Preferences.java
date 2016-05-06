@@ -35,8 +35,6 @@ public class bm_Preferences extends PreferenceActivity {
 
             mContext=this;
 
-
-
             final CheckBoxPreference prefs_black_theme = (CheckBoxPreference) getPreferenceManager().findPreference("prefs_black_theme");
             final CheckBoxPreference prefs_black_charts = (CheckBoxPreference) getPreferenceManager().findPreference("prefs_black_charts");
 

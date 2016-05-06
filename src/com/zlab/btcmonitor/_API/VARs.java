@@ -21,7 +21,11 @@ public class VARs {
             "EUR / USD",
             "EUR / RUR",
             "PPC / BTC",
-            "PPC / USD"
+            "PPC / USD",
+            "DSH / BTC",
+            "ETH / BTC",
+            "ETH / USD",
+            "ETH / LTC"
     };
 
     public static String[] pairs_CODE = {
@@ -40,7 +44,11 @@ public class VARs {
             "eur_usd",
             "eur_rur",
             "ppc_btc",
-            "ppc_usd"
+            "ppc_usd",
+            "dsh_btc",
+            "eth_btc",
+            "eth_usd",
+            "eth_ltc"
     };
 
     public static String[] funds_code = {
@@ -56,7 +64,9 @@ public class VARs {
             "PPC",
             "FTC",
             "XPM",
-            "NVC"};
+            "NVC",
+            "DSH",
+            "ETH"};
 
     /*
     public static String[] pairs_code = {

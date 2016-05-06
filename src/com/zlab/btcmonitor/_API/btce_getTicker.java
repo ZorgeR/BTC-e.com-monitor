@@ -11,7 +11,10 @@ public class btce_getTicker {
     public static JsonObject getTickerObj(String pair) {
         Connection.Response response = null;
         try {
-            response = Jsoup.connect(bm_Main.API_URL_PUBLIC + pair + "/ticker")
+            String urlToJson = bm_Main.API_URL_PUBLIC + pair + "/ticker";
+            if(bm_Main.prefs_use_proxy){ urlToJson = bm_Main.API_ZLAB_PROXY_URL+urlToJson; }
+
+            response = Jsoup.connect(urlToJson)
                     .header("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8")
                     .ignoreContentType(true)
                     .method(Connection.Method.POST)

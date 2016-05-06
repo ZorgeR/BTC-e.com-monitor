@@ -67,7 +67,10 @@ public class btce_getActiveOrders {
         }
         Connection.Response response = null;
         try {
-            response = Jsoup.connect(bm_Main.API_URL_PRIVATE)
+            String urlToJson = bm_Main.API_URL_PRIVATE;
+            if(bm_Main.prefs_use_proxy){ urlToJson = bm_Main.API_ZLAB_PROXY_URL+urlToJson; }
+
+            response = Jsoup.connect(urlToJson)
                     .header("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8")
                     .ignoreContentType(true)
                     .header("Key", bm_Main.API_KEY)

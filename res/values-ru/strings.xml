@@ -23,6 +23,7 @@
     <string name="bottom_panel">Кнопки снизу</string>
     <string name="api_settings">Настройки API</string>
     <string name="sec_settings">Безопасность</string>
+    <string name="use_proxy">Использовать прокси</string>
     <string name="early_settings">Ранний доступ</string>
     <string name="finance">Финансы:</string>
     <string name="chat">Чат</string>

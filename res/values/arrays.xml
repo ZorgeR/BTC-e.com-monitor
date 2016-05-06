@@ -17,5 +17,9 @@
         <item>EUR / RUR</item>
         <item>PPC / BTC</item>
         <item>PPC / USD</item>
+        <item>DSH / BTC</item>
+        <item>ETH / BTC</item>
+        <item>ETH / USD</item>
+        <item>ETH / LTC</item>
     </array>
 </resources>

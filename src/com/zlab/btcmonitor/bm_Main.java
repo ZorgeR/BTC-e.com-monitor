@@ -70,11 +70,12 @@ public class bm_Main extends Activity
     //public static String[] pairs_CODE;
 
     /** API **/
-    public static String API_URL_PRIVATE;
-    public static String API_URL_PUBLIC;
+    public static String API_URL_PRIVATE;       //  https://btc-e.com/tapi
+    public static String API_URL_PUBLIC;        //  https://btc-e.com/api/2/
     public static String API_KEY;
     public static String API_SECRET;
     public static String API_ZLAB_URL="http://api.z-lab.me/btce/";
+    public static String API_ZLAB_PROXY_URL="https://api.z-lab.me/btce/proxy/proxy.php?url=";
 
     /** Полученные через API данные **/
     public static String getInfo_data;      /** Данные личного кабинета, запрос - > getInfo **/
@@ -87,6 +88,7 @@ public class bm_Main extends Activity
     public static boolean prefs_bottom_actionbar = false; /** Кнопки снизу**/
     public static boolean prefs_black_theme = false; /** Темная тема оформления **/
     public static boolean prefs_black_charts = false; /** Темная диаграмма **/
+    public static boolean prefs_use_proxy = false; /** Работа через прокси **/
     public static Set<String> prefs_enabled_charts;
 
     /** === Списки === **/
@@ -1692,6 +1694,7 @@ public class bm_Main extends Activity
         prefs_bottom_actionbar = prefs.getBoolean("prefs_bottom_actionbar",false);
         prefs_black_theme = prefs.getBoolean("prefs_black_theme",false);
         prefs_black_charts = prefs.getBoolean("prefs_black_charts",false);
+        prefs_use_proxy = prefs.getBoolean("prefs_use_proxy",false);
         API_KEY = prefs.getString("prefs_API_KEY","GMJ4FH97-TZG5KON4-VUO0XOC2-AM2TLCI9-UL90D0OR");
         API_SECRET = prefs.getString("prefs_API_SECRET","4403412b3793c319bffba269d5862992ca5cd400b5cded0ebe3e0ec3a3a8c4d1");
         API_URL_PRIVATE = prefs.getString("prefs_API_URL_PRIVATE","https://btc-e.com/tapi");

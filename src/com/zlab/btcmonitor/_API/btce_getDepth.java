@@ -12,7 +12,10 @@ public class btce_getDepth {
     public static JsonObject getDepthObj(String pair) {
         Connection.Response response = null;
         try {
-            response = Jsoup.connect(bm_Main.API_URL_PUBLIC + pair + "/depth")
+            String urlToJson = bm_Main.API_URL_PUBLIC + pair + "/depth";
+            if(bm_Main.prefs_use_proxy){ urlToJson = bm_Main.API_ZLAB_PROXY_URL+urlToJson; }
+
+            response = Jsoup.connect(urlToJson)
                     .header("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8")
                     .ignoreContentType(true)
                     .method(Connection.Method.POST)

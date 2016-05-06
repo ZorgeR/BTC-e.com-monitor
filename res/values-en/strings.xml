@@ -23,6 +23,7 @@
     <string name="bottom_panel">Buttons on bottom panel</string>
     <string name="api_settings">API settings</string>
     <string name="sec_settings">Security settings</string>
+    <string name="use_proxy">Use proxy</string>
     <string name="early_settings">Early access</string>
     <string name="finance">Finance:</string>
     <string name="chat">Chat</string>

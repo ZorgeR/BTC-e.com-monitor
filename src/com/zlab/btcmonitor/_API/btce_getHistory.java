@@ -13,7 +13,10 @@ public class btce_getHistory {
     public static JsonArray getHistoryArray(String pair) {
         Connection.Response response = null;
         try {
-            response = Jsoup.connect(bm_Main.API_URL_PUBLIC + pair + "/trades")
+            String urlToJson = bm_Main.API_URL_PUBLIC + pair + "/trades";
+            if(bm_Main.prefs_use_proxy){ urlToJson = bm_Main.API_ZLAB_PROXY_URL+urlToJson; }
+
+            response = Jsoup.connect(urlToJson)
                     .header("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8")
                     .ignoreContentType(true)
                     .method(Connection.Method.POST)
