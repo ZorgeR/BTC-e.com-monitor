@@ -13,7 +13,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
@@ -1796,7 +1795,8 @@ public class bm_Main extends Activity
             for (int i=0;i<VARs.pairs_CODE.length;i++){
                 VARs.pairs_UI[i] = VARs.pairs_CODE[i].split("_")[0].toUpperCase()+" / "+VARs.pairs_CODE[i].split("_")[1].toUpperCase();
             }
-            chartsEnabled=new boolean[VARs.pairs_CODE.length];
+            chartsEnabled = new boolean[VARs.pairs_CODE.length];
+            imgRefreshIsBlocked = new boolean[VARs.pairs_CODE.length];
         }
         catch (IOException e) {
             //You'll need to add proper error handling here

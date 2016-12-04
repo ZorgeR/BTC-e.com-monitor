@@ -1,7 +1,6 @@
 package com.zlab.btcmonitor._API;
 
 import android.util.Log;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -10,8 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-
-import java.util.Iterator;
 
 public class zlab_getPairs {
 

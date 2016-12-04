@@ -76,8 +76,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 
-import com.zlab.btcmonitor.achart.DemoView;
-
 public class CandleStickChartDemo03View extends DemoView {
 
     static String title;

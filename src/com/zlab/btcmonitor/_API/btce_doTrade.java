@@ -1,6 +1,5 @@
 package com.zlab.btcmonitor._API;
 
-import android.util.Log;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -13,9 +12,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class btce_doTrade {
     public static JsonObject doTrade(String pair, String type, String rate, String amount) {

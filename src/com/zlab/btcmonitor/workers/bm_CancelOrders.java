@@ -3,9 +3,7 @@ package com.zlab.btcmonitor.workers;
 import android.widget.Toast;
 import com.google.gson.JsonObject;
 import com.zlab.btcmonitor.R;
-import com.zlab.btcmonitor._API.VARs;
 import com.zlab.btcmonitor._API.btce_cancelOrder;
-import com.zlab.btcmonitor.adaptors.bm_OrdersAdaptor;
 import com.zlab.btcmonitor.bm_Main;
 
 public class bm_CancelOrders {

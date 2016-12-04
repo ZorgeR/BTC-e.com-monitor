@@ -15,11 +15,7 @@ import com.zlab.btcmonitor.R;
 import com.zlab.btcmonitor._API.VARs;
 import com.zlab.btcmonitor.bm_Main;
 import com.zlab.btcmonitor.elements.bm_ListElementOrder;
-import com.zlab.btcmonitor.elements.bm_ListElementsDepth;
-import com.zlab.btcmonitor.workers.bm_ActiveOrders;
 import com.zlab.btcmonitor.workers.bm_CancelOrders;
-import com.zlab.btcmonitor.workers.bm_Depth;
-import com.zlab.btcmonitor.workers.bm_Trade;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

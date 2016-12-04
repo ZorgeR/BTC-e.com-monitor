@@ -3,7 +3,6 @@ package com.zlab.btcmonitor.workers;
 import com.google.gson.*;
 import com.zlab.btcmonitor.R;
 import com.zlab.btcmonitor._API.btce_getActiveOrders;
-import com.zlab.btcmonitor.adaptors.bm_DepthAdaptor;
 import com.zlab.btcmonitor.adaptors.bm_OrdersAdaptor;
 import com.zlab.btcmonitor.bm_Main;
 import com.zlab.btcmonitor.elements.bm_ListElementOrder;

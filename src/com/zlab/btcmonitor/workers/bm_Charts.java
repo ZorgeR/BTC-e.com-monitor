@@ -3,14 +3,11 @@ package com.zlab.btcmonitor.workers;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.Toast;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.zlab.btcmonitor.R;
 import com.zlab.btcmonitor._API.VARs;
 import com.zlab.btcmonitor._API.btce_getTicker;
 import com.zlab.btcmonitor._API.zlab_getPairs;
-import com.zlab.btcmonitor.adaptors.bm_ChartsAdaptor;
-import com.zlab.btcmonitor.elements.bm_ChartsListDiffElements;
 import com.zlab.btcmonitor.elements.bm_ListElementCharts;
 import com.zlab.btcmonitor.bm_Main;
 
@@ -59,6 +56,7 @@ public class bm_Charts {
                 VARs.pairs_UI[i] = VARs.pairs_CODE[i].split("_")[0].toUpperCase()+" / "+VARs.pairs_CODE[i].split("_")[1].toUpperCase();
             }
             bm_Main.chartsEnabled = new boolean[VARs.pairs_CODE.length];
+            bm_Main.imgRefreshIsBlocked = new boolean[VARs.pairs_CODE.length];
             bm_Main.getSettigns();
             //Arrays.fill(bm_Main.chartsEnabled, true);
 

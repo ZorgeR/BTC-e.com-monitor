@@ -7,7 +7,6 @@ import com.zlab.btcmonitor._API.btce_getInfo;
 import com.zlab.btcmonitor.adaptors.bm_FundsAdaptor;
 import com.zlab.btcmonitor.elements.bm_ListElementCharts;
 import com.zlab.btcmonitor.bm_Main;
-import com.zlab.btcmonitor.UI.navDrawer;
 
 import java.util.ArrayList;
 

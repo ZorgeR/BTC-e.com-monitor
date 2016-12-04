@@ -9,11 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.zlab.btcmonitor.R;
-import com.zlab.btcmonitor._API.VARs;
 import com.zlab.btcmonitor.bm_Main;
-import com.zlab.btcmonitor.elements.bm_ListElementOrder;
 import com.zlab.btcmonitor.elements.bm_ListElementsHistory;
-import com.zlab.btcmonitor.workers.bm_CancelOrders;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
