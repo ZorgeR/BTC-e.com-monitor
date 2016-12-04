@@ -82,6 +82,7 @@
     <string name="chat_warning">Loading...\nWarning: Chat is in alpha testing</string>
 
     <string name="cant_retrieve">Can\'t get data for</string>
+    <string name="new_pair_detected">New pairs detected on server. Enable prefered in settings.</string>
 
     <string name="only_kitkat">Required Android 4.4 for Full Screen</string>
 

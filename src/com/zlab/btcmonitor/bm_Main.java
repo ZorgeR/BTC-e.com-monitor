@@ -10,8 +10,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
@@ -28,10 +30,7 @@ import com.zlab.btcmonitor.adaptors.*;
 import com.zlab.btcmonitor.elements.*;
 import com.zlab.btcmonitor.workers.*;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -76,6 +75,7 @@ public class bm_Main extends Activity
     public static String API_SECRET;
     public static String API_ZLAB_URL="http://api.z-lab.me/btce/";
     public static String API_ZLAB_PROXY_URL="https://api.z-lab.me/btce/proxy/proxy.php?url=";
+    public static String API_ZLAB_PAIRS_LIST_URL="https://btc-e.com/api/3/info";
 
     /** Полученные через API данные **/
     public static String getInfo_data;      /** Данные личного кабинета, запрос - > getInfo **/
@@ -134,12 +134,20 @@ public class bm_Main extends Activity
     public static List<bm_ListElementsHistory> historyElements;
     public static bm_HistoryAdaptor historyAdaptor;
 
+    /** TRIAL **/
+    public static long FIRST_RUN;
+    public static long CURRENT_TIME;
+    public static boolean is_trial_build = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        bm_MainContext = this;
+
         /** Определение версии API **/
         currentApiVersion = android.os.Build.VERSION.SDK_INT;
 
         /** Обновление массива валют **/
+        readNewPairsID();
         //pairs_UI=VARs.pairs_UIz;
         //pairs_CODE=VARs.pairs_CODEz;
 
@@ -156,7 +164,6 @@ public class bm_Main extends Activity
         mDecorView = getWindow().getDecorView();
         configUI();
 
-        bm_MainContext = this;
         bm_MainState = ((bm_Main) bm_MainContext);
 
         mBmNavDrawer = (navDrawer)getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -171,6 +178,9 @@ public class bm_Main extends Activity
         // PIN CHECK
         PIN = prefs.getString("PIN","");
         if(!PIN.equals("")){checkPIN();}
+
+        /** TRIAL **/
+        if(is_trial_build){ checkTRIAL(); }
     }
 
     public static void checkPIN(){
@@ -297,6 +307,74 @@ public class bm_Main extends Activity
             AboutDialog.show();
     }
 
+    public static void checkTRIAL(){
+        CURRENT_TIME = System.currentTimeMillis();
+        if(((CURRENT_TIME/1000) - (FIRST_RUN/1000)) > 1209600){
+            //Toast.makeText(bm_MainContext,"TRIAL",Toast.LENGTH_LONG).show();
+            AlertDialog.Builder action_dialog = new AlertDialog.Builder(bm_MainContext);
+            action_dialog.setTitle(bm_Main.bm_MainState.getResources().getString(R.string.action_about));
+            LayoutInflater inflater = bm_MainState.getLayoutInflater();
+            View layer = inflater.inflate(R.layout.trial,null);
+            final Button btn_cancel = (Button) layer.findViewById(R.id.btnCnclTRL);
+            btn_cancel.setEnabled(false);
+            btn_cancel.setText(bm_Main.bm_MainState.getResources().getString(R.string.close) + " (15)");
+            final Button btn_buy_app = (Button) layer.findViewById(R.id.btnAppBuy);
+            action_dialog.setCancelable(false);
+            action_dialog.setView(layer);
+            /*
+            action_dialog.setNegativeButton(bm_Main.bm_MainState.getResources().getString(R.string.close),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });       */
+            final AlertDialog AboutDialog = action_dialog.create();
+            btn_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AboutDialog.dismiss();
+                }
+            });
+            btn_buy_app.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=com.zlab.btcmonitor");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    bm_MainState.startActivity(intent);
+                }
+            });
+            AboutDialog.show();
+            Thread thread = new Thread()
+            {
+                @Override
+                public void run() {
+                    int i=14;
+                    while(i>0){
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        final int c=i;
+                        bm_Main.bm_MainState.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                btn_cancel.setText(bm_Main.bm_MainState.getResources().getString(R.string.close) + " ("+c+")");
+                            }
+                        });
+                        i--;
+                    }
+                    bm_Main.bm_MainState.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            btn_cancel.setText(bm_Main.bm_MainState.getResources().getString(R.string.close));
+                            btn_cancel.setEnabled(true);
+                        }
+                    });
+                }
+            };
+            thread.start();
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -1686,7 +1764,51 @@ public class bm_Main extends Activity
         thread.start();
     }
 
-    public void getSettigns(){
+    public static void saveNewPairsID(String[] new_pairs){
+        try {
+            File myFile = new File(bm_MainContext.getFilesDir().getPath()+"/pairs.txt");
+            myFile.createNewFile();
+            FileOutputStream fOut = new FileOutputStream(myFile);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+            for (String s : new_pairs) {
+                myOutWriter.write(s+"&");
+            }
+            myOutWriter.close();
+            fOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void readNewPairsID(){
+        String contents="";
+
+        File myFile = new File(bm_MainContext.getFilesDir().getPath()+"/pairs.txt");
+        if(myFile.exists())
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(myFile));
+            int c;
+            while ((c = br.read()) != -1) {
+                contents=contents+(char)c;
+            }
+
+            VARs.pairs_CODE = contents.split("&");
+            VARs.pairs_UI = new String[VARs.pairs_CODE.length];
+            for (int i=0;i<VARs.pairs_CODE.length;i++){
+                VARs.pairs_UI[i] = VARs.pairs_CODE[i].split("_")[0].toUpperCase()+" / "+VARs.pairs_CODE[i].split("_")[1].toUpperCase();
+            }
+            chartsEnabled=new boolean[VARs.pairs_CODE.length];
+        }
+        catch (IOException e) {
+            //You'll need to add proper error handling here
+        }
+    }
+
+    public static void getSettigns(){
+        FIRST_RUN = prefs.getLong("FIRST_RUN",0);
+        if(FIRST_RUN==0){
+            prefs.edit().putLong("FIRST_RUN", System.currentTimeMillis()).commit();
+            FIRST_RUN = prefs.getLong("FIRST_RUN",0);
+        }
         prefs_charts_classic = prefs.getBoolean("prefs_charts_classic",true);
         prefs_charts_detailed = prefs.getBoolean("prefs_charts_detailed",true);
         prefs_show_vector = prefs.getBoolean("prefs_show_vector",true);
@@ -1726,7 +1848,6 @@ public class bm_Main extends Activity
         //prefs_enabled_charts = new HashSet<String>(Arrays.asList(VARs.pairs_UI));
 
         prefs_enabled_charts = prefs.getStringSet("prefs_enabled_charts",new HashSet<String>(Arrays.asList(VARs.pairs_UI)));
-
 
         //int c=0;
         /*
@@ -1878,7 +1999,7 @@ public class bm_Main extends Activity
         return inversion;
     }
 
-    private static void chartsArrayBlank(){
+    public static void chartsArrayBlank(){
         chartsListElements=new ArrayList<bm_ListElementCharts>();
         // Pair+"*"+Last+"*"+Buy+"*"+Sell+"*"+Updated+"*"+High+"*"+Low;
         FileInputStream fis = null;

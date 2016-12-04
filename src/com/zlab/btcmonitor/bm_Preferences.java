@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import com.zlab.btcmonitor._API.VARs;
 
 public class bm_Preferences extends PreferenceActivity {
 
@@ -20,7 +22,6 @@ public class bm_Preferences extends PreferenceActivity {
     String PIN2="";
     boolean PIN_SHOW;
     CheckBoxPreference prefs_SEC_PIN;
-
 
     Context mContext;
 
@@ -37,6 +38,11 @@ public class bm_Preferences extends PreferenceActivity {
 
             final CheckBoxPreference prefs_black_theme = (CheckBoxPreference) getPreferenceManager().findPreference("prefs_black_theme");
             final CheckBoxPreference prefs_black_charts = (CheckBoxPreference) getPreferenceManager().findPreference("prefs_black_charts");
+
+            MultiSelectListPreference pairs = (MultiSelectListPreference) getPreferenceManager().findPreference("prefs_enabled_charts");
+            pairs.setEntries(VARs.pairs_UI);
+            pairs.setEntryValues(VARs.pairs_UI);
+            pairs.setDefaultValue(VARs.pairs_UI);
 
             prefs_SEC_PIN = (CheckBoxPreference) getPreferenceManager().findPreference("prefs_SEC_PIN");
 

@@ -1,16 +1,21 @@
 package com.zlab.btcmonitor.workers;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.widget.Toast;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.zlab.btcmonitor.R;
 import com.zlab.btcmonitor._API.VARs;
 import com.zlab.btcmonitor._API.btce_getTicker;
+import com.zlab.btcmonitor._API.zlab_getPairs;
 import com.zlab.btcmonitor.adaptors.bm_ChartsAdaptor;
 import com.zlab.btcmonitor.elements.bm_ChartsListDiffElements;
 import com.zlab.btcmonitor.elements.bm_ListElementCharts;
 import com.zlab.btcmonitor.bm_Main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class bm_Charts {
     //bm_Office.updateInfo();
@@ -18,6 +23,48 @@ public class bm_Charts {
     //private static String[] pairs_UI;
 
     public static void update_charts(/*String[] pairscode, String[] pairsui*/){
+
+        String[] pairs_from_server = null;
+
+        try {
+            pairs_from_server = zlab_getPairs.getStringArray(zlab_getPairs.getPairsList());
+        } catch (Exception e){
+
+        }
+
+        if (pairs_from_server != null){
+        if (!Arrays.equals(VARs.pairs_CODE, pairs_from_server)){
+            bm_Main.bm_MainState.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    /** **/
+                    //Toast.makeText(bm_Main.bm_MainContext,bm_Main.bm_MainState.getResources().getString(R.string.new_pair_detected),Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(bm_Main.bm_MainContext);
+                    builder.setMessage(bm_Main.bm_MainState.getResources().getString(R.string.new_pair_detected))
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //do things
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            });
+            bm_Main.saveNewPairsID(pairs_from_server);
+
+            VARs.pairs_CODE = pairs_from_server;
+            VARs.pairs_UI = new String[VARs.pairs_CODE.length];
+            for (int i=0;i<VARs.pairs_CODE.length;i++){
+                VARs.pairs_UI[i] = VARs.pairs_CODE[i].split("_")[0].toUpperCase()+" / "+VARs.pairs_CODE[i].split("_")[1].toUpperCase();
+            }
+            bm_Main.chartsEnabled = new boolean[VARs.pairs_CODE.length];
+            bm_Main.getSettigns();
+            //Arrays.fill(bm_Main.chartsEnabled, true);
+
+            bm_Main.chartsArrayBlank();
+        }}
+
             //pairs_code = pairscode;
             //pairs_UI = pairsui;
 
@@ -118,6 +165,9 @@ public class bm_Charts {
                 });
             }
 
+            //final JsonObject pairsObject = zlab_getPairs.getList();
+            //final JsonArray arr = pairsObject.getAsJsonArray();
+
             bm_Main.reHide();
             bm_Main.bm_MainState.runOnUiThread(new Runnable() {
                 @Override
@@ -129,6 +179,9 @@ public class bm_Charts {
                 }
             });
             bm_Main.chartsBlocked=false;
+
+
+
     }
 
     private static void invalidateAdaptor(){

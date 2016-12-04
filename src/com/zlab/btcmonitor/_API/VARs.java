@@ -68,42 +68,6 @@ public class VARs {
             "DSH",
             "ETH"};
 
-    /*
-    public static String[] pairs_code = {
-            "btc_usd",
-            "btc_rur",
-            "btc_eur",
-            "ltc_btc",
-            "ltc_usd",
-            "ltc_rur",
-            "nmc_btc",
-            "nmc_usd",
-            "usd_rur",
-            "eur_usd"};
-
-    public static String[] pairs_UI = {
-            "BTC / USD",
-            "BTC / RUR",
-            "BTC / EUR",
-            "LTC / BTC",
-            "LTC / USD",
-            "LTC / RUR",
-            "NMC / BTC",
-            "NMC / USD",
-            "USD / RUR",
-            "EUR / USD"};
-
-    public static String[] funds_code = {
-            "USD",
-            "BTC",
-            "LTC",
-            "RUR",
-            "NMC",
-            "TRC",
-            "PPC",
-            "FTC",
-            "XPM"};
-                   */
     public static String response_body_getInfo;
     public static String response_body_TransHistory;
     public static String response_body_TradeHistory;
